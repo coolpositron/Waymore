@@ -20,6 +20,9 @@
 		9E4527951AF2D01700723934 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527941AF2D01700723934 /* Comment.m */; };
 		9E4527981AF2D01700723934 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527971AF2D01700723934 /* MapPoint.m */; };
 		9E45279B1AF2D01700723934 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E45279A1AF2D01700723934 /* Route.m */; };
+		9E45279F1AF2D11800723934 /* DataAccessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E45279E1AF2D11800723934 /* DataAccessManager.m */; };
+		9E4527A21AF2D1DE00723934 /* SnippetFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527A11AF2D1DE00723934 /* SnippetFilter.m */; };
+		9E4527A51AF2D28700723934 /* Snippet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527A41AF2D28700723934 /* Snippet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,12 @@
 		9E4527971AF2D01700723934 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapPoint.m; path = ../MapPoint.m; sourceTree = "<group>"; };
 		9E4527991AF2D01700723934 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Route.h; path = ../Route.h; sourceTree = "<group>"; };
 		9E45279A1AF2D01700723934 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Route.m; path = ../Route.m; sourceTree = "<group>"; };
+		9E45279D1AF2D11800723934 /* DataAccessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccessManager.h; sourceTree = "<group>"; };
+		9E45279E1AF2D11800723934 /* DataAccessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccessManager.m; sourceTree = "<group>"; };
+		9E4527A01AF2D1DE00723934 /* SnippetFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnippetFilter.h; sourceTree = "<group>"; };
+		9E4527A11AF2D1DE00723934 /* SnippetFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnippetFilter.m; sourceTree = "<group>"; };
+		9E4527A31AF2D28700723934 /* Snippet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snippet.h; sourceTree = "<group>"; };
+		9E4527A41AF2D28700723934 /* Snippet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snippet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +117,12 @@
 				2D6C52121AF2CC1F002D9BBD /* Images.xcassets */,
 				2D6C52141AF2CC1F002D9BBD /* LaunchScreen.xib */,
 				2D6C52051AF2CC1F002D9BBD /* Supporting Files */,
+				9E45279D1AF2D11800723934 /* DataAccessManager.h */,
+				9E4527A31AF2D28700723934 /* Snippet.h */,
+				9E4527A41AF2D28700723934 /* Snippet.m */,
+				9E45279E1AF2D11800723934 /* DataAccessManager.m */,
+				9E4527A01AF2D1DE00723934 /* SnippetFilter.h */,
+				9E4527A11AF2D1DE00723934 /* SnippetFilter.m */,
 			);
 			path = Waymore;
 			sourceTree = "<group>";
@@ -256,6 +271,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E4527951AF2D01700723934 /* Comment.m in Sources */,
+				9E4527A21AF2D1DE00723934 /* SnippetFilter.m in Sources */,
+				9E45279F1AF2D11800723934 /* DataAccessManager.m in Sources */,
 				2D6C520E1AF2CC1F002D9BBD /* ViewController.m in Sources */,
 				2D6C520B1AF2CC1F002D9BBD /* AppDelegate.m in Sources */,
 				9E45279B1AF2D01700723934 /* Route.m in Sources */,
@@ -264,6 +281,7 @@
 				9E4527981AF2D01700723934 /* MapPoint.m in Sources */,
 				2D6C52081AF2CC1F002D9BBD /* main.m in Sources */,
 				9E45278F1AF2D01600723934 /* KeyPoint.m in Sources */,
+				9E4527A51AF2D28700723934 /* Snippet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
