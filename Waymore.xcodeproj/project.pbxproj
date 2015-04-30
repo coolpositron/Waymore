@@ -14,6 +14,7 @@
 		2D6C52131AF2CC1F002D9BBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D6C52121AF2CC1F002D9BBD /* Images.xcassets */; };
 		2D6C52161AF2CC1F002D9BBD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D6C52141AF2CC1F002D9BBD /* LaunchScreen.xib */; };
 		2D6C52221AF2CC1F002D9BBD /* WaymoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C52211AF2CC1F002D9BBD /* WaymoreTests.m */; };
+		2D6C522C1AF2CF2D002D9BBD /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C522B1AF2CF2D002D9BBD /* Model.xcdatamodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		2D6C521B1AF2CC1F002D9BBD /* WaymoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaymoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D6C52201AF2CC1F002D9BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D6C52211AF2CC1F002D9BBD /* WaymoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaymoreTests.m; sourceTree = "<group>"; };
+		2D6C522B1AF2CF2D002D9BBD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		2D6C52041AF2CC1F002D9BBD /* Waymore */ = {
 			isa = PBXGroup;
 			children = (
+				2D6C522B1AF2CF2D002D9BBD /* Model.xcdatamodel */,
 				2D6C52091AF2CC1F002D9BBD /* AppDelegate.h */,
 				2D6C520A1AF2CC1F002D9BBD /* AppDelegate.m */,
 				2D6C520C1AF2CC1F002D9BBD /* ViewController.h */,
@@ -221,6 +224,7 @@
 			files = (
 				2D6C520E1AF2CC1F002D9BBD /* ViewController.m in Sources */,
 				2D6C520B1AF2CC1F002D9BBD /* AppDelegate.m in Sources */,
+				2D6C522C1AF2CF2D002D9BBD /* Model.xcdatamodel in Sources */,
 				2D6C52081AF2CC1F002D9BBD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
