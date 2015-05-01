@@ -9,9 +9,13 @@
 #import "DiaryViewController.h"
 #import "MGSwipeTableCell.h"
 #import "MGSwipeButton.h"
+#import "RouteTableViewCell.h"
+#import "Snippet.h"
 
 @interface DiaryViewController ()
-@property (strong, nonatomic) NSArray* recipes;
+
+@property (strong, nonatomic) NSArray* snippets;
+
 @end
 
 @implementation DiaryViewController
@@ -20,11 +24,20 @@
 {
     [super viewDidLoad];
     // Initialize table data
-    self.recipes = [NSArray arrayWithObjects:@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", @"Starbucks Coffee", @"Vegetable Curry", @"Instant Noodle with Egg", @"Noodle with BBQ Pork", @"Japanese Noodle with Pork", @"Green Tea", @"Thai Shrimp Cake", @"Angry Birds Cake", @"Ham and Cheese Panini", nil];
+    Snippet * firstSnippet = [[Snippet alloc]  init];
+    firstSnippet.thumbnail = [UIImage imageNamed:@"cat.jpg"];
+    firstSnippet.title = @"Trip to new york!";
+    firstSnippet.city = @"New york";
+    firstSnippet.keywords = @"Good, central park";
+    firstSnippet.userName = @"Jianhao Li";
+    firstSnippet.likeNum = 100;
+    self.snippets = @[firstSnippet];
+    
+    
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.recipes count];
+    return [self.snippets count];
 }
 
 //- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -42,25 +55,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * reuseIdentifier = @"programmaticCell";
-    MGSwipeTableCell * cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (!cell) {
-        cell = [[MGSwipeTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
-    }
+    static NSString * reuseIdentifier = @"RouteTableViewCellReuseIdentifier";
     
-    cell.textLabel.text = @"Title";
-    cell.detailTextLabel.text = @"Detail text";
+    RouteTableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (!cell) {
+        cell = [[RouteTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+    }
+    Snippet * snippet = [self.snippets objectAtIndex: indexPath.row];
+    [cell.titleLabel setText:snippet.title];
+    [cell.cityLabel setText:snippet.city];
+    [cell.keyWordsLabel setText:snippet.city];
+    [cell.userNameLabel setText:snippet.userName];
+    [cell.likesLabel setText:[NSString stringWithFormat:@"%ld ♥️", snippet.likeNum]];
+    
 //    cell.delegate = self; //optional
     
     
     //configure left buttons
-    cell.leftButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"check.png"] backgroundColor:[UIColor greenColor]],
-                         [MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"fav.png"] backgroundColor:[UIColor blueColor]]];
+    cell.leftButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"fav.png"] backgroundColor:[UIColor blueColor]]];
     cell.leftSwipeSettings.transition = MGSwipeTransition3D;
     
     //configure right buttons
-    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor]],
-                          [MGSwipeButton buttonWithTitle:@"More" backgroundColor:[UIColor lightGrayColor]]];
+    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor]]];
     cell.rightSwipeSettings.transition = MGSwipeTransition3D;
     return cell;
 }
