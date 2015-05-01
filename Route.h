@@ -19,8 +19,8 @@
 @property (nonatomic, retain) NSString * routeId;
 @property (nonatomic, assign) BOOL sharedFlag;
 @property (nonatomic, retain) NSArray *comments;
-@property (nonatomic, retain) KeyPoint *keyPoints;
-@property (nonatomic, retain) MapPoint *mapPoints;
+@property (nonatomic, retain) NSArray *keyPoints;
+@property (nonatomic, retain) NSArray *mapPoints;
 @property (nonatomic, retain) NSArray *usersWhoLike;
 @property (nonatomic, retain) WaymoreUser *userWhoCreates;
 
