@@ -25,12 +25,13 @@
 //- (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter;
 //- (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter;
 
-//- (Route *) getRouteWithRouteId: (NSString *) routeId {
-//    NSLog(@"Get Route with Id: %@", routeId);
-//    Route * dummyRoute = [[Route alloc] init];
-//    dummyRoute.routeId = routeId;
-//    
-//}
+- (Route *) getRouteWithRouteId: (NSString *) routeId {
+    NSLog(@"Get Route with Id: %@", routeId);
+    Route * dummyRoute = [[Route alloc] init];
+    dummyRoute.routeId = routeId;
+    
+    return dummyRoute;
+}
 //- (Route *) getLocalRouteWithRouteId: (NSString *) routeId;
 //- (NSArray *) getRoutesWithUserId: (NSString *) userId;
 //- (NSString *) putLocalRoute: (Route *) route;
