@@ -214,21 +214,20 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="Foq-rx-i4g" kind="relationship" relationship="viewControllers" id="xE1-qb-RgD"/>
                         <segue destination="DRD-5l-PI7" kind="relationship" relationship="viewControllers" id="h5N-qb-1Uh"/>
                         <segue destination="CIL-tN-rDu" kind="relationship" relationship="viewControllers" id="4Ol-RJ-z8G"/>
                         <segue destination="afh-Jp-D3e" kind="relationship" relationship="viewControllers" id="oyC-Qv-8vH"/>
-                        <segue destination="c4A-OE-VQg" kind="relationship" relationship="viewControllers" id="yoJ-hA-rdf"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qf2-5d-uL5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1120" y="270"/>
+            <point key="canvasLocation" x="983.5" y="13.5"/>
         </scene>
-        <!--Item-->
+        <!--Route-->
         <scene sceneID="M4m-bG-KMu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-ix-TZy" sceneMemberID="firstResponder"/>
-                <viewController id="c4A-OE-VQg" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="c4A-OE-VQg" customClass="RouteViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vza-tx-7FZ"/>
                         <viewControllerLayoutGuide type="bottom" id="nSf-qE-MU6"/>
@@ -244,7 +243,7 @@
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mni-vd-td8">
-                                <rect key="frame" x="64" y="574" width="247" height="73"/>
+                                <rect key="frame" x="72" y="542" width="247" height="73"/>
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Start">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -256,22 +255,34 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Abk-X4-WQe"/>
+                    <tabBarItem key="tabBarItem" title="Route" id="Abk-X4-WQe"/>
                     <navigationItem key="navigationItem" id="TLw-G4-zjk"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-ix-TZy" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2006.5" y="-1146.5"/>
+            <point key="canvasLocation" x="2166.5" y="-825.5"/>
+        </scene>
+        <!--Route-->
+        <scene sceneID="5zw-At-nqn">
+            <objects>
+                <navigationController id="Foq-rx-i4g" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Route" id="nCf-bw-EZR"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kCS-c7-ssb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="c4A-OE-VQg" kind="relationship" relationship="rootViewController" id="b9A-H3-ve1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oPv-bh-mLY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1554" y="-825"/>
         </scene>
         <!--Display Map View Controller-->
         <scene sceneID="6b0-09-RHD">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BHd-x1-P88" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="kyf-iI-4rL">
-                    <connections>
-                        <action selector="longPressed:" destination="V5r-fY-0hO" id="SzS-hR-cVt"/>
-                    </connections>
-                </pongPressGestureRecognizer>
                 <viewController id="V5r-fY-0hO" customClass="DisplayMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1UO-Is-MV8"/>
@@ -297,13 +308,18 @@
                         <segue destination="NGC-F1-55P" kind="presentation" identifier="EditSegue" id="o5g-nv-mZr"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BHd-x1-P88" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="kyf-iI-4rL">
+                    <connections>
+                        <action selector="longPressed:" destination="V5r-fY-0hO" id="SzS-hR-cVt"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3160.5" y="-1703"/>
+            <point key="canvasLocation" x="2736.5" y="-1755"/>
         </scene>
         <!--Image Scroll View Controller-->
         <scene sceneID="Hnn-wg-SEN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LG3-Gl-F0o" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="pfV-6E-cCt" customClass="ImageScrollViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RT5-OC-6Qw"/>
@@ -332,19 +348,13 @@
                         <outlet property="scrollView" destination="Mbr-4a-SHR" id="nTX-WR-irj"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LG3-Gl-F0o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3361.5" y="-862"/>
+            <point key="canvasLocation" x="2736.5" y="-1074"/>
         </scene>
         <!--Annotation Setting View Controller-->
         <scene sceneID="kfP-YW-gng">
             <objects>
-                <tapGestureRecognizer id="yCF-mu-sD0">
-                    <connections>
-                        <action selector="tapped:" destination="NGC-F1-55P" id="dmL-Qb-S8h"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <exit id="26f-7a-Yrh" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ea-NZ-Krw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="NGC-F1-55P" customClass="AnnotationSettingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LPi-1J-QQQ"/>
@@ -419,8 +429,15 @@
                         <outlet property="titleTextField" destination="08u-9U-p0L" id="4QR-tl-TLe"/>
                     </connections>
                 </viewController>
+                <tapGestureRecognizer id="yCF-mu-sD0">
+                    <connections>
+                        <action selector="tapped:" destination="NGC-F1-55P" id="dmL-Qb-S8h"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <exit id="26f-7a-Yrh" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ea-NZ-Krw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3899.5" y="-1669.5"/>
+            <point key="canvasLocation" x="3371.5" y="-1737.5"/>
         </scene>
     </scenes>
 </document>

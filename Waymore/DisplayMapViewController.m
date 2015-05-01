@@ -43,9 +43,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         NSLog(@"Ask for permission");
-        [self.locationManager requestWhenInUseAuthorization];
+        [self.locationManager requestAlwaysAuthorization];
         
     }
     

@@ -13,6 +13,9 @@
 		2D4A81B81AF3030E0079A54F /* CrumbPathRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4A81AF1AF3030E0079A54F /* CrumbPathRenderer.m */; };
 		2D4A81B91AF3030E0079A54F /* ImageScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4A81B11AF3030E0079A54F /* ImageScrollViewController.m */; };
 		2D4A81BD1AF303E70079A54F /* KeyPoint+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4A81BB1AF303E70079A54F /* KeyPoint+Annotation.m */; };
+		2D4A81BF1AF30B730079A54F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D4A81BE1AF30B730079A54F /* MapKit.framework */; };
+		2D4A81C11AF30B7B0079A54F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D4A81C01AF30B7B0079A54F /* CoreLocation.framework */; };
+		2D4A81C41AF30CCF0079A54F /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4A81C31AF30CCF0079A54F /* RouteViewController.m */; };
 		2D6C52081AF2CC1F002D9BBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C52071AF2CC1F002D9BBD /* main.m */; };
 		2D6C520B1AF2CC1F002D9BBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C520A1AF2CC1F002D9BBD /* AppDelegate.m */; };
 		2D6C520E1AF2CC1F002D9BBD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C520D1AF2CC1F002D9BBD /* ViewController.m */; };
@@ -54,6 +57,10 @@
 		2D4A81B21AF3030E0079A54F /* ImageScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollViewController.h; sourceTree = "<group>"; };
 		2D4A81BB1AF303E70079A54F /* KeyPoint+Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KeyPoint+Annotation.m"; sourceTree = "<group>"; };
 		2D4A81BC1AF303E70079A54F /* KeyPoint+Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KeyPoint+Annotation.h"; sourceTree = "<group>"; };
+		2D4A81BE1AF30B730079A54F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2D4A81C01AF30B7B0079A54F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2D4A81C21AF30CCF0079A54F /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
+		2D4A81C31AF30CCF0079A54F /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
 		2D6C52021AF2CC1F002D9BBD /* Waymore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waymore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D6C52061AF2CC1F002D9BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D6C52071AF2CC1F002D9BBD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -91,6 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D4A81C11AF30B7B0079A54F /* CoreLocation.framework in Frameworks */,
+				2D4A81BF1AF30B730079A54F /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +128,8 @@
 				2D4A81B01AF3030E0079A54F /* AnnotationSettingViewController.h */,
 				2D4A81B11AF3030E0079A54F /* ImageScrollViewController.m */,
 				2D4A81B21AF3030E0079A54F /* ImageScrollViewController.h */,
+				2D4A81C21AF30CCF0079A54F /* RouteViewController.h */,
+				2D4A81C31AF30CCF0079A54F /* RouteViewController.m */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -126,6 +137,8 @@
 		2D6C51F91AF2CC1F002D9BBD = {
 			isa = PBXGroup;
 			children = (
+				2D4A81C01AF30B7B0079A54F /* CoreLocation.framework */,
+				2D4A81BE1AF30B730079A54F /* MapKit.framework */,
 				2D6C52041AF2CC1F002D9BBD /* Waymore */,
 				2D6C521E1AF2CC1F002D9BBD /* WaymoreTests */,
 				2D6C52031AF2CC1F002D9BBD /* Products */,
@@ -320,6 +333,7 @@
 				9E4527921AF2D01700723934 /* WaymoreUser.m in Sources */,
 				9E4527981AF2D01700723934 /* MapPoint.m in Sources */,
 				2D4A81B81AF3030E0079A54F /* CrumbPathRenderer.m in Sources */,
+				2D4A81C41AF30CCF0079A54F /* RouteViewController.m in Sources */,
 				2D6C52081AF2CC1F002D9BBD /* main.m in Sources */,
 				2D4A81B91AF3030E0079A54F /* ImageScrollViewController.m in Sources */,
 				9E45278F1AF2D01600723934 /* KeyPoint.m in Sources */,
