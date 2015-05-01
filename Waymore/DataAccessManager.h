@@ -12,6 +12,8 @@
 #import "SnippetFilter.h"
 
 @interface DataAccessManager : NSObject
++ (id) getInstance;
+
 - (BOOL) addUser: (NSString *) userId;
 - (WaymoreUser *) getUserWithUserId: (NSString *) userId;
 - (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter;

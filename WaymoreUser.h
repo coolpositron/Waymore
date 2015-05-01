@@ -18,4 +18,5 @@
 @property (nonatomic, retain) NSArray *likedRoutes;
 @property (nonatomic, retain) NSArray *ownedRoutes;
 
+- (WaymoreUser *) initWithId: (NSString *) withName: (NsString *);
 @end

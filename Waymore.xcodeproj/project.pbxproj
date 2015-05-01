@@ -25,7 +25,6 @@
 		2D6C52221AF2CC1F002D9BBD /* WaymoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C52211AF2CC1F002D9BBD /* WaymoreTests.m */; };
 		2D6C522C1AF2CF2D002D9BBD /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C522B1AF2CF2D002D9BBD /* Model.xcdatamodel */; };
 		9E45278F1AF2D01600723934 /* KeyPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E45278E1AF2D01600723934 /* KeyPoint.m */; };
-		9E4527921AF2D01700723934 /* WaymoreUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527911AF2D01700723934 /* WaymoreUser.m */; };
 		9E4527951AF2D01700723934 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527941AF2D01700723934 /* Comment.m */; };
 		9E4527981AF2D01700723934 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527971AF2D01700723934 /* MapPoint.m */; };
 		9E45279B1AF2D01700723934 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E45279A1AF2D01700723934 /* Route.m */; };
@@ -78,7 +77,6 @@
 		9E45278D1AF2D01600723934 /* KeyPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyPoint.h; path = ../KeyPoint.h; sourceTree = "<group>"; };
 		9E45278E1AF2D01600723934 /* KeyPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyPoint.m; path = ../KeyPoint.m; sourceTree = "<group>"; };
 		9E4527901AF2D01700723934 /* WaymoreUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaymoreUser.h; sourceTree = SOURCE_ROOT; };
-		9E4527911AF2D01700723934 /* WaymoreUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaymoreUser.m; sourceTree = SOURCE_ROOT; };
 		9E4527931AF2D01700723934 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../Comment.h; sourceTree = "<group>"; };
 		9E4527941AF2D01700723934 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = ../Comment.m; sourceTree = "<group>"; };
 		9E4527961AF2D01700723934 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapPoint.h; path = ../MapPoint.h; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 				9E4527931AF2D01700723934 /* Comment.h */,
 				9E4527941AF2D01700723934 /* Comment.m */,
 				9E4527901AF2D01700723934 /* WaymoreUser.h */,
-				9E4527911AF2D01700723934 /* WaymoreUser.m */,
 				9E45278D1AF2D01600723934 /* KeyPoint.h */,
 				9E45278E1AF2D01600723934 /* KeyPoint.m */,
 			);
@@ -330,7 +327,6 @@
 				2D6C520B1AF2CC1F002D9BBD /* AppDelegate.m in Sources */,
 				9E45279B1AF2D01700723934 /* Route.m in Sources */,
 				2D6C522C1AF2CF2D002D9BBD /* Model.xcdatamodel in Sources */,
-				9E4527921AF2D01700723934 /* WaymoreUser.m in Sources */,
 				9E4527981AF2D01700723934 /* MapPoint.m in Sources */,
 				2D4A81B81AF3030E0079A54F /* CrumbPathRenderer.m in Sources */,
 				2D4A81C41AF30CCF0079A54F /* RouteViewController.m in Sources */,
