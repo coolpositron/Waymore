@@ -26,6 +26,9 @@
 - (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter;
 
 - (Route *) getRouteWithRouteId: (NSString *) routeId {
+    NSLog(@"Get Route with Id: %@", routeId);
+    Route * dummyRoute = [[Route alloc] init];
+    dummyRoute.routeId = routeId;
     
 }
 - (Route *) getLocalRouteWithRouteId: (NSString *) routeId;
