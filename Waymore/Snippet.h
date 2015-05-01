@@ -15,6 +15,6 @@
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * city;
 @property (nonatomic, strong) NSString * keywords;
-@property (nonatomic, assign) int likeNum;
+@property (nonatomic, assign) NSInteger likeNum;
 @property (nonatomic, strong) NSString * routeId;
 @end
