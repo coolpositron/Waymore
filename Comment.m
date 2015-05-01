@@ -12,8 +12,4 @@
 
 @implementation Comment
 
-@dynamic commentId;
-@dynamic content;
-@dynamic userWhoCreates;
-
 @end

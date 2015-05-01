@@ -13,10 +13,5 @@
 
 @implementation WaymoreUser
 
-@dynamic userId;
-@dynamic userName;
-@dynamic comments;
-@dynamic likedRoutes;
-@dynamic ownedRoutes;
 
 @end

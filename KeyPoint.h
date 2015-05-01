@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "UIKIT/UIKIT.h"
 
 
-@interface KeyPoint : NSManagedObject
+@interface KeyPoint : NSObject
 
 @property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSString * keyPointId;
-@property (nonatomic, retain) NSNumber * latitude;
-@property (nonatomic, retain) NSNumber * longitude;
-@property (nonatomic, retain) NSData * photo;
+@property (nonatomic, assign) double latitude;
+@property (nonatomic, assign) double longitude;
+@property (nonatomic, retain) UIImage * photo;
 @property (nonatomic, retain) NSString * title;
 
 @end

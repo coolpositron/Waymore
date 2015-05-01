@@ -15,16 +15,5 @@
 
 @implementation Route
 
-@dynamic city;
-@dynamic createdTime;
-@dynamic keyWords;
-@dynamic lastModifiedTime;
-@dynamic routeId;
-@dynamic sharedFlag;
-@dynamic comments;
-@dynamic keyPoints;
-@dynamic mapPoints;
-@dynamic usersWhoLike;
-@dynamic userWhoCreates;
 
 @end

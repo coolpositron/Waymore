@@ -11,8 +11,4 @@
 
 @implementation MapPoint
 
-@dynamic latitude;
-@dynamic longitude;
-@dynamic time;
-
 @end
