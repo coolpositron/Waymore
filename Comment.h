@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 @class WaymoreUser;
 
-@interface Comment : NSManagedObject
+@interface Comment : NSObject
 
 @property (nonatomic, retain) NSString * commentId;
 @property (nonatomic, retain) NSString * content;
