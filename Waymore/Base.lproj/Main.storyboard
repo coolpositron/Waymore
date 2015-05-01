@@ -58,7 +58,7 @@
         <!--Diary-->
         <scene sceneID="Q6t-gZ-3Ar">
             <objects>
-                <tableViewController id="M9F-pr-pBE" sceneMemberID="viewController">
+                <tableViewController id="M9F-pr-pBE" customClass="DiaryViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8np-Nf-fgL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,8 +72,8 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="M9F-pr-pBE" id="fOR-dW-7SV"/>
-                            <outlet property="delegate" destination="M9F-pr-pBE" id="yZW-jJ-SwZ"/>
+                            <outlet property="dataSource" destination="M9F-pr-pBE" id="NF6-1S-iDH"/>
+                            <outlet property="delegate" destination="M9F-pr-pBE" id="6Wx-f8-PVb"/>
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Diary" id="hDb-mA-YDb"/>
