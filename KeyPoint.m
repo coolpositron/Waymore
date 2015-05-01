@@ -11,11 +11,5 @@
 
 @implementation KeyPoint
 
-@dynamic content;
-@dynamic keyPointId;
-@dynamic latitude;
-@dynamic longitude;
-@dynamic photo;
-@dynamic title;
 
 @end

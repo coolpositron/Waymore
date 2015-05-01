@@ -7,34 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 @class Comment, Route;
 
-@interface WaymoreUser : NSManagedObject
+@interface WaymoreUser : NSObject
 
 @property (nonatomic, retain) NSString * userId;
 @property (nonatomic, retain) NSString * userName;
-@property (nonatomic, retain) NSSet *comments;
-@property (nonatomic, retain) NSSet *likedRoutes;
-@property (nonatomic, retain) NSSet *ownedRoutes;
-@end
-
-@interface WaymoreUser (CoreDataGeneratedAccessors)
-
-- (void)addCommentsObject:(Comment *)value;
-- (void)removeCommentsObject:(Comment *)value;
-- (void)addComments:(NSSet *)values;
-- (void)removeComments:(NSSet *)values;
-
-- (void)addLikedRoutesObject:(Route *)value;
-- (void)removeLikedRoutesObject:(Route *)value;
-- (void)addLikedRoutes:(NSSet *)values;
-- (void)removeLikedRoutes:(NSSet *)values;
-
-- (void)addOwnedRoutesObject:(Route *)value;
-- (void)removeOwnedRoutesObject:(Route *)value;
-- (void)addOwnedRoutes:(NSSet *)values;
-- (void)removeOwnedRoutes:(NSSet *)values;
+@property (nonatomic, retain) NSArray *comments;
+@property (nonatomic, retain) NSArray *likedRoutes;
+@property (nonatomic, retain) NSArray *ownedRoutes;
 
 @end
