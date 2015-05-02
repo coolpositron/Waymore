@@ -41,10 +41,11 @@
         dummyRoute.routeId = routeId;
         dummyRoute.city = [NSString stringWithFormat:@"%@_%lu", @"City", count];
         dummyRoute.title = [NSString stringWithFormat:@"%@_%lu", @"Title", count];
-        dummyRoute.keywords = [NSString stringWithFormat:@"%@_%lu", @"#keyword", count];
+        dummyRoute.keywords = [NSString stringWithFormat:@"%@_%lu", @"#Keyword", count];
         NSDate * now = [NSDate date];
         dummyRoute.createdTime = now;
         dummyRoute.lastModifiedTime = now;
+        dummyRoute.userIdWhoCreates = @"user_1";
     }
     return dummyRoute;
 }
@@ -82,42 +83,86 @@
 //- (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter;
 //- (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter;
 
-//- (NSString *) putLocalRoute: (Route *) route {
-//
-//}
+- (NSString *) putLocalRoute: (Route *) route {
+    NSUInteger count = [self.Routes count] + 1;
+    NSString * routeId = [NSString stringWithFormat:@"route_%lu", count];
+    route.routeId = routeId;
+    [self.Routes addObject:route];
+    return routeId;
+}
+
 - (Route *) getRouteWithRouteId: (NSString *) routeId {
-    NSLog(@"Get Route with Id: %@", routeId);
-    Route * dummyRoute = [[Route alloc] init];
-    dummyRoute.routeId = routeId;
-    dummyRoute.city = @"New York";
-    dummyRoute.title = @"Columbia University Tour";
-    dummyRoute.keywords = @"#Lion #Blue";
-    NSDate * now = [NSDate date];
-    dummyRoute.createdTime = now;
-    dummyRoute.lastModifiedTime = now;
-    return dummyRoute;
+    for (int i = 0; i < [self.Routes count]; i++) {
+        Route * cur = self.Routes[i];
+        if ([cur.routeId isEqualToString:routeId])
+            return cur;
+    }
+    return nil;
 }
 
 - (Route *) getLocalRouteWithRouteId: (NSString *) routeId {
-    NSLog(@"Get Local Route with Id: %@", routeId);
-    Route * dummyRoute = [[Route alloc] init];
-    dummyRoute.routeId = routeId;
-    dummyRoute.city = @"San Francisco";
-    dummyRoute.title = @"GVF Tour";
-    dummyRoute.keywords = @"#Google #VMware #Facebook";
-    NSDate * now = [NSDate date];
-    dummyRoute.createdTime = now;
-    dummyRoute.lastModifiedTime = now;
-    return dummyRoute;
+    return [self getRouteWithRouteId:routeId];
 }
 
-//- (NSArray *) getRoutesWithUserId: (NSString *) userId {
-//    
-//}
-//- (BOOL) uploadRoute: (Route *) route;
-//- (BOOL) deleteLocalRoute: (NSString *) routeId;
-//- (BOOL) setShareSetting: (NSString *) routeId isShared: (BOOL) flag;
-//- (BOOL) deleteRouteWithRouteId: (NSString *) routeId;
-//- (BOOL) setLike: (NSString *) routeId withUserId: (NSString *) userId isLike: (BOOL) flag;
-//- (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId;
+- (NSArray *) getRoutesWithUserId: (NSString *) userId {
+    NSMutableArray * routes = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [self.Routes count]; i++) {
+        Route * cur = self.Routes[i];
+        if ([cur.userIdWhoCreates isEqualToString:userId])
+            [routes addObject:cur];
+    }
+    return routes;
+}
+
+- (BOOL) uploadRoute: (Route *) route {
+    return TRUE;
+}
+
+- (BOOL) deleteRouteWithRouteId:(NSString *)routeId {
+    for (int i = 0; i < [self.Routes count]; i++) {
+        Route * cur = self.Routes[i];
+        if ([cur.routeId isEqualToString:routeId]) {
+            [self.Routes removeObjectAtIndex:i];
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+- (BOOL) deleteLocalRouteWithRouteId:(NSString *)routeId {
+    return [self deleteRouteWithRouteId:routeId];
+}
+
+- (BOOL) setShareSetting:(NSString *)routeId isShare:(BOOL)flag {
+    Route * cur = nil;
+    for (int i = 0; i < [self.Routes count]; i++) {
+        cur = self.Routes[i];
+        if ([cur.routeId isEqualToString:routeId])
+            break;
+        cur = nil;
+    }
+    if (cur) {
+        cur.sharedFlag = flag;
+        return TRUE;
+    }
+    return FALSE;
+}
+- (BOOL) setLike:(NSString *)routeId withUserId:(NSString *) userId isLike:(BOOL)flag {
+    Route * cur = nil;
+    for (int i = 0; i < [self.Routes count]; i++) {
+        cur = self.Routes[i];
+        if ([cur.routeId isEqualToString:routeId])
+            break;
+        cur = nil;
+    }
+    if (cur) {
+        for (int i = 0; i < [self. count]; i++) {
+            cur = self.Routes[i];
+            if ([cur.routeId isEqualToString:routeId])
+                break;
+            cur = nil;
+        }    }
+    return FALSE;
+}
+- (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId;
 @end

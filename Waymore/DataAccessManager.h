@@ -16,7 +16,6 @@
 @property NSMutableArray * Routes;
 @property NSMutableArray * Snippets;
 
-
 + (id) getInstance;
 
 - (BOOL) addUser: (NSString *) userId;
@@ -28,8 +27,8 @@
 - (NSArray *) getRoutesWithUserId: (NSString *) userId;
 - (NSString *) putLocalRoute: (Route *) route;
 - (BOOL) uploadRoute: (Route *) route;
-- (BOOL) deleteLocalRoute: (NSString *) routeId;
-- (BOOL) setShareSetting: (NSString *) routeId isShared: (BOOL) flag;
+- (BOOL) deleteLocalRouteWithRouteId: (NSString *) routeId;
+- (BOOL) setShareSetting: (NSString *) routeId isShare: (BOOL) flag;
 - (BOOL) deleteRouteWithRouteId: (NSString *) routeId;
 - (BOOL) setLike: (NSString *) routeId withUserId: (NSString *) userId isLike: (BOOL) flag;
 - (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId;
