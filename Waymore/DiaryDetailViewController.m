@@ -22,7 +22,9 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text = self.route.
+    self.titleLabel.text = self.route.title;
+    self.keywordLabel.text = self.route.keywords;
+    self.likesLabel.text = [NSString stringWithFormat:@"%ld ♥️", [self.route.userIdsWhoLike count]];
     [self updateMap];
 }
 
