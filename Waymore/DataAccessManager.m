@@ -9,10 +9,9 @@
 #import "DataAccessManager.h"
 
 @interface DataAccessManager()
-@property NSArray * Users;
-@property NSArray * Routes;
-@property NSArray * Snippets;
-@property NSNumber * counter;
+//@property NSMutableArray * Users;
+//@property NSMutableArray * Routes;
+//@property NSMutableArray * Snippets;
 @end
 
 @implementation DataAccessManager
@@ -35,30 +34,49 @@
     return self;
 }
 
-- (Route *) initDummyWithId:(NSString *)routeId {
+- (Route *) dummyRouteWithId:(NSString *)routeId{
     Route * dummyRoute = [[Route alloc] init];
     if (dummyRoute) {
+        NSUInteger count = [self.Routes count] + 1;
         dummyRoute.routeId = routeId;
-        dummyRoute.city = @"";
-        dummyRoute.title = @"Columbia University Tour";
-        dummyRoute.keywords = @"#Lion #Blue";
+        dummyRoute.city = [NSString stringWithFormat:@"%@_%lu", @"City", count];
+        dummyRoute.title = [NSString stringWithFormat:@"%@_%lu", @"Title", count];
+        dummyRoute.keywords = [NSString stringWithFormat:@"%@_%lu", @"#keyword", count];
         NSDate * now = [NSDate date];
         dummyRoute.createdTime = now;
         dummyRoute.lastModifiedTime = now;
     }
+    return dummyRoute;
+}
+
+- (WaymoreUser *) dummyUserWithId:(NSString *)userId {
+    WaymoreUser * dummyUser = [[WaymoreUser alloc] init];
+    if (dummyUser) {
+        NSUInteger count = [self.Users count] + 1;
+        dummyUser.userId = userId;
+        dummyUser.userName = [NSString stringWithFormat:@"%@_%lu", @"UserName", count];
+    }
+    return dummyUser;
 }
 
 - (BOOL) addUser: (NSString *) userId {
-    NSLog(@"Add User with Id: %@", userId);
+    for (int i = 0; i < [self.Users count]; i++) {
+        WaymoreUser * cur = self.Users[i];
+        if (cur.userId == userId)
+            return FALSE;
+    }
+    WaymoreUser * new = [self dummyUserWithId:userId];
+    [self.Users addObject:new];
     return TRUE;
 }
 
 - (WaymoreUser *) getUserWithUserId: (NSString *) userId {
-    NSLog(@"Get User with Id: %@", userId);
-    WaymoreUser * dummyUser = [[WaymoreUser alloc] init];
-    dummyUser.userId = userId;
-    dummyUser.userName = @"Dummy User";
-    return dummyUser;
+    for (int i = 0; i < [self.Users count]; i++) {
+        WaymoreUser * cur = self.Users[i];
+        if ([cur.userId compare:userId])
+            return cur;
+    }
+    return nil;
 }
 
 //- (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter;
@@ -90,13 +108,13 @@
     return dummyRoute;
 }
 
-- (NSArray *) getRoutesWithUserId: (NSString *) userId {
-    
-}
-
-- (NSString *) putLocalRoute: (Route *) route {
-    
-}
+//- (NSArray *) getRoutesWithUserId: (NSString *) userId {
+//    
+//}
+//
+//- (NSString *) putLocalRoute: (Route *) route {
+//    
+//}
 //- (BOOL) uploadRoute: (Route *) route;
 //- (BOOL) deleteLocalRoute: (NSString *) routeId;
 //- (BOOL) setShareSetting: (NSString *) routeId isShared: (BOOL) flag;

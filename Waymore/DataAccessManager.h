@@ -12,6 +12,11 @@
 #import "SnippetFilter.h"
 
 @interface DataAccessManager : NSObject
+@property NSMutableArray * Users;
+@property NSMutableArray * Routes;
+@property NSMutableArray * Snippets;
+
+
 + (id) getInstance;
 
 - (BOOL) addUser: (NSString *) userId;
