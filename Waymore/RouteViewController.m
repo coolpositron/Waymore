@@ -9,9 +9,14 @@
 #import "RouteViewController.h"
 #import "DisplayMapViewController.h"
 #import "KeyPoint+Annotation.h"
+#import "Route.h"
 
 @interface RouteViewController ()
 @property (weak, nonatomic) DisplayMapViewController * mapViewController;
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
+@property (weak, nonatomic) IBOutlet UIButton *pauseAndResumeButton;
+@property (weak, nonatomic) IBOutlet UIButton *finishButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @end
 
@@ -20,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    [self resumeToInitialState];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -44,13 +50,41 @@
 }
 
 - (IBAction)buttonTapped:(UIButton *)sender {
-    if ([[sender titleForState:UIControlStateNormal] isEqualToString:@
-         "Start"]) {
+    if (sender == self.startButton) {
         [self.mapViewController startTracking];
-        [sender setTitle:@"Stop" forState:UIControlStateNormal];
-    } else {
-        [self.mapViewController stopTracking];
-        [sender setTitle:@"Start" forState:UIControlStateNormal];
+        self.cancelButton.hidden = false;
+        self.pauseAndResumeButton.hidden = false;
+        self.startButton.hidden = true;
+        self.finishButton.hidden = false;
+    }
+    if (sender == self.cancelButton) {
+        [self resumeToInitialState];
+        [self.mapViewController clear];
+    }
+    if (sender == self.pauseAndResumeButton) {
+        if ([[self.pauseAndResumeButton titleForState:UIControlStateNormal] isEqualToString:@"Pause"]) {
+            [self.mapViewController stopTracking];
+            [self.pauseAndResumeButton setTitle:@"Resume" forState:UIControlStateNormal];
+        } else if ([[self.pauseAndResumeButton titleForState:UIControlStateNormal] isEqualToString:@"Resume"]) {
+            [self.mapViewController startTracking];
+            [self.pauseAndResumeButton setTitle:@"Pause" forState:UIControlStateNormal];
+        }
+    }
+    if (sender == self.finishButton) {
+        Route * route = [[Route alloc] init];
+        route.keyPoints = self.mapViewController.keyPoints;
+        route.mapPoints = self.mapViewController.mapPoints;
+        [self.mapViewController clear];
+        [self resumeToInitialState];
     }
 }
+
+- (void) resumeToInitialState {
+    self.cancelButton.hidden = true;
+    [self.pauseAndResumeButton setTitle:@"Pause" forState:UIControlStateNormal];
+    self.pauseAndResumeButton.hidden = true;
+    self.startButton.hidden = false;
+    self.finishButton.hidden = true;
+}
+
 @end

@@ -22,7 +22,6 @@
 @interface DisplayMapViewController () <CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (strong, nonatomic) NSArray *infoList;
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CrumbPath *crumbs;
@@ -32,13 +31,6 @@
 
 @implementation DisplayMapViewController
 
-
-- (NSArray *) infoList {
-    if(_infoList == nil) {
-        _infoList = [[NSArray alloc] init];
-    }
-    return _infoList;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,6 +53,16 @@
     
 }
 
+- (void) clear {
+    [self stopTracking];
+    [self.mapView removeOverlays:self.mapView.overlays];
+    _crumbs = nil;
+    _mapPoints = nil;
+    _keyPoints = nil;
+    _crumbPathRenderer = nil;
+    [self.mapView removeAnnotations: self.mapView.annotations];
+    
+}
 - (MKAnnotationView *)mapView:(MKMapView *)mapView
             viewForAnnotation:(id <MKAnnotation>)annotation
 {
@@ -234,12 +236,13 @@
 }
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    NSLog(@"%@", locations);
     if (locations != nil && locations.count > 0)
     {
         // we are not using deferred location updates, so always use the latest location
         CLLocation *newLocation = locations[0];
         
-        [self.routePoints addObject:[[MapPoint alloc] initWithLatitude:newLocation.coordinate.latitude withLongitude:newLocation.coordinate.longitude withTime:[NSDate date]]];
+        [self.mapPoints addObject:[[MapPoint alloc] initWithLatitude:newLocation.coordinate.latitude withLongitude:newLocation.coordinate.longitude withTime:[NSDate date]]];
         if (self.crumbs == nil)
         {
             // This is the first time we're getting a location update, so create
@@ -252,7 +255,7 @@
             CLLocationCoordinate2D newCoordinate = newLocation.coordinate;
             
             // default -boundingMapRect size is 1km^2 centered on coord
-            MKCoordinateRegion region = [self coordinateRegionWithCenter:newCoordinate approximateRadiusInMeters:2500];
+            MKCoordinateRegion region = [self coordinateRegionWithCenter:newCoordinate approximateRadiusInMeters:500];
             
             [self.mapView setRegion:region animated:YES];
         }
@@ -332,7 +335,7 @@
 }
 
 @synthesize keyPoints = _keyPoints;
-@synthesize routePoints = _routePoints;
+@synthesize mapPoints = _mapPoints;
 
 - (NSArray *) keyPoints {
     if(_keyPoints == nil) {
@@ -341,11 +344,11 @@
     return _keyPoints;
 }
 
-- (NSArray *) routePoints {
-    if(_routePoints == nil) {
-        _routePoints = [[NSMutableArray alloc] init];
+- (NSArray *) mapPoints {
+    if(_mapPoints == nil) {
+        _mapPoints = [[NSMutableArray alloc] init];
     }
-    return _routePoints;
+    return _mapPoints;
 }
 
 - (void) setKeyPoints:(NSArray *)keyPoints {
@@ -353,8 +356,8 @@
     [self updateMapView];
 }
 
-- (void) setRoutePoints:(NSArray *)routePoints {
-    _routePoints = [NSMutableArray arrayWithArray:routePoints];
+- (void) setMapPoints:(NSArray *)routePoints {
+    _mapPoints = [NSMutableArray arrayWithArray:routePoints];
     BOOL boundingMapectChanged = NO;
     if (self.crumbs == nil) {
         MapPoint *point0 = [routePoints objectAtIndex:0];

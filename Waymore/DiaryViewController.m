@@ -64,7 +64,7 @@
     Snippet * snippet = [self.snippets objectAtIndex: indexPath.row];
     [cell.titleLabel setText:snippet.title];
     [cell.cityLabel setText:snippet.city];
-    [cell.keyWordsLabel setText:snippet.city];
+    [cell.keywordsLabel setText:snippet.city];
     [cell.userNameLabel setText:snippet.userName];
     [cell.likesLabel setText:[NSString stringWithFormat:@"%ld ♥️", snippet.likeNum]];
     
