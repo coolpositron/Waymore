@@ -15,7 +15,8 @@
 @property (nonatomic, retain) NSString * commentId;
 @property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSString * userWhoCreates;
+@property (nonatomic, retain) NSString * routeAbout;
 
-- (Comment *) initWithContent:(NSString *)content withUserId:(NSString *)userId;
+- (Comment *) initWithContent:(NSString *)content withRouteId:(NSString *)routeId withUserId:(NSString *)userId;
 
 @end
