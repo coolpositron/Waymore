@@ -11,10 +11,10 @@
 
 
 @implementation Comment
-- (Comment *) initWithContent:(NSString *)content withUserId(NSString *)userId {
+- (Comment *) initWithContent:(NSString *)content withUserId:(NSString *)userId {
   if (self = [super init]) {
         self.content = content;
-        self.userId = userId;
+        self.userWhoCreates = userId;
     }
     return self;
 }
