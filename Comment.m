@@ -11,5 +11,11 @@
 
 
 @implementation Comment
-
+- (Comment *) initWithContent:(NSString *)content withUserId(NSString *)userId {
+  if (self = [super init]) {
+        self.content = content;
+        self.userId = userId;
+    }
+    return self;
+}
 @end
