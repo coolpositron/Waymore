@@ -12,11 +12,5 @@
 
 
 @implementation WaymoreUser
-- (WaymoreUser *)initWithId:(NSString *)userId withName:(NSString *)userName {
-    if ([self init]) {
-        self.userId = userId;
-        self.userName = userName;
-    }
-    return self;
-}
+
 @end
