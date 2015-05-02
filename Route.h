@@ -12,6 +12,7 @@
 
 @interface Route : NSObject
 
+@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * city;
 @property (nonatomic, retain) NSDate * createdTime;
 @property (nonatomic, retain) NSString * keywords;
