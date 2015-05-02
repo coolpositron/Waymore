@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSArray *comments;
 @property (nonatomic, retain) NSArray *keyPoints;
 @property (nonatomic, retain) NSArray *mapPoints;
-@property (nonatomic, retain) NSArray *usersWhoLike;
-@property (nonatomic, retain) WaymoreUser *userWhoCreates;
+@property (nonatomic, retain) NSArray *userIdsWhoLike;
+@property (nonatomic, retain) NSString *userIdWhoCreates;
 
 @end
