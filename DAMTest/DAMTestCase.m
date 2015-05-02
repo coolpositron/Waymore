@@ -41,9 +41,8 @@
     DataAccessManager * dam = [DataAccessManager getInstance];
     [dam addUser:@"user_1"];
     [dam addUser:@"user_2"];
-    NSLog("%@", [dam getUserWithUserId:@"user_1"].userName);
-//    XCTAssertEqualObjects([dam getUserWithUserId:@"user_1"].userName, @"UserName_1");
-//    XCTAssertEqualObjects([dam getUserWithUserId:@"user_2"].userName, @"UserName_2");
+    XCTAssertEqualObjects([dam getUserWithUserId:@"user_1"].userName, @"UserName_1");
+    XCTAssertEqualObjects([dam getUserWithUserId:@"user_2"].userName, @"UserName_2");
 }
 
 @end

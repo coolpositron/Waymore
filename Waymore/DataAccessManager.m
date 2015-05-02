@@ -73,7 +73,7 @@
 - (WaymoreUser *) getUserWithUserId: (NSString *) userId {
     for (int i = 0; i < [self.Users count]; i++) {
         WaymoreUser * cur = self.Users[i];
-        if ([cur.userId compare:userId])
+        if ([cur.userId isEqualToString:userId])
             return cur;
     }
     return nil;
@@ -82,6 +82,9 @@
 //- (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter;
 //- (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter;
 
+//- (NSString *) putLocalRoute: (Route *) route {
+//
+//}
 - (Route *) getRouteWithRouteId: (NSString *) routeId {
     NSLog(@"Get Route with Id: %@", routeId);
     Route * dummyRoute = [[Route alloc] init];
@@ -109,10 +112,6 @@
 }
 
 //- (NSArray *) getRoutesWithUserId: (NSString *) userId {
-//    
-//}
-//
-//- (NSString *) putLocalRoute: (Route *) route {
 //    
 //}
 //- (BOOL) uploadRoute: (Route *) route;

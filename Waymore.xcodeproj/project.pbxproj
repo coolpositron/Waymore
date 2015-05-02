@@ -36,7 +36,6 @@
 		9E4527A21AF2D1DE00723934 /* SnippetFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527A11AF2D1DE00723934 /* SnippetFilter.m */; };
 		9E4527A51AF2D28700723934 /* Snippet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527A41AF2D28700723934 /* Snippet.m */; };
 		9E4527A71AF3219100723934 /* WaymoreUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527A61AF3219100723934 /* WaymoreUser.m */; };
-		9E53A4AE1AF5522900044F44 /* DAMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E53A4AD1AF5522900044F44 /* DAMTest.m */; };
 		9E53A4B51AF5531400044F44 /* DAMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E53A4B41AF5531400044F44 /* DAMTestCase.m */; };
 /* End PBXBuildFile section */
 
@@ -122,7 +121,6 @@
 		9E53A49A1AF551A400044F44 /* Waymore Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Waymore Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E53A4A91AF5522900044F44 /* DAMTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DAMTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E53A4AC1AF5522900044F44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E53A4AD1AF5522900044F44 /* DAMTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DAMTest.m; sourceTree = "<group>"; };
 		9E53A4B41AF5531400044F44 /* DAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAMTestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -290,7 +288,6 @@
 		9E53A4AA1AF5522900044F44 /* DAMTest */ = {
 			isa = PBXGroup;
 			children = (
-				9E53A4AD1AF5522900044F44 /* DAMTest.m */,
 				9E53A4AB1AF5522900044F44 /* Supporting Files */,
 				9E53A4B41AF5531400044F44 /* DAMTestCase.m */,
 			);
@@ -511,7 +508,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E53A4B51AF5531400044F44 /* DAMTestCase.m in Sources */,
-				9E53A4AE1AF5522900044F44 /* DAMTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,6 +790,7 @@
 				9E53A4A31AF551A400044F44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E53A4B11AF5522900044F44 /* Build configuration list for PBXNativeTarget "DAMTest" */ = {
 			isa = XCConfigurationList;
@@ -802,6 +799,7 @@
 				9E53A4B31AF5522900044F44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
