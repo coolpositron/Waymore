@@ -80,15 +80,36 @@
     return nil;
 }
 
-//- (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter;
-//- (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter;
+- (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter {
+    return self.Snippets;
+}
+- (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter{
+    return self.LocalSnippets;
+}
 
 - (NSString *) putLocalRoute: (Route *) route {
-    NSUInteger count = [self.Routes count] + 1;
-    NSString * routeId = [NSString stringWithFormat:@"route_%lu", count];
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSString * routeId = [NSString stringWithFormat:@"route_%@+%f", route.userIdWhoCreates, now];
     route.routeId = routeId;
-    [self.Routes addObject:route];
+    [self.LocalRoutes addObject:route];
     return routeId;
+}
+
+- (BOOL) uploadRoute: (Route *) route {
+    Route * cur = nil;
+    NSUInteger i;
+    for (i = 0; i < [self.LocalRoutes count]; i++) {
+        cur = self.LocalRoutes[i];
+        if ([cur.routeId isEqualToString:route.routeId])
+            break;
+        cur = nil;
+    }
+    if (cur) {
+        [self.LocalRoutes removeObjectAtIndex:i];
+        [self.Routes addObject:route];
+        return TRUE;
+    }
+    return FALSE;
 }
 
 - (Route *) getRouteWithRouteId: (NSString *) routeId {
@@ -101,7 +122,12 @@
 }
 
 - (Route *) getLocalRouteWithRouteId: (NSString *) routeId {
-    return [self getRouteWithRouteId:routeId];
+    for (int i = 0; i < [self.LocalRoutes count]; i++) {
+        Route * cur = self.LocalRoutes[i];
+        if ([cur.routeId isEqualToString:routeId])
+            return cur;
+    }
+    return nil;
 }
 
 - (NSArray *) getRoutesWithUserId: (NSString *) userId {
@@ -112,10 +138,6 @@
             [routes addObject:cur];
     }
     return routes;
-}
-
-- (BOOL) uploadRoute: (Route *) route {
-    return TRUE;
 }
 
 - (BOOL) deleteRouteWithRouteId:(NSString *)routeId {
@@ -130,7 +152,14 @@
 }
 
 - (BOOL) deleteLocalRouteWithRouteId:(NSString *)routeId {
-    return [self deleteRouteWithRouteId:routeId];
+    for (int i = 0; i < [self.LocalRoutes count]; i++) {
+        Route * cur = self.LocalRoutes[i];
+        if ([cur.routeId isEqualToString:routeId]) {
+            [self.LocalRoutes removeObjectAtIndex:i];
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
 
 - (BOOL) setShareSetting:(NSString *)routeId isShare:(BOOL)flag {
@@ -173,14 +202,29 @@
             NSMutableArray * newLikes = [curRoute.userIdsWhoLike mutableCopy];
             [newLikes addObject:userId];
             curRoute.userIdsWhoLike = newLikes;
-            NSLog(@"%lul", (unsigned long)curRoute.userIdsWhoLike.count);
             return TRUE;
         }
     }
     return FALSE;
 }
 - (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId {
-    Comment * newComment = [[Comment alloc] initWithContent:content withUserId:userId];
-    
+    Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId withUserId:userId];
+    Route * curRoute = nil;
+    for (int i = 0; i < [self.Routes count]; i++) {
+        curRoute = self.Routes[i];
+        if ([curRoute.routeId isEqualToString:routeId])
+            break;
+        curRoute = nil;
+    }
+    if (curRoute) {
+        NSMutableArray * newComments = [curRoute.comments mutableCopy];
+        NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+        NSString * commentId = [NSString stringWithFormat:@"comment_%@+%@+%f", userId, routeId, now];
+        newComment.commentId = commentId;
+        [newComments addObject: newComment];
+        curRoute.comments = newComments;
+        return commentId;
+    }
+    return nil;
 }
 @end

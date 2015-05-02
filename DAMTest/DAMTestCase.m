@@ -66,20 +66,16 @@
     DataAccessManager * dam = [DataAccessManager getInstance];
     Route * dummyRoute = [[Route alloc] init];
     if (dummyRoute) {
+        dummyRoute.userIdWhoCreates = @"user_1";
         dummyRoute.title = @"Test1";
-        NSDate * now = [NSDate date];
-        dummyRoute.createdTime = now;
-        dummyRoute.lastModifiedTime = now;
     }
     NSString * routeId1 = [dam putLocalRoute:dummyRoute];
-    dummyRoute = [[Route alloc] init];
-    if (dummyRoute) {
-        dummyRoute.title = @"Test2";
-        NSDate * now = [NSDate date];
-        dummyRoute.createdTime = now;
-        dummyRoute.lastModifiedTime = now;
+    Route * dummyRoute2 = [[Route alloc] init];
+    if (dummyRoute2) {
+        dummyRoute.userIdWhoCreates = @"user_1";
+        dummyRoute2.title = @"Test2";
     }
-    NSString * routeId2 = [dam putLocalRoute:dummyRoute];
+    NSString * routeId2 = [dam putLocalRoute:dummyRoute2];
     XCTAssertEqualObjects([dam getRouteWithRouteId:routeId1].title, @"Test1");
     XCTAssertEqualObjects([dam getRouteWithRouteId:routeId2].title, @"Test2");
 }
