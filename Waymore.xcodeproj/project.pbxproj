@@ -49,13 +49,6 @@
 			remoteGlobalIDString = 2D6C52011AF2CC1F002D9BBD;
 			remoteInfo = Waymore;
 		};
-		9E53A4A01AF551A400044F44 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2D6C51FA1AF2CC1F002D9BBD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2D6C52011AF2CC1F002D9BBD;
-			remoteInfo = Waymore;
-		};
 		9E53A4AF1AF5522900044F44 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2D6C51FA1AF2CC1F002D9BBD /* Project object */;
@@ -124,7 +117,6 @@
 		9E4527A31AF2D28700723934 /* Snippet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snippet.h; sourceTree = "<group>"; };
 		9E4527A41AF2D28700723934 /* Snippet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snippet.m; sourceTree = "<group>"; };
 		9E4527A61AF3219100723934 /* WaymoreUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaymoreUser.m; sourceTree = SOURCE_ROOT; };
-		9E53A49A1AF551A400044F44 /* Waymore Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Waymore Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E53A4A91AF5522900044F44 /* DAMTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DAMTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E53A4AC1AF5522900044F44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E53A4B41AF5531400044F44 /* DAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAMTestCase.m; sourceTree = "<group>"; };
@@ -141,13 +133,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2D6C52181AF2CC1F002D9BBD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9E53A4971AF551A400044F44 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -202,7 +187,6 @@
 			children = (
 				2D6C52021AF2CC1F002D9BBD /* Waymore.app */,
 				2D6C521B1AF2CC1F002D9BBD /* WaymoreTests.xctest */,
-				9E53A49A1AF551A400044F44 /* Waymore Tests.xctest */,
 				9E53A4A91AF5522900044F44 /* DAMTest.xctest */,
 			);
 			name = Products;
@@ -350,24 +334,6 @@
 			productReference = 2D6C521B1AF2CC1F002D9BBD /* WaymoreTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		9E53A4991AF551A400044F44 /* Waymore Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9E53A4A41AF551A400044F44 /* Build configuration list for PBXNativeTarget "Waymore Tests" */;
-			buildPhases = (
-				9E53A4961AF551A400044F44 /* Sources */,
-				9E53A4971AF551A400044F44 /* Frameworks */,
-				9E53A4981AF551A400044F44 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9E53A4A11AF551A400044F44 /* PBXTargetDependency */,
-			);
-			name = "Waymore Tests";
-			productName = "Waymore Tests";
-			productReference = 9E53A49A1AF551A400044F44 /* Waymore Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		9E53A4A81AF5522900044F44 /* DAMTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E53A4B11AF5522900044F44 /* Build configuration list for PBXNativeTarget "DAMTest" */;
@@ -402,10 +368,6 @@
 						CreatedOnToolsVersion = 6.3.1;
 						TestTargetID = 2D6C52011AF2CC1F002D9BBD;
 					};
-					9E53A4991AF551A400044F44 = {
-						CreatedOnToolsVersion = 6.3.1;
-						TestTargetID = 2D6C52011AF2CC1F002D9BBD;
-					};
 					9E53A4A81AF5522900044F44 = {
 						CreatedOnToolsVersion = 6.3.1;
 						TestTargetID = 2D6C52011AF2CC1F002D9BBD;
@@ -427,7 +389,6 @@
 			targets = (
 				2D6C52011AF2CC1F002D9BBD /* Waymore */,
 				2D6C521A1AF2CC1F002D9BBD /* WaymoreTests */,
-				9E53A4991AF551A400044F44 /* Waymore Tests */,
 				9E53A4A81AF5522900044F44 /* DAMTest */,
 			);
 		};
@@ -445,13 +406,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2D6C52191AF2CC1F002D9BBD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9E53A4981AF551A400044F44 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -486,7 +440,6 @@
 				9E45279B1AF2D01700723934 /* Route.m in Sources */,
 				2DA9A99A1AF4099B006F78DA /* DiaryViewController.m in Sources */,
 				2D6C522C1AF2CF2D002D9BBD /* Model.xcdatamodel in Sources */,
-				9E4527921AF2D01700723934 /* WaymoreUser.m in Sources */,
 				2D337EFC1AF5716800CA949A /* EditViewController.m in Sources */,
 				9E4527981AF2D01700723934 /* MapPoint.m in Sources */,
 				2D4A81B81AF3030E0079A54F /* CrumbPathRenderer.m in Sources */,
@@ -509,13 +462,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9E53A4961AF551A400044F44 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9E53A4A51AF5522900044F44 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -531,11 +477,6 @@
 			isa = PBXTargetDependency;
 			target = 2D6C52011AF2CC1F002D9BBD /* Waymore */;
 			targetProxy = 2D6C521C1AF2CC1F002D9BBD /* PBXContainerItemProxy */;
-		};
-		9E53A4A11AF551A400044F44 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2D6C52011AF2CC1F002D9BBD /* Waymore */;
-			targetProxy = 9E53A4A01AF551A400044F44 /* PBXContainerItemProxy */;
 		};
 		9E53A4B01AF5522900044F44 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -698,40 +639,6 @@
 			};
 			name = Release;
 		};
-		9E53A4A21AF551A400044F44 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Waymore Tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waymore.app/Waymore";
-			};
-			name = Debug;
-		};
-		9E53A4A31AF551A400044F44 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Waymore Tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waymore.app/Waymore";
-			};
-			name = Release;
-		};
 		9E53A4B21AF5522900044F44 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -792,15 +699,6 @@
 			buildConfigurations = (
 				2D6C52291AF2CC1F002D9BBD /* Debug */,
 				2D6C522A1AF2CC1F002D9BBD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9E53A4A41AF551A400044F44 /* Build configuration list for PBXNativeTarget "Waymore Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9E53A4A21AF551A400044F44 /* Debug */,
-				9E53A4A31AF551A400044F44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
