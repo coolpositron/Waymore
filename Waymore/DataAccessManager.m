@@ -148,21 +148,38 @@
     return FALSE;
 }
 - (BOOL) setLike:(NSString *)routeId withUserId:(NSString *) userId isLike:(BOOL)flag {
-    Route * cur = nil;
+    Route * curRoute = nil;
     for (int i = 0; i < [self.Routes count]; i++) {
-        cur = self.Routes[i];
-        if ([cur.routeId isEqualToString:routeId])
+        curRoute = self.Routes[i];
+        if ([curRoute.routeId isEqualToString:routeId])
             break;
-        cur = nil;
+        curRoute = nil;
     }
-    if (cur) {
-        for (int i = 0; i < [self. count]; i++) {
-            cur = self.Routes[i];
-            if ([cur.routeId isEqualToString:routeId])
-                break;
-            cur = nil;
-        }    }
+    if (curRoute) {
+        for (int i = 0; i < [curRoute.userIdsWhoLike count]; i++) {
+            NSString * curUserId = curRoute.userIdsWhoLike[i];
+            if ([curUserId isEqualToString:userId]) {
+                if (flag) {
+                    return FALSE;
+                } else {
+                    NSMutableArray * newLikes = [curRoute.userIdsWhoLike mutableCopy];
+                    [newLikes removeObjectAtIndex:i];
+                    curRoute.userIdsWhoLike = newLikes;
+                    return TRUE;
+                }
+            }
+        }
+        if (flag) {
+            NSMutableArray * newLikes = [curRoute.userIdsWhoLike mutableCopy];
+            [newLikes addObject:userId];
+            curRoute.userIdsWhoLike = newLikes;
+            NSLog(@"%lul", (unsigned long)curRoute.userIdsWhoLike.count);
+            return TRUE;
+        }
+    }
     return FALSE;
 }
-- (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId;
+- (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId {
+    
+}
 @end

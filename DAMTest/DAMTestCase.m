@@ -110,4 +110,22 @@
     XCTAssertEqualObjects(((Route *)[dam getRoutesWithUserId:@"user_1"][0]).title, @"Test1");
     XCTAssertEqualObjects(((Route *)[dam getRoutesWithUserId:@"user_1"][1]).title, @"Test2");
 }
+
+- (void)testSetLike {
+    DataAccessManager * dam = [DataAccessManager getInstance];
+    [dam addUser:@"user_1"];
+    Route * dummyRoute = [[Route alloc] init];
+    if (dummyRoute) {
+        dummyRoute.title = @"Test1";
+        dummyRoute.userIdsWhoLike = [[NSArray alloc] init];
+        dummyRoute.userIdWhoCreates = @"user_1";
+    }
+    NSString * routeId = [dam putLocalRoute:dummyRoute];
+    XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:TRUE], TRUE);
+    XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:FALSE], TRUE);
+    XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:TRUE], TRUE);
+    XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:TRUE], FALSE);
+    XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:FALSE], TRUE);
+    XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:FALSE], FALSE);
+}
 @end
