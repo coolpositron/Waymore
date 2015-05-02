@@ -17,4 +17,5 @@
 - (void) clear;
 @property (strong, nonatomic) NSMutableArray *keyPoints;
 @property (strong, nonatomic) NSMutableArray *mapPoints;
+
 @end

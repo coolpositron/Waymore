@@ -376,7 +376,7 @@
 - (void) updateMapView {
     for(id annotation in self.mapView.annotations) {
         if([annotation isKindOfClass:[KeyPoint class]]) {
-            [self.mapView removeAnnotations:annotation];
+            [self.mapView removeAnnotation:annotation];
         }
     }
     for(KeyPoint *keyPoint in self.keyPoints) {

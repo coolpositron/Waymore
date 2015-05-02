@@ -53,7 +53,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WTs-Hk-Pa9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2023.5" y="678.5"/>
+            <point key="canvasLocation" x="2085.5" y="570.5"/>
         </scene>
         <!--Diary-->
         <scene sceneID="Q6t-gZ-3Ar">
@@ -191,7 +191,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Waymore" id="yat-Tz-L6g">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="1Li-n3-u12"/>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="1Li-n3-u12">
+                            <connections>
+                                <segue destination="Fjf-Af-wB8" kind="show" id="wMY-Ai-2LZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="keywordLabel" destination="MEo-GN-LRF" id="Xnh-qA-A9n"/>
@@ -201,7 +205,50 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dHy-wo-dxP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3886.5" y="399.5"/>
+            <point key="canvasLocation" x="3638.5" y="431.5"/>
+        </scene>
+        <!--Edit-->
+        <scene sceneID="LVj-sV-oZE">
+            <objects>
+                <viewController id="Fjf-Af-wB8" customClass="EditViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oDp-Az-PDd"/>
+                        <viewControllerLayoutGuide type="bottom" id="hmJ-XS-nh7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wPO-wA-bjr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YFO-Fy-VnN">
+                                <rect key="frame" x="16" y="72" width="343" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Keywords" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wG8-qs-i72">
+                                <rect key="frame" x="16" y="110" width="343" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDZ-bv-rX2">
+                                <rect key="frame" x="0.0" y="148" width="375" height="429"/>
+                                <connections>
+                                    <segue destination="V5r-fY-0hO" kind="embed" identifier="MapSegue" id="pNy-0s-emv"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Edit" id="dDz-En-bbr">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="W7i-Tz-Rzc"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="keywordTextField" destination="wG8-qs-i72" id="e1n-X6-or0"/>
+                        <outlet property="titleTextField" destination="YFO-Fy-VnN" id="bOV-e2-Gmw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FI7-Ri-PNw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4385.5" y="210.5"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="WCn-9h-heZ">
@@ -227,7 +274,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3E-lf-xQF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4599.5" y="459.5"/>
+            <point key="canvasLocation" x="4361.5" y="1129.5"/>
         </scene>
         <!--Filter-->
         <scene sceneID="279-ax-eXj">
@@ -438,6 +485,7 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonTapped:" destination="c4A-OE-VQg" eventType="touchUpInside" id="k5K-q5-6ql"/>
+                                    <segue destination="Fjf-Af-wB8" kind="show" identifier="FinishSegue" id="fwj-2l-X5p"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -483,7 +531,7 @@
                         <viewControllerLayoutGuide type="bottom" id="cIl-LN-fzn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="65b-eQ-MjD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="442"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="494"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Iwy-5V-Plm">
@@ -520,11 +568,11 @@
                         <viewControllerLayoutGuide type="bottom" id="a7J-vT-yHs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="M1S-Jo-3ci">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="442"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="494"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-4a-SHR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="442"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="494"/>
                                 <connections>
                                     <outlet property="delegate" destination="pfV-6E-cCt" id="11v-Pq-0g3"/>
                                 </connections>
@@ -636,6 +684,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="6kf-qH-Run"/>
-        <segue reference="JqX-4m-Lzb"/>
+        <segue reference="fwj-2l-X5p"/>
+        <segue reference="8QS-Z5-ysf"/>
     </inferredMetricsTieBreakers>
 </document>

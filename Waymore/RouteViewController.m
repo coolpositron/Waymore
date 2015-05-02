@@ -10,6 +10,7 @@
 #import "DisplayMapViewController.h"
 #import "KeyPoint+Annotation.h"
 #import "Route.h"
+#import "EditViewController.h"
 
 @interface RouteViewController ()
 @property (weak, nonatomic) DisplayMapViewController * mapViewController;
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *pauseAndResumeButton;
 @property (weak, nonatomic) IBOutlet UIButton *finishButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (strong, nonatomic) Route *finishedRoute;
 
 @end
 
@@ -47,6 +49,11 @@
         self.mapViewController.keyPoints = @[keyPoint];
         //self.mapViewController.routePoints = @[routePoint1, routePoint2, routePoint3];
     }
+    if ([segueName isEqualToString:@"FinishSegue"]) {
+        EditViewController * editViewController = segue.destinationViewController;
+        editViewController.route = self.finishedRoute;
+        
+    }
 }
 
 - (IBAction)buttonTapped:(UIButton *)sender {
@@ -74,6 +81,9 @@
         Route * route = [[Route alloc] init];
         route.keyPoints = self.mapViewController.keyPoints;
         route.mapPoints = self.mapViewController.mapPoints;
+        route.title = @"CU";
+        route.keywords = @"good";
+        self.finishedRoute = route;
         [self.mapViewController clear];
         [self resumeToInitialState];
     }
