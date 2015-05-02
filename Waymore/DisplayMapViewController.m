@@ -357,6 +357,10 @@
 }
 
 - (void) setMapPoints:(NSArray *)routePoints {
+    if(routePoints == nil || [routePoints count] == 0) {
+        _crumbs = nil;
+        return;
+    }
     _mapPoints = [NSMutableArray arrayWithArray:routePoints];
     BOOL boundingMapectChanged = NO;
     if (self.crumbs == nil) {

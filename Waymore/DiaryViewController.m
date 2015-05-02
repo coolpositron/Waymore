@@ -11,6 +11,8 @@
 #import "MGSwipeButton.h"
 #import "RouteTableViewCell.h"
 #import "Snippet.h"
+#import "DiaryDetailViewController.h"
+#import "KeyPoint.h"
 
 @interface DiaryViewController ()
 
@@ -79,6 +81,31 @@
     cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor]]];
     cell.rightSwipeSettings.transition = MGSwipeTransition3D;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"DetailSegue" sender:indexPath];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"DetailSegue"] && [sender isKindOfClass:[NSIndexPath class]]) {
+        NSInteger index = [sender row];
+        Snippet *snippet = self.snippets[index];
+        
+        //Should get Route by index.
+        KeyPoint *keyPoint = [[KeyPoint alloc] initWithTitle: @"Net Cat" withContent: @"Cat downloaded from the Internet" withLatitude:39.281516 withLongitude:-76.580806 withPhoto:[UIImage imageNamed:@"cat.jpg"]];
+        Route *route = [[Route alloc] init];
+        route.keyPoints = @[keyPoint];
+        route.city = @"New York";
+        route.keywords = @"Columbia!, Good!";
+        route.mapPoints = @[];
+        route.userIdsWhoLike = @[];
+        
+        
+        DiaryDetailViewController * diaryDetailViewController = segue.destinationViewController;
+        diaryDetailViewController.route = route;
+    }
 }
 
 @end

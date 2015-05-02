@@ -39,9 +39,11 @@
 }
 
 - (void) updateMap {
-    self.mapViewController.clear;
-    self.mapViewController.keyPoints = self.route.keyPoints;
-    self.mapViewController.mapPoints = self.route.mapPoints;
+    [self.mapViewController clear];
+    if(self.route.keyPoints != nil)
+    self.mapViewController.keyPoints = [[NSMutableArray alloc] initWithArray:self.route.keyPoints];
+    if(self.route.mapPoints != nil)
+        self.mapViewController.mapPoints = [[NSMutableArray alloc] initWithArray:self.route.mapPoints];
 }
 
 @end

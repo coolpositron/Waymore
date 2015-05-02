@@ -129,7 +129,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="dzu-h5-KCF" kind="show" id="I6u-F0-jj6"/>
+                        <segue destination="dzu-h5-KCF" kind="show" identifier="DetailSegue" id="I6u-F0-jj6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cJf-Fg-lCO" userLabel="First Responder" sceneMemberID="firstResponder"/>
