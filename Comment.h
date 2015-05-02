@@ -16,6 +16,6 @@
 @property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSString * userWhoCreates;
 
-- (Comment *) initWithContent:(NSString *)content withUserId(NSString *)userId;
+- (Comment *) initWithContent:(NSString *)content withUserId:(NSString *)userId;
 
 @end

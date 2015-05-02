@@ -10,6 +10,7 @@
 #import "Route.h"
 #import "WaymoreUser.h"
 #import "SnippetFilter.h"
+#import "Comment.h"
 
 @interface DataAccessManager : NSObject
 @property NSMutableArray * Users;

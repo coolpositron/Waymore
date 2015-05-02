@@ -180,6 +180,7 @@
     return FALSE;
 }
 - (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId {
+    Comment * newComment = [[Comment alloc] initWithContent:content withUserId:userId];
     
 }
 @end
