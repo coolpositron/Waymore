@@ -12,6 +12,7 @@
 @property NSArray * Users;
 @property NSArray * Routes;
 @property NSArray * Snippets;
+@property NSNumber * counter;
 @end
 
 @implementation DataAccessManager
@@ -32,6 +33,19 @@
         self.Snippets = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+- (Route *) initDummyWithId:(NSString *)routeId {
+    Route * dummyRoute = [[Route alloc] init];
+    if (dummyRoute) {
+        dummyRoute.routeId = routeId;
+        dummyRoute.city = @"";
+        dummyRoute.title = @"Columbia University Tour";
+        dummyRoute.keywords = @"#Lion #Blue";
+        NSDate * now = [NSDate date];
+        dummyRoute.createdTime = now;
+        dummyRoute.lastModifiedTime = now;
+    }
 }
 
 - (BOOL) addUser: (NSString *) userId {
@@ -79,7 +93,10 @@
 - (NSArray *) getRoutesWithUserId: (NSString *) userId {
     
 }
-- (NSString *) putLocalRoute: (Route *) route;
+
+- (NSString *) putLocalRoute: (Route *) route {
+    
+}
 //- (BOOL) uploadRoute: (Route *) route;
 //- (BOOL) deleteLocalRoute: (NSString *) routeId;
 //- (BOOL) setShareSetting: (NSString *) routeId isShared: (BOOL) flag;
