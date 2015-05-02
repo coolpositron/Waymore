@@ -14,7 +14,7 @@
 
 @property (nonatomic, retain) NSString * city;
 @property (nonatomic, retain) NSDate * createdTime;
-@property (nonatomic, retain) NSString * keyWords;
+@property (nonatomic, retain) NSString * keywords;
 @property (nonatomic, retain) NSDate * lastModifiedTime;
 @property (nonatomic, retain) NSString * routeId;
 @property (nonatomic, assign) BOOL sharedFlag;
