@@ -29,7 +29,9 @@
     if (self = [super init]) {
         self.Users = [[NSMutableArray alloc] init];
         self.Routes = [[NSMutableArray alloc] init];
+        self.LocalRoutes = [[NSMutableArray alloc] init];
         self.Snippets = [[NSMutableArray alloc] init];
+        self.LocalSnippets = [[NSMutableArray alloc] init];
     }
     return self;
 }
