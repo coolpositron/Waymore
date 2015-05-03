@@ -18,6 +18,7 @@
 
 - (void)setUp {
     [super setUp];
+    
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -30,7 +31,6 @@
     DataAccessManager * dam = [DataAccessManager getInstance];
     XCTAssertEqual([dam.Users count], 0);
     XCTAssertEqual([dam.Routes count], 0);
-    XCTAssertEqual([dam.Snippets count], 0);
     [dam addUser:@"user_1"];
     XCTAssertEqual([dam.Users count], 1);
     [dam addUser:@"user_1"];
@@ -57,9 +57,9 @@
         dummyRoute.createdTime = now;
         dummyRoute.lastModifiedTime = now;
     }
-    NSUInteger count = [dam.Routes count];
+    NSUInteger count = [dam.LocalRoutes count];
     [dam putLocalRoute:dummyRoute];
-    XCTAssertEqual([dam.Routes count], count+1);
+    XCTAssertEqual([dam.LocalRoutes count], count+1);
 }
 
 - (void)testGetRouteWithRouteId {
@@ -117,6 +117,7 @@
         dummyRoute.userIdWhoCreates = @"user_1";
     }
     NSString * routeId = [dam putLocalRoute:dummyRoute];
+    [dam uploadRoute:dummyRoute];
     XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:TRUE], TRUE);
     XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:FALSE], TRUE);
     XCTAssertEqual([dam setLike:routeId withUserId:@"user_1" isLike:TRUE], TRUE);

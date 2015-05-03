@@ -13,6 +13,7 @@
 #import "Snippet.h"
 #import "DiaryDetailViewController.h"
 #import "KeyPoint.h"
+#import "DataAccessManager.h"
 
 @interface DiaryViewController ()
 
@@ -26,14 +27,14 @@
 {
     [super viewDidLoad];
     // Initialize table data
-    Snippet * firstSnippet = [[Snippet alloc]  init];
-    firstSnippet.thumbnail = [UIImage imageNamed:@"cat.jpg"];
-    firstSnippet.title = @"Trip to new york!";
-    firstSnippet.city = @"New york";
-    firstSnippet.keywords = @"Good, central park";
-    firstSnippet.userName = @"Jianhao Li";
-    firstSnippet.likeNum = 100;
-    self.snippets = @[firstSnippet];
+//    Snippet * firstSnippet = [[Snippet alloc]  init];
+//    firstSnippet.thumbnail = [UIImage imageNamed:@"cat.jpg"];
+//    firstSnippet.title = @"Trip to new york!";
+//    firstSnippet.city = @"New york";
+//    firstSnippet.keywords = @"Good, central park";
+//    firstSnippet.userName = @"Jianhao Li";
+//    firstSnippet.likeNum = 100;
+    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:nil];
     
     
 }
@@ -94,13 +95,7 @@
         Snippet *snippet = self.snippets[index];
         
         //Should get Route by index.
-        KeyPoint *keyPoint = [[KeyPoint alloc] initWithTitle: @"Net Cat" withContent: @"Cat downloaded from the Internet" withLatitude:39.281516 withLongitude:-76.580806 withPhoto:[UIImage imageNamed:@"cat.jpg"]];
-        Route *route = [[Route alloc] init];
-        route.keyPoints = @[keyPoint];
-        route.city = @"New York";
-        route.keywords = @"Columbia!, Good!";
-        route.mapPoints = @[];
-        route.userIdsWhoLike = @[];
+        Route* route = [[DataAccessManager getInstance] getRouteWithRouteId:snippet.routeId];
         
         
         DiaryDetailViewController * diaryDetailViewController = segue.destinationViewController;

@@ -15,7 +15,6 @@
 @interface DataAccessManager : NSObject
 @property NSMutableArray * Users;
 @property NSMutableArray * Routes;
-@property NSMutableArray * Snippets;
 @property NSMutableArray * LocalRoutes;
 @property NSMutableArray * LocalSnippets;
 
