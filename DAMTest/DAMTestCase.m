@@ -29,12 +29,13 @@
 
 - (void)testAdduser {
     DataAccessManager * dam = [DataAccessManager getInstance];
-    XCTAssertEqual([dam.Users count], 0);
-    XCTAssertEqual([dam.Routes count], 0);
+    NSUInteger count = [dam.Users count];
     [dam addUser:@"user_1"];
-    XCTAssertEqual([dam.Users count], 1);
+    XCTAssertEqual([dam.Users count], count+1);
     [dam addUser:@"user_1"];
-    XCTAssertEqual([dam.Users count], 1);
+    XCTAssertEqual([dam.Users count], count+1);
+    [dam addUser:@"user_2"];
+    XCTAssertEqual([dam.Users count], count+2);
 }
 
 - (void)testGetUserWithUserId {
