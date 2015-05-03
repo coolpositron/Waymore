@@ -14,6 +14,8 @@
 
 - (void) startTracking;
 - (void) stopTracking;
+- (void) clear;
 @property (strong, nonatomic) NSMutableArray *keyPoints;
-@property (strong, nonatomic) NSMutableArray *routePoints;
+@property (strong, nonatomic) NSMutableArray *mapPoints;
+
 @end

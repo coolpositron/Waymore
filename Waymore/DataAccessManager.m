@@ -7,6 +7,8 @@
 //
 
 #import "DataAccessManager.h"
+#import "keyPoint.h"
+#import "Snippet.h"
 
 @interface DataAccessManager()
 //@property NSMutableArray * Users;
@@ -33,6 +35,20 @@
         self.Snippets = [[NSMutableArray alloc] init];
         self.LocalSnippets = [[NSMutableArray alloc] init];
     }
+    
+    KeyPoint *keyPoint = [[KeyPoint alloc] initWithTitle: @"Net Cat" withContent: @"Cat downloaded from the Internet" withLatitude:39.281516 withLongitude:-76.580806 withPhoto:[UIImage imageNamed:@"cat.jpg"]];
+    Route *route = [[Route alloc] init];
+    route.keyPoints = @[keyPoint];
+    route.city = @"New York";
+    route.keywords = @"Columbia!, Good!";
+    route.mapPoints = @[];
+    route.userIdsWhoLike = @[];
+    route.userIdsWhoLike = @[];
+    route.userIdWhoCreates = @"user_id_1";
+    
+    [self putLocalRoute:route];
+    [self uploadRoute:route];
+    
     return self;
 }
 
@@ -47,7 +63,7 @@
         NSDate * now = [NSDate date];
         dummyRoute.createdTime = now;
         dummyRoute.lastModifiedTime = now;
-        dummyRoute.userIdWhoCreates = @"user_1";
+        dummyRoute.userIdWhoCreates = @"user_id_1";
     }
     return dummyRoute;
 }
@@ -63,6 +79,7 @@
 }
 
 - (BOOL) addUser: (NSString *) userId {
+    //Should have some method that pass user name
     for (int i = 0; i < [self.Users count]; i++) {
         WaymoreUser * cur = self.Users[i];
         if (cur.userId == userId)
@@ -83,10 +100,39 @@
 }
 
 - (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter {
-    return self.Snippets;
+    //Don't forget to implement filter!
+    NSMutableArray * snippets = [[NSMutableArray alloc] init];
+    for (Route *route in self.Routes) {
+        Snippet *snippet = [[Snippet alloc] init];
+        snippet.title = route.title;
+        snippet.userName = [[self getUserWithUserId:route.userIdWhoCreates] userName];
+        snippet.likeNum = [route.userIdsWhoLike count];
+        snippet.city = route.city;
+        snippet.routeId = route.routeId;
+        snippet.keywords = route.keywords;
+        [snippets addObject:snippet];
+        //A route should have a thumbnail
+        //snippet.thumbnail = route.thumbnail;
+    }
+    return snippets;
 }
 - (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter{
-    return self.LocalSnippets;
+    
+    //Don't forget to implement filter!
+    NSMutableArray * snippets = [[NSMutableArray alloc] init];
+    for (Route *route in self.Routes) {
+        Snippet *snippet = [[Snippet alloc] init];
+        snippet.title = route.title;
+        snippet.userName = [[self getUserWithUserId:route.userIdWhoCreates] userName];
+        snippet.likeNum = [route.userIdsWhoLike count];
+        snippet.city = route.city;
+        snippet.routeId = route.routeId;
+        snippet.keywords = route.keywords;
+        [snippets addObject:snippet];
+        //A route should have a thumbnail
+        //snippet.thumbnail = route.thumbnail;
+    }
+    return snippets;
 }
 
 - (NSString *) putLocalRoute: (Route *) route {

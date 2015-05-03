@@ -11,6 +11,9 @@
 #import "MGSwipeButton.h"
 #import "RouteTableViewCell.h"
 #import "Snippet.h"
+#import "DiaryDetailViewController.h"
+#import "KeyPoint.h"
+#import "DataAccessManager.h"
 
 @interface DiaryViewController ()
 
@@ -24,14 +27,14 @@
 {
     [super viewDidLoad];
     // Initialize table data
-    Snippet * firstSnippet = [[Snippet alloc]  init];
-    firstSnippet.thumbnail = [UIImage imageNamed:@"cat.jpg"];
-    firstSnippet.title = @"Trip to new york!";
-    firstSnippet.city = @"New york";
-    firstSnippet.keywords = @"Good, central park";
-    firstSnippet.userName = @"Jianhao Li";
-    firstSnippet.likeNum = 100;
-    self.snippets = @[firstSnippet];
+//    Snippet * firstSnippet = [[Snippet alloc]  init];
+//    firstSnippet.thumbnail = [UIImage imageNamed:@"cat.jpg"];
+//    firstSnippet.title = @"Trip to new york!";
+//    firstSnippet.city = @"New york";
+//    firstSnippet.keywords = @"Good, central park";
+//    firstSnippet.userName = @"Jianhao Li";
+//    firstSnippet.likeNum = 100;
+    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:nil];
     
     
 }
@@ -64,7 +67,7 @@
     Snippet * snippet = [self.snippets objectAtIndex: indexPath.row];
     [cell.titleLabel setText:snippet.title];
     [cell.cityLabel setText:snippet.city];
-    [cell.keyWordsLabel setText:snippet.city];
+    [cell.keywordsLabel setText:snippet.city];
     [cell.userNameLabel setText:snippet.userName];
     [cell.likesLabel setText:[NSString stringWithFormat:@"%ld ♥️", snippet.likeNum]];
     
@@ -79,6 +82,25 @@
     cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor]]];
     cell.rightSwipeSettings.transition = MGSwipeTransition3D;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"DetailSegue" sender:indexPath];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"DetailSegue"] && [sender isKindOfClass:[NSIndexPath class]]) {
+        NSInteger index = [sender row];
+        Snippet *snippet = self.snippets[index];
+        
+        //Should get Route by index.
+        Route* route = [[DataAccessManager getInstance] getRouteWithRouteId:snippet.routeId];
+        
+        
+        DiaryDetailViewController * diaryDetailViewController = segue.destinationViewController;
+        diaryDetailViewController.route = route;
+    }
 }
 
 @end

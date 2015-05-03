@@ -18,6 +18,7 @@
 
 - (void)setUp {
     [super setUp];
+    
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -30,7 +31,6 @@
     DataAccessManager * dam = [DataAccessManager getInstance];
     XCTAssertEqual([dam.Users count], 0);
     XCTAssertEqual([dam.Routes count], 0);
-    XCTAssertEqual([dam.Snippets count], 0);
     [dam addUser:@"user_1"];
     XCTAssertEqual([dam.Users count], 1);
     [dam addUser:@"user_1"];
