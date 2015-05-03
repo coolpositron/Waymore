@@ -79,8 +79,8 @@
     }
     if (sender == self.finishButton) {
         Route * route = [[Route alloc] init];
-        route.keyPoints = self.mapViewController.keyPoints;
-        route.mapPoints = self.mapViewController.mapPoints;
+        route.keyPoints = [self.mapViewController.keyPoints copy];
+        route.mapPoints = [self.mapViewController.mapPoints copy];
         route.title = @"CU";
         route.keywords = @"good";
         self.finishedRoute = route;
@@ -96,5 +96,9 @@
     self.startButton.hidden = false;
     self.finishButton.hidden = true;
 }
+
+- (IBAction) backFromEditViewControllerSave:(UIStoryboardSegue *)segue {
+}
+
 
 @end

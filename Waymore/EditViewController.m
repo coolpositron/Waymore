@@ -8,6 +8,7 @@
 
 #import "EditViewController.h"
 #import "DisplayMapViewController.h"
+#import "DataAccessManager.h"
 
 @interface EditViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
@@ -37,6 +38,15 @@
         self.mapViewController = segue.destinationViewController;
         [self updateMap];
     }
+    if ([segueName isEqualToString:@"EditSaveUnwind"]) {
+        DataAccessManager *dataAccessManager = [DataAccessManager getInstance];
+        self.route.title = self.titleTextField.text;
+        self.route.keywords = self.keywordTextField.text;
+        self.route.keyPoints = [self.mapViewController.keyPoints copy];
+        self.route.mapPoints = [self.mapViewController.mapPoints copy];
+        [dataAccessManager putLocalRoute:self.route];
+        [dataAccessManager uploadRoute:self.route];
+    }
 }
 
 - (void) updateMap {
@@ -46,5 +56,6 @@
     if(self.route.mapPoints != nil)
         self.mapViewController.mapPoints = [[NSMutableArray alloc] initWithArray:self.route.mapPoints];
 }
+
 
 @end

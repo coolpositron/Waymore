@@ -93,6 +93,8 @@
                 [leftButton setImage:keyPoint.photo forState:UIControlStateNormal];
                 leftButton.tag = LEFT;
                 pinView.leftCalloutAccessoryView = leftButton;
+            } else {
+                pinView.leftCalloutAccessoryView = nil;
             }
             
             
@@ -169,6 +171,7 @@
             NSLog(@"Create new");
             NSLog(annotationSettingViewController.outputKeyPoint.title);
             [self.mapView addAnnotation:annotationSettingViewController.outputKeyPoint];
+            [self.keyPoints addObject:annotationSettingViewController.outputKeyPoint];
         } else {
             annotationSettingViewController.inputKeyPoint.title = annotationSettingViewController.outputKeyPoint.title;
             annotationSettingViewController.inputKeyPoint.content = annotationSettingViewController.outputKeyPoint.content;
