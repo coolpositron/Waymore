@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *keywordTextField;
 @property (weak, nonatomic) DisplayMapViewController * mapViewController;
+@property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 
 @end
 
@@ -28,6 +29,7 @@
 - (void) viewDidLoad {
     self.titleTextField.text = self.route.title;
     self.keywordTextField.text = self.route.keywords;
+    self.cityTextField.text = self.route.city;
     [self updateMap];
 }
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -42,6 +44,7 @@
         DataAccessManager *dataAccessManager = [DataAccessManager getInstance];
         self.route.title = self.titleTextField.text;
         self.route.keywords = self.keywordTextField.text;
+        self.route.city = self.cityTextField.text;
         self.route.keyPoints = [self.mapViewController.keyPoints copy];
         self.route.mapPoints = [self.mapViewController.mapPoints copy];
         [dataAccessManager putLocalRoute:self.route];
@@ -55,6 +58,7 @@
         self.mapViewController.keyPoints = [[NSMutableArray alloc] initWithArray:self.route.keyPoints];
     if(self.route.mapPoints != nil)
         self.mapViewController.mapPoints = [[NSMutableArray alloc] initWithArray:self.route.mapPoints];
+    self.mapViewController.isFocusOnRoute = true;
 }
 
 

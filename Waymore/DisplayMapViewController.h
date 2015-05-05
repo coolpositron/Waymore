@@ -15,7 +15,9 @@
 - (void) startTracking;
 - (void) stopTracking;
 - (void) clear;
+- (void) focusOnUser;
 @property (strong, nonatomic) NSMutableArray *keyPoints;
 @property (strong, nonatomic) NSMutableArray *mapPoints;
+@property (assign, nonatomic) BOOL isFocusOnRoute;
 
 @end

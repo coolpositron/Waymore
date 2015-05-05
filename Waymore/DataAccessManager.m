@@ -42,6 +42,7 @@
     route.mapPoints = @[];
     route.userIdsWhoLike = @[];
     route.userIdsWhoLike = @[];
+    route.comments = @[];
     route.userIdWhoCreates = @"user_id_1";
     
     [self putLocalRoute:route];

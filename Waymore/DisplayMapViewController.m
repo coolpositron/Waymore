@@ -26,6 +26,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CrumbPath *crumbs;
 @property (nonatomic, strong) CrumbPathRenderer *crumbPathRenderer;
+@property (nonatomic, strong) MKUserLocation * latestUserLocation;
 
 @end
 
@@ -389,8 +390,28 @@
     if(self.crumbs != nil) {
         [self.mapView addOverlay:self.crumbs level:MKOverlayLevelAboveRoads];
     }
+    if (self.isFocusOnRoute) {
+        self.mapView.visibleMapRect = [self.mapView mapRectThatFits:self.crumbs.boundingMapRect];
+    }
 }
 
+- (void) focusOnUser {
+    MKUserLocation * aUserLocation = self.latestUserLocation;
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.005;
+    span.longitudeDelta = 0.005;
+    CLLocationCoordinate2D location;
+    location.latitude = aUserLocation.coordinate.latitude;
+    location.longitude = aUserLocation.coordinate.longitude;
+    region.span = span;
+    region.center = location;
+    [self.mapView setRegion:region animated:YES];
+}
+
+- (void)mapView:(MKMapView *)aMapView didUpdateUserLocation:(MKUserLocation *)aUserLocation {
+    self.latestUserLocation = aUserLocation;
+}
 /*
 #pragma mark - Navigation
 

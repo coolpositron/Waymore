@@ -9,6 +9,7 @@
 #import "DiaryDetailViewController.h"
 #import "DisplayMapViewController.h"
 #import "EditViewController.h"
+#import "CommentViewController.h"
 
 @interface DiaryDetailViewController ()
 
@@ -38,6 +39,10 @@
         EditViewController * editViewController = segue.destinationViewController;
         editViewController.route = self.route;
     }
+    if ([segueName isEqualToString:@"CommentSegue"]) {
+        CommentViewController * commentViewController = segue.destinationViewController;
+        commentViewController.route = self.route;
+    }
 }
 
 - (void) updateView {
@@ -53,8 +58,8 @@
     self.mapViewController.keyPoints = [[NSMutableArray alloc] initWithArray:self.route.keyPoints];
     if(self.route.mapPoints != nil)
         self.mapViewController.mapPoints = [[NSMutableArray alloc] initWithArray:self.route.mapPoints];
+    self.mapViewController.isFocusOnRoute = true;
 }
-
 - (IBAction) backFromEditViewControllerSave:(UIStoryboardSegue *)segue {
     EditViewController * editViewController = segue.destinationViewController;
     self.route = editViewController.route;
