@@ -136,21 +136,23 @@
 
 - (NSString *) putLocalRoute: (Route *) route {
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-    NSString * routeId = [NSString stringWithFormat:@"route_%@+%f", route.userIdWhoCreates, now];
     if (!route.routeId)
-        route.routeId = routeId;
+        route.routeId = [NSString stringWithFormat:@"route_%@+%f", route.userIdWhoCreates, now];;
+    Route * cur = [self getLocalRouteWithRouteId:route.routeId];
+    if (cur) {
+        [self.Routes removeObject:cur];
+    }
     [self.LocalRoutes addObject:route];
-    return routeId;
+    return route.routeId;
 }
 
 - (BOOL) uploadRoute: (Route *) route {
     Route * cur = [self getRouteWithRouteId:route.routeId];
     [self.LocalRoutes removeObject: route];
     if (cur) {
-        cur = route;
-    } else {
-        [self.Routes addObject:route];
+        [self.Routes removeObject:cur];
     }
+    [self.Routes addObject:route];
     return TRUE;
 }
 
