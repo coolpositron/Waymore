@@ -251,8 +251,10 @@
     }
     return FALSE;
 }
-- (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId {
-    Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId withUserId:userId];
+- (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId{
+    NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId withUserName:userName];
     Route * curRoute = nil;
     for (int i = 0; i < [self.Routes count]; i++) {
         curRoute = self.Routes[i];
