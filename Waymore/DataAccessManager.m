@@ -40,10 +40,10 @@
     route.city = @"New York";
     route.keywords = @"Columbia!, Good!";
     route.mapPoints = @[];
-    route.userIdsWhoLike = @[];
-    route.userIdsWhoLike = @[];
+    route.userIdsWhoLike = @[@"user_id_2"];
     route.comments = @[];
     route.userIdWhoCreates = @"user_id_1";
+    route.sharedFlag = false;
     
     [self putLocalRoute:route];
     [self uploadRoute:route];
@@ -254,7 +254,7 @@
 - (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId{
     NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId withUserName:userName];
+    Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId];
     Route * curRoute = nil;
     for (int i = 0; i < [self.Routes count]; i++) {
         curRoute = self.Routes[i];

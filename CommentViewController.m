@@ -41,7 +41,7 @@
     Comment * comment = [self.route.comments objectAtIndex:indexPath.row];
     cell.contentLabel.text = comment.content;
     //Need the user name!
-    cell.nameLabel.text = comment.userWhoCreates;
+    cell.nameLabel.text = comment.userNameWhoCreates;
     cell.dateLabel.text = @"date, needed";
     return cell;
 }
@@ -61,13 +61,13 @@
         DataAccessManager *dam = [DataAccessManager getInstance];
         Comment *newComment = [[Comment alloc] init];
         newComment.content = commentTextField.text;
-        newComment.userWhoCreates = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+        newComment.userNameWhoCreates = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
         //Need to add date
         NSMutableArray *comments = [[NSMutableArray alloc] init];
         [comments addObject:newComment];
         [comments addObjectsFromArray:self.route.comments];
         self.route.comments = [comments copy];
-        [dam addComment:commentTextField.text withRouteId:self.route.routeId withUserId:[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"]];
+        [dam addComment:commentTextField.text withRouteId:self.route.routeId];
     }
     [self.tableView reloadData];
 }
