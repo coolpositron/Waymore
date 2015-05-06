@@ -30,18 +30,18 @@
 - (void)testAdduser {
     DataAccessManager * dam = [DataAccessManager getInstance];
     NSUInteger count = [dam.Users count];
-    [dam addUser:@"user_1"];
+    [dam addUserWithUserId:@"user_1" withUserName:@"John"];
     XCTAssertEqual([dam.Users count], count+1);
-    [dam addUser:@"user_1"];
+    [dam addUserWithUserId:@"user_1" withUserName:@"John"];
     XCTAssertEqual([dam.Users count], count+1);
-    [dam addUser:@"user_2"];
+    [dam addUserWithUserId:@"user_2" withUserName:@"John"];
     XCTAssertEqual([dam.Users count], count+2);
 }
 
 - (void)testGetUserWithUserId {
     DataAccessManager * dam = [DataAccessManager getInstance];
-    [dam addUser:@"user_1"];
-    [dam addUser:@"user_2"];
+    [dam addUserWithUserId:@"user_1" withUserName:@"UserName_1"];
+    [dam addUserWithUserId:@"user_2" withUserName:@"UserName_2"];
     XCTAssertEqualObjects([dam getUserWithUserId:@"user_1"].userName, @"UserName_1");
     XCTAssertEqualObjects([dam getUserWithUserId:@"user_2"].userName, @"UserName_2");
 }
@@ -85,8 +85,8 @@
 
 - (void)testGetRoutesWithUserId {
     DataAccessManager * dam = [DataAccessManager getInstance];
-    [dam addUser:@"user_1"];
-    [dam addUser:@"user_2"];
+    [dam addUserWithUserId:@"user_1" withUserName:@"John"];
+    [dam addUserWithUserId:@"user_2" withUserName:@"John"];
     Route * dummyRoute = [[Route alloc] init];
     if (dummyRoute) {
         dummyRoute.title = @"Test1";
@@ -115,7 +115,7 @@
 
 - (void)testSetLike {
     DataAccessManager * dam = [DataAccessManager getInstance];
-    [dam addUser:@"user_1"];
+    [dam addUserWithUserId:@"user_1" withUserName:@"John"];
     Route * dummyRoute = [[Route alloc] init];
     if (dummyRoute) {
         dummyRoute.title = @"Test1";

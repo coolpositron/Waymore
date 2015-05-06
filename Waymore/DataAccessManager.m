@@ -273,4 +273,30 @@
     }
     return nil;
 }
+
+- (BOOL) networkTest {
+    NSMutableData * receivedData = nil;
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
+                                    initWithURL:[NSURL
+                                                 URLWithString:@"http://localhost:8080/WaymoreServer/"]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"text/json"
+    forHTTPHeaderField:@"Content-type"];
+    [request setValue:@"addUser" forHTTPHeaderField:@"requestType"];
+    
+    NSString * jsonString = @"{\"userId\":\"user_1\n, \"userName\":\"John\"}";
+    
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonString length]]
+    forHTTPHeaderField:@"Content-length"];
+    
+    [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection * testConn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (!testConn) {
+        receivedData = nil;
+        NSLog(@"Faild.");
+    }
+    
+    return true;
+}
 @end
