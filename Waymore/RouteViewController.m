@@ -42,11 +42,11 @@
         //    zoomLocation.longitude= -76.580806;
         //    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 1000, 1000);
         //    [self.mapView setRegion:viewRegion animated:YES];
-        CLLocationCoordinate2D eventLocation;
-        eventLocation.latitude = 39.281516;
-        eventLocation.longitude= -76.580806;
-        KeyPoint *keyPoint = [[KeyPoint alloc] initWithTitle: @"Net Cat" withContent: @"Cat downloaded from the Internet" withLatitude:eventLocation.latitude withLongitude:eventLocation.longitude withPhoto:[UIImage imageNamed:@"cat.jpg"]];
-        self.mapViewController.keyPoints = @[keyPoint];
+//        CLLocationCoordinate2D eventLocation;
+//        eventLocation.latitude = 39.281516;
+//        eventLocation.longitude= -76.580806;
+//        KeyPoint *keyPoint = [[KeyPoint alloc] initWithTitle: @"Net Cat" withContent: @"Cat downloaded from the Internet" withLatitude:eventLocation.latitude withLongitude:eventLocation.longitude withPhoto:[UIImage imageNamed:@"cat.jpg"]];
+//        self.mapViewController.keyPoints = @[keyPoint];
         //self.mapViewController.routePoints = @[routePoint1, routePoint2, routePoint3];
     }
     if ([segueName isEqualToString:@"FinishSegue"]) {
@@ -79,10 +79,11 @@
     }
     if (sender == self.finishButton) {
         Route * route = [[Route alloc] init];
-        route.keyPoints = self.mapViewController.keyPoints;
-        route.mapPoints = self.mapViewController.mapPoints;
-        route.title = @"CU";
-        route.keywords = @"good";
+        route.keyPoints = [self.mapViewController.keyPoints copy];
+        route.mapPoints = [self.mapViewController.mapPoints copy];
+        route.title = @"Title";
+        route.keywords = @"keywords";
+        route.userIdWhoCreates = [[NSUserDefaults standardUserDefaults] valueForKey:@"userId"];
         self.finishedRoute = route;
         [self.mapViewController clear];
         [self resumeToInitialState];
@@ -96,5 +97,14 @@
     self.startButton.hidden = false;
     self.finishButton.hidden = true;
 }
+
+- (IBAction) backFromEditViewControllerSave:(UIStoryboardSegue *)segue {
+}
+
+- (IBAction)focusOnUserTapped:(UIButton *)sender {
+    [self.mapViewController focusOnUser];
+}
+
+
 
 @end

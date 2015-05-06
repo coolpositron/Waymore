@@ -26,6 +26,8 @@
 		2D6C52161AF2CC1F002D9BBD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D6C52141AF2CC1F002D9BBD /* LaunchScreen.xib */; };
 		2D6C52221AF2CC1F002D9BBD /* WaymoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C52211AF2CC1F002D9BBD /* WaymoreTests.m */; };
 		2D6C522C1AF2CF2D002D9BBD /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C522B1AF2CF2D002D9BBD /* Model.xcdatamodel */; };
+		2D70F6CE1AF91077001B30DC /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D70F6CD1AF91077001B30DC /* CommentViewController.m */; };
+		2D70F6D11AF911CE001B30DC /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D70F6D01AF911CE001B30DC /* CommentCell.m */; };
 		2DA9A99A1AF4099B006F78DA /* DiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9A9991AF4099B006F78DA /* DiaryViewController.m */; };
 		2DA9A99F1AF40E00006F78DA /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9A99C1AF40E00006F78DA /* MGSwipeButton.m */; };
 		2DA9A9A01AF40E00006F78DA /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9A99E1AF40E00006F78DA /* MGSwipeTableCell.m */; };
@@ -93,6 +95,10 @@
 		2D6C52201AF2CC1F002D9BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D6C52211AF2CC1F002D9BBD /* WaymoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaymoreTests.m; sourceTree = "<group>"; };
 		2D6C522B1AF2CF2D002D9BBD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		2D70F6CC1AF91077001B30DC /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentViewController.h; path = ../CommentViewController.h; sourceTree = "<group>"; };
+		2D70F6CD1AF91077001B30DC /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentViewController.m; path = ../CommentViewController.m; sourceTree = "<group>"; };
+		2D70F6CF1AF911CE001B30DC /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		2D70F6D01AF911CE001B30DC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		2DA9A9981AF4099B006F78DA /* DiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryViewController.h; sourceTree = "<group>"; };
 		2DA9A9991AF4099B006F78DA /* DiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryViewController.m; sourceTree = "<group>"; };
 		2DA9A99B1AF40E00006F78DA /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
@@ -198,11 +204,15 @@
 				2DA9A9A11AF40E0D006F78DA /* SwipeTableCell */,
 				9E45279C1AF2D02600723934 /* Model */,
 				2D6C522B1AF2CF2D002D9BBD /* Model.xcdatamodel */,
+				2D70F6CC1AF91077001B30DC /* CommentViewController.h */,
+				2D70F6CD1AF91077001B30DC /* CommentViewController.m */,
 				2D6C52091AF2CC1F002D9BBD /* AppDelegate.h */,
 				2D6C520A1AF2CC1F002D9BBD /* AppDelegate.m */,
 				2D6C520C1AF2CC1F002D9BBD /* ViewController.h */,
 				2D6C520D1AF2CC1F002D9BBD /* ViewController.m */,
 				2D6C520F1AF2CC1F002D9BBD /* Main.storyboard */,
+				2D70F6CF1AF911CE001B30DC /* CommentCell.h */,
+				2D70F6D01AF911CE001B30DC /* CommentCell.m */,
 				2D337EFA1AF5716800CA949A /* EditViewController.h */,
 				2D337EFB1AF5716800CA949A /* EditViewController.m */,
 				2D337EF71AF550C400CA949A /* DiaryDetailViewController.h */,
@@ -430,6 +440,7 @@
 				9E4527951AF2D01700723934 /* Comment.m in Sources */,
 				9E4527A21AF2D1DE00723934 /* SnippetFilter.m in Sources */,
 				2D4A81B71AF3030E0079A54F /* CrumbPath.m in Sources */,
+				2D70F6CE1AF91077001B30DC /* CommentViewController.m in Sources */,
 				2DA9A9A01AF40E00006F78DA /* MGSwipeTableCell.m in Sources */,
 				9E45279F1AF2D11800723934 /* DataAccessManager.m in Sources */,
 				2D6C520E1AF2CC1F002D9BBD /* ViewController.m in Sources */,
@@ -444,6 +455,7 @@
 				9E4527981AF2D01700723934 /* MapPoint.m in Sources */,
 				2D4A81B81AF3030E0079A54F /* CrumbPathRenderer.m in Sources */,
 				2D4A81C41AF30CCF0079A54F /* RouteViewController.m in Sources */,
+				2D70F6D11AF911CE001B30DC /* CommentCell.m in Sources */,
 				2D337EF91AF550C400CA949A /* DiaryDetailViewController.m in Sources */,
 				2D6C52081AF2CC1F002D9BBD /* main.m in Sources */,
 				2D4A81B91AF3030E0079A54F /* ImageScrollViewController.m in Sources */,

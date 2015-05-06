@@ -32,7 +32,6 @@
         self.Users = [[NSMutableArray alloc] init];
         self.Routes = [[NSMutableArray alloc] init];
         self.LocalRoutes = [[NSMutableArray alloc] init];
-        self.LocalSnippets = [[NSMutableArray alloc] init];
     }
     
     KeyPoint *keyPoint = [[KeyPoint alloc] initWithTitle: @"Net Cat" withContent: @"Cat downloaded from the Internet" withLatitude:39.281516 withLongitude:-76.580806 withPhoto:[UIImage imageNamed:@"cat.jpg"]];
@@ -41,9 +40,10 @@
     route.city = @"New York";
     route.keywords = @"Columbia!, Good!";
     route.mapPoints = @[];
-    route.userIdsWhoLike = @[];
-    route.userIdsWhoLike = @[];
+    route.userIdsWhoLike = @[@"user_id_2"];
+    route.comments = @[];
     route.userIdWhoCreates = @"user_id_1";
+    route.sharedFlag = false;
     
     [self putLocalRoute:route];
     [self uploadRoute:route];
@@ -254,7 +254,7 @@
 - (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId{
     NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId withUserName:userName];
+    Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId];
     Route * curRoute = nil;
     for (int i = 0; i < [self.Routes count]; i++) {
         curRoute = self.Routes[i];

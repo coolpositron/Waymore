@@ -33,6 +33,6 @@
 - (BOOL) setShareSetting: (NSString *) routeId isShare: (BOOL) flag;
 - (BOOL) deleteRouteWithRouteId: (NSString *) routeId;
 - (BOOL) setLike: (NSString *) routeId withUserId: (NSString *) userId isLike: (BOOL) flag;
-- (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId withUserId: (NSString *) userId;
+- (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId;
 
 @end

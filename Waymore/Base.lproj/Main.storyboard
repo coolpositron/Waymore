@@ -167,7 +167,7 @@
                                 </state>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cAO-8e-dez">
-                                <rect key="frame" x="0.0" y="130" width="375" height="442"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="436"/>
                                 <connections>
                                     <segue destination="V5r-fY-0hO" kind="embed" identifier="MapSegue" id="JqX-4m-Lzb"/>
                                 </connections>
@@ -178,7 +178,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ehH-RD-E4T" kind="show" identifier="mapSegue" id="MeB-94-N1Y"/>
+                                    <segue destination="ehH-RD-E4T" kind="show" identifier="CommentSegue" id="MeB-94-N1Y"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="xxx likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKu-x4-nm2">
@@ -193,7 +193,7 @@
                     <navigationItem key="navigationItem" title="Waymore" id="yat-Tz-L6g">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="1Li-n3-u12">
                             <connections>
-                                <segue destination="Fjf-Af-wB8" kind="show" id="wMY-Ai-2LZ"/>
+                                <segue destination="Fjf-Af-wB8" kind="show" identifier="EditSegue" id="wMY-Ai-2LZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -225,12 +225,17 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Keywords" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wG8-qs-i72">
+                                <rect key="frame" x="16" y="148" width="343" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="City" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eLy-aD-QeE">
                                 <rect key="frame" x="16" y="110" width="343" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDZ-bv-rX2">
-                                <rect key="frame" x="0.0" y="148" width="375" height="429"/>
+                                <rect key="frame" x="0.0" y="186" width="375" height="429"/>
                                 <connections>
                                     <segue destination="V5r-fY-0hO" kind="embed" identifier="MapSegue" id="pNy-0s-emv"/>
                                 </connections>
@@ -239,38 +244,76 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit" id="dDz-En-bbr">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="W7i-Tz-Rzc"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="W7i-Tz-Rzc">
+                            <connections>
+                                <segue destination="up2-Ck-fZ7" kind="unwind" identifier="EditSaveUnwind" unwindAction="backFromEditViewControllerSave:" id="mGe-i4-EkC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cityTextField" destination="eLy-aD-QeE" id="LG4-EA-535"/>
                         <outlet property="keywordTextField" destination="wG8-qs-i72" id="e1n-X6-or0"/>
                         <outlet property="titleTextField" destination="YFO-Fy-VnN" id="bOV-e2-Gmw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FI7-Ri-PNw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="up2-Ck-fZ7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4385.5" y="210.5"/>
+            <point key="canvasLocation" x="4377.5" y="210.5"/>
         </scene>
-        <!--Table View Controller-->
+        <!--comments-->
         <scene sceneID="WCn-9h-heZ">
             <objects>
-                <tableViewController id="ehH-RD-E4T" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fT2-VF-LXE">
+                <tableViewController id="ehH-RD-E4T" customClass="CommentViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" id="fT2-VF-LXE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="QRY-UC-bh6">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCellIdentifier" rowHeight="74" id="QRY-UC-bh6" customClass="CommentCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QRY-UC-bh6" id="avd-Ge-1V0">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Content" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QO-Ox-BxD">
+                                            <rect key="frame" x="77" y="8" width="290" height="51"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olw-Oi-mGA">
+                                            <rect key="frame" x="8" y="8" width="61" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxN-kz-c6y">
+                                            <rect key="frame" x="8" y="37" width="61" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="contentLabel" destination="0QO-Ox-BxD" id="jja-Kp-fDz"/>
+                                    <outlet property="dateLabel" destination="nxN-kz-c6y" id="HbN-LE-szz"/>
+                                    <outlet property="nameLabel" destination="olw-Oi-mGA" id="M7F-hJ-CWu"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="ehH-RD-E4T" id="LhF-W5-n3P"/>
-                            <outlet property="delegate" destination="ehH-RD-E4T" id="wsN-Rq-VgW"/>
+                            <outlet property="dataSource" destination="ehH-RD-E4T" id="cVj-5m-600"/>
+                            <outlet property="delegate" destination="ehH-RD-E4T" id="2a7-0c-xln"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="comments" id="VhA-x3-DrB">
+                        <barButtonItem key="rightBarButtonItem" title="comment" id="TXA-kS-cq3">
+                            <connections>
+                                <action selector="commentTapped:" destination="ehH-RD-E4T" id="pgN-2x-5fy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3E-lf-xQF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -488,6 +531,15 @@
                                     <segue destination="Fjf-Af-wB8" kind="show" identifier="FinishSegue" id="fwj-2l-X5p"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hi-Wk-tyQ">
+                                <rect key="frame" x="313" y="503" width="32" height="30"/>
+                                <state key="normal" title="User">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="focusOnUserTapped:" destination="c4A-OE-VQg" eventType="touchUpInside" id="9LO-uE-MZs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -531,7 +583,7 @@
                         <viewControllerLayoutGuide type="bottom" id="cIl-LN-fzn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="65b-eQ-MjD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="494"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="436"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Iwy-5V-Plm">
@@ -568,11 +620,11 @@
                         <viewControllerLayoutGuide type="bottom" id="a7J-vT-yHs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="M1S-Jo-3ci">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="494"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="436"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-4a-SHR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="494"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="436"/>
                                 <connections>
                                     <outlet property="delegate" destination="pfV-6E-cCt" id="11v-Pq-0g3"/>
                                 </connections>
@@ -683,8 +735,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="JqX-4m-Lzb"/>
         <segue reference="6kf-qH-Run"/>
-        <segue reference="fwj-2l-X5p"/>
-        <segue reference="8QS-Z5-ysf"/>
+        <segue reference="wMY-Ai-2LZ"/>
     </inferredMetricsTieBreakers>
 </document>
