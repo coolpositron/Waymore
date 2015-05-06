@@ -9,6 +9,7 @@
 #import "DiaryDetailViewController.h"
 #import "DisplayMapViewController.h"
 #import "EditViewController.h"
+#import "DataAccessManager.h"
 #import "CommentViewController.h"
 
 @interface DiaryDetailViewController ()
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *keywordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 @property (weak, nonatomic) DisplayMapViewController * mapViewController;
+@property (weak, nonatomic) IBOutlet UIButton *shareUnshareButton;
 
 @end
 
@@ -50,6 +52,11 @@
     self.keywordLabel.text = self.route.keywords;
     self.likesLabel.text = [NSString stringWithFormat:@"%ld ♥️", [self.route.userIdsWhoLike count]];
     [self updateMap];
+    [self updateShareUnshareButton];
+}
+
+- (void) updateShareUnshareButton {
+    [self.shareUnshareButton setTitle:(self.route.sharedFlag ? @"Unshare" : @"Share") forState:UIControlStateNormal];
 }
 
 - (void) updateMap {
@@ -64,6 +71,20 @@
     EditViewController * editViewController = segue.destinationViewController;
     self.route = editViewController.route;
     [self updateView];
+}
+
+- (IBAction)shareUnshareTapped:(UIButton *)sender {
+    DataAccessManager *dam = [DataAccessManager getInstance];
+    if (self.route.sharedFlag) {
+        if ([dam setShareSetting:self.route.routeId isShare:false]) {
+            self.route.sharedFlag = false;
+        }
+    } else {
+        if ([dam setShareSetting:self.route.routeId isShare:true]) {
+            self.route.sharedFlag = true;
+        }
+    }
+    [self updateShareUnshareButton];
 }
 
 @end
