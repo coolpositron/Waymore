@@ -15,11 +15,12 @@
 #import "KeyPoint.h"
 #import "DataAccessManager.h"
 #import "WaymoreUser.h"
+#import "SnippetFilter.h"
 
 @interface DiaryViewController ()
 
 @property (strong, nonatomic) NSArray* snippets;
-
+@property (strong, nonatomic) SnippetFilter *filter;
 @end
 
 @implementation DiaryViewController
@@ -27,17 +28,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Initialize table data
-//    Snippet * firstSnippet = [[Snippet alloc]  init];
-//    firstSnippet.thumbnail = [UIImage imageNamed:@"cat.jpg"];
-//    firstSnippet.title = @"Trip to new york!";
-//    firstSnippet.city = @"New york";
-//    firstSnippet.keywords = @"Good, central park";
-//    firstSnippet.userName = @"Jianhao Li";
-//    firstSnippet.likeNum = 100;
-    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:nil];
-    
-    
+    self.filter = [[SnippetFilter alloc] init];
+    self.filter.userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:self.filter];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -102,7 +95,18 @@
     cell.leftSwipeSettings.transition = MGSwipeTransition3D;
     
     //configure right buttons
-    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor]]];
+    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell *sender) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        Snippet *snippet = [self.snippets objectAtIndex:indexPath.row];
+        DataAccessManager *dam = [DataAccessManager getInstance];
+        //Local route and remote route deletion should be different!
+        //Modify later
+        if ([dam deleteRouteWithRouteId:snippet.routeId]) {
+            self.snippets = [dam getSnippetWithFilter:self.filter];
+        }
+        [self.tableView reloadData];
+        return true;
+    }]];
     cell.rightSwipeSettings.transition = MGSwipeTransition3D;
     return cell;
 }

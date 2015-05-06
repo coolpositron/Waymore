@@ -43,7 +43,9 @@
     }
     
     [self.mapView setDelegate: self];
-    self.mapView.showsUserLocation = YES;
+    if (self.isShowUserLocation) {
+        self.mapView.showsUserLocation = YES;
+    }
     [self updateMapView];
     
 }
@@ -98,14 +100,15 @@
                 pinView.leftCalloutAccessoryView = nil;
             }
             
-            
-            UIButton *disclosureButton = [[UIButton alloc] init];
-            disclosureButton.frame = CGRectMake(0, 0, 46, 46);
-            [disclosureButton setTitle:@"Edit" forState:UIControlStateNormal];
-            [disclosureButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
-            //[disclosureButton setImage:[UIImage imageNamed:@"cat.jpg"] forState:UIControlStateNormal];
-            disclosureButton.tag = RIGHT;
-            pinView.rightCalloutAccessoryView = disclosureButton;
+            if (self.isEditable) {
+                UIButton *disclosureButton = [[UIButton alloc] init];
+                disclosureButton.frame = CGRectMake(0, 0, 46, 46);
+                [disclosureButton setTitle:@"Edit" forState:UIControlStateNormal];
+                [disclosureButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+                //[disclosureButton setImage:[UIImage imageNamed:@"cat.jpg"] forState:UIControlStateNormal];
+                disclosureButton.tag = RIGHT;
+                pinView.rightCalloutAccessoryView = disclosureButton;
+            }
             
         }
         
@@ -157,6 +160,9 @@
 
 - (IBAction)longPressed:(UILongPressGestureRecognizer *)sender {
     // Here we get the CGPoint for the touch and convert it to latitude and longitude coordinates to display on the map
+    if(!self.isEditable) {
+        return;
+    }
     CGPoint point = [sender locationInView:self.mapView];
     CLLocationCoordinate2D location = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     NSLog(@"Location found from Map: %f %f",location.latitude,location.longitude);

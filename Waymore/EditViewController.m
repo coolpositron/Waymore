@@ -38,6 +38,7 @@
     if ([segueName isEqualToString: @"MapSegue"]) {
         NSLog(@"Get the handler of Map!");
         self.mapViewController = segue.destinationViewController;
+        self.mapViewController.isEditable = true;
         [self updateMap];
     }
     if ([segueName isEqualToString:@"EditSaveUnwind"]) {

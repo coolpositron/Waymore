@@ -28,6 +28,7 @@
 		2D6C522C1AF2CF2D002D9BBD /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C522B1AF2CF2D002D9BBD /* Model.xcdatamodel */; };
 		2D70F6CE1AF91077001B30DC /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D70F6CD1AF91077001B30DC /* CommentViewController.m */; };
 		2D70F6D11AF911CE001B30DC /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D70F6D01AF911CE001B30DC /* CommentCell.m */; };
+		2D70F6D41AF9AB8F001B30DC /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D70F6D31AF9AB8F001B30DC /* FilterViewController.m */; };
 		2DA9A99A1AF4099B006F78DA /* DiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9A9991AF4099B006F78DA /* DiaryViewController.m */; };
 		2DA9A99F1AF40E00006F78DA /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9A99C1AF40E00006F78DA /* MGSwipeButton.m */; };
 		2DA9A9A01AF40E00006F78DA /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA9A99E1AF40E00006F78DA /* MGSwipeTableCell.m */; };
@@ -99,6 +100,8 @@
 		2D70F6CD1AF91077001B30DC /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentViewController.m; path = ../CommentViewController.m; sourceTree = "<group>"; };
 		2D70F6CF1AF911CE001B30DC /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		2D70F6D01AF911CE001B30DC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		2D70F6D21AF9AB8F001B30DC /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		2D70F6D31AF9AB8F001B30DC /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		2DA9A9981AF4099B006F78DA /* DiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryViewController.h; sourceTree = "<group>"; };
 		2DA9A9991AF4099B006F78DA /* DiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryViewController.m; sourceTree = "<group>"; };
 		2DA9A99B1AF40E00006F78DA /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				2D6C520C1AF2CC1F002D9BBD /* ViewController.h */,
 				2D6C520D1AF2CC1F002D9BBD /* ViewController.m */,
 				2D6C520F1AF2CC1F002D9BBD /* Main.storyboard */,
+				2D70F6D21AF9AB8F001B30DC /* FilterViewController.h */,
+				2D70F6D31AF9AB8F001B30DC /* FilterViewController.m */,
 				2D70F6CF1AF911CE001B30DC /* CommentCell.h */,
 				2D70F6D01AF911CE001B30DC /* CommentCell.m */,
 				2D337EFA1AF5716800CA949A /* EditViewController.h */,
@@ -454,6 +459,7 @@
 				2D337EFC1AF5716800CA949A /* EditViewController.m in Sources */,
 				9E4527981AF2D01700723934 /* MapPoint.m in Sources */,
 				2D4A81B81AF3030E0079A54F /* CrumbPathRenderer.m in Sources */,
+				2D70F6D41AF9AB8F001B30DC /* FilterViewController.m in Sources */,
 				2D4A81C41AF30CCF0079A54F /* RouteViewController.m in Sources */,
 				2D70F6D11AF911CE001B30DC /* CommentCell.m in Sources */,
 				2D337EF91AF550C400CA949A /* DiaryDetailViewController.m in Sources */,

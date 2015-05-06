@@ -19,5 +19,7 @@
 @property (strong, nonatomic) NSMutableArray *keyPoints;
 @property (strong, nonatomic) NSMutableArray *mapPoints;
 @property (assign, nonatomic) BOOL isFocusOnRoute;
+@property (assign, nonatomic) BOOL isShowUserLocation;
+@property (assign, nonatomic) BOOL isEditable;
 
 @end
