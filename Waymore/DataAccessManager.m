@@ -77,16 +77,16 @@
     return dummyUser;
 }
 
-- (BOOL) addUser: (NSString *) userId {
-    //Should have some method that pass user name
-    for (int i = 0; i < [self.Users count]; i++) {
-        WaymoreUser * cur = self.Users[i];
-        if (cur.userId == userId)
-            return FALSE;
+- (BOOL) addUserWithUserId:(NSString *) userId withUserName:(NSString *) userName {
+    WaymoreUser * newUser = [self getUserWithUserId:userId];
+    if (!newUser) {
+        newUser = [[WaymoreUser alloc] init];
+        newUser.userId = userId;
+        newUser.userName = userName;
+        [self.Users addObject:newUser];
+        return TRUE;
     }
-    WaymoreUser * new = [self dummyUserWithId:userId];
-    [self.Users addObject:new];
-    return TRUE;
+    return FALSE;
 }
 
 - (WaymoreUser *) getUserWithUserId: (NSString *) userId {
