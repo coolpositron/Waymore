@@ -20,7 +20,7 @@
 
 + (id) getInstance;
 
-- (BOOL) addUser: (NSString *) userId;
+- (BOOL) addUserWithUserId:(NSString *) userId withUserName:(NSString *) userName;
 - (WaymoreUser *) getUserWithUserId: (NSString *) userId;
 - (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter;
 - (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter;

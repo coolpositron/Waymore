@@ -11,10 +11,11 @@
 
 
 @implementation Comment
-- (Comment *) initWithContent:(NSString *)content withRouteId:(NSString *)routeId {
-  if (self = [super init]) {
+- (Comment *) initWithContent:(NSString *)content withRouteId:(NSString *)routeId withUserName:(NSString *)userName {
+    if (self = [super init]) {
         self.content = content;
         self.routeAbout = routeId;
+        self.userNameWhoCreates = userName;
     }
     return self;
 }
