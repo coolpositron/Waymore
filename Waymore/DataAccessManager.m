@@ -85,6 +85,7 @@
         newUser = [[WaymoreUser alloc] init];
         newUser.userId = userId;
         newUser.userName = userName;
+        newUser.likedRouteIds = @[];
         [self.Users addObject:newUser];
         return TRUE;
     }

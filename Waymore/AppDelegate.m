@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "DataAccessManager.h"
 
 @interface AppDelegate ()
 
@@ -24,14 +25,14 @@
     {
         NSDictionary *appDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], dateKey, nil];
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"user1" forKey:@"userId"];
-        
+        [[NSUserDefaults standardUserDefaults] setObject:@"user_id_1" forKey:@"userId"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"user_name_1" forKey:@"userName"];
         // sync the defaults to disk
         [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:dateKey];
-    
+    [[DataAccessManager getInstance] addUserWithUserId:@"user1" withUserName: @"user_name_1"];
     return YES;
 }
 

@@ -14,6 +14,7 @@
 #import "DiaryDetailViewController.h"
 #import "KeyPoint.h"
 #import "DataAccessManager.h"
+#import "WaymoreUser.h"
 
 @interface DiaryViewController ()
 
@@ -80,7 +81,24 @@
     
     
     //configure left buttons
-    cell.leftButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"fav.png"] backgroundColor:[UIColor blueColor]]];
+    cell.leftButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"fav.png"] backgroundColor:[UIColor blueColor] callback:^BOOL(MGSwipeTableCell *sender) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        Snippet *snippet = [self.snippets objectAtIndex:indexPath.row];
+        DataAccessManager *dam = [DataAccessManager getInstance];
+        WaymoreUser *user = [dam getUserWithUserId:[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"]];
+        if ([user.likedRouteIds containsObject:snippet.routeId])
+        {
+            if ([dam setLike:snippet.routeId withUserId:user.userId isLike:false]) {
+                snippet.likeNum = snippet.likeNum - 1;
+            }
+        } else {
+            if ([dam setLike:snippet.routeId withUserId:user.userId isLike:true]) {
+                snippet.likeNum = snippet.likeNum + 1;
+            }
+        }
+        [self.tableView reloadData];
+        return true;
+    }]];
     cell.leftSwipeSettings.transition = MGSwipeTransition3D;
     
     //configure right buttons
