@@ -24,5 +24,6 @@
 @property (nonatomic, retain) NSArray *mapPoints;
 @property (nonatomic, retain) NSArray *userIdsWhoLike;
 @property (nonatomic, retain) NSString *userIdWhoCreates;
+@property (nonatomic, retain) NSString *userName;
 
 @end
