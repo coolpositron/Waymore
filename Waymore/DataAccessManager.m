@@ -37,12 +37,14 @@
     KeyPoint *keyPoint = [[KeyPoint alloc] initWithTitle: @"Net Cat" withContent: @"Cat downloaded from the Internet" withLatitude:39.281516 withLongitude:-76.580806 withPhoto:[UIImage imageNamed:@"cat.jpg"]];
     Route *route = [[Route alloc] init];
     route.keyPoints = @[keyPoint];
+    route.title = @"Columbia";
     route.city = @"New York";
     route.keywords = @"Columbia!, Good!";
     route.mapPoints = @[];
     route.userIdsWhoLike = @[@"user_id_2"];
     route.comments = @[];
     route.userIdWhoCreates = @"user_id_1";
+    route.userName = @"user_name_1";
     route.sharedFlag = false;
     
     [self putLocalRoute:route];
@@ -104,7 +106,7 @@
     for (Route *route in self.Routes) {
         Snippet *snippet = [[Snippet alloc] init];
         snippet.title = route.title;
-        snippet.userName = [[self getUserWithUserId:route.userIdWhoCreates] userName];
+        snippet.userName = route.userName;
         snippet.likeNum = [route.userIdsWhoLike count];
         snippet.city = route.city;
         snippet.routeId = route.routeId;
