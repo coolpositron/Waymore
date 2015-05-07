@@ -46,6 +46,7 @@
     route.userIdWhoCreates = @"user_id_1";
     route.userName = @"user_name_1";
     route.sharedFlag = false;
+    route.createdTime = [NSDate date];
     
     [self putLocalRoute:route];
     [self uploadRoute:route];
@@ -111,6 +112,7 @@
         snippet.city = route.city;
         snippet.routeId = route.routeId;
         snippet.keywords = route.keywords;
+        snippet.createdTime = route.createdTime;
         [snippets addObject:snippet];
         //A route should have a thumbnail
         //snippet.thumbnail = route.thumbnail;
@@ -269,6 +271,7 @@
         NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
         NSString * commentId = [NSString stringWithFormat:@"comment_%@+%@+%f", userId, routeId, now];
         newComment.commentId = commentId;
+        newComment.createdTime = [NSDate date];
         [newComments addObject: newComment];
         curRoute.comments = newComments;
         return commentId;

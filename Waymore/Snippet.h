@@ -17,4 +17,5 @@
 @property (nonatomic, strong) NSString * keywords;
 @property (nonatomic, assign) NSInteger likeNum;
 @property (nonatomic, strong) NSString * routeId;
+@property (nonatomic, retain) NSDate * createdTime;
 @end
