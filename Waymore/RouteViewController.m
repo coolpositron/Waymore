@@ -73,9 +73,11 @@
         route.mapPoints = [self.mapViewController.mapPoints copy];
         route.userIdsWhoLike = @[];
         route.comments = @[];
-        route.title = @"Title";
-        route.keywords = @"keywords";
+        route.title = @"";
+        route.keywords = @"";
+        route.city = @"";
         route.userIdWhoCreates = [[NSUserDefaults standardUserDefaults] valueForKey:@"userId"];
+        route.userName = [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"];
         self.finishedRoute = route;
         [self.mapViewController clear];
         [self resumeToInitialState];

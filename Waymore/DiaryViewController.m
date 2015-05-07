@@ -16,6 +16,7 @@
 #import "DataAccessManager.h"
 #import "WaymoreUser.h"
 #import "SnippetFilter.h"
+#import "FilterViewController.h"
 
 @interface DiaryViewController ()
 
@@ -128,6 +129,20 @@
         DiaryDetailViewController * diaryDetailViewController = segue.destinationViewController;
         diaryDetailViewController.route = route;
     }
+    if ([segue.identifier isEqualToString:@"FilterSegue"]) {
+        FilterViewController *filterViewController = segue.destinationViewController;
+        filterViewController.inputSnippetFilter = self.filter;
+        
+    }
+}
+
+- (IBAction) returnFromFilter:(UIStoryboardSegue*) sender {
+    FilterViewController* filterViewController = sender.sourceViewController;
+    self.filter.keywords = filterViewController.outputSnippetFilter.keywords;
+    self.filter.city = filterViewController.outputSnippetFilter.city;
+    self.filter.sortMethod = filterViewController.outputSnippetFilter.sortMethod;
+    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:nil];
+    [self.tableView reloadData];
 }
 
 @end

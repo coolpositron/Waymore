@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DataAccessManager.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSString *dateKey    = @"dateKey";
+    NSDate *lastRead    = (NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:dateKey];
+    if (lastRead == nil)     // App first run: set up user defaults.
+    {
+        NSDictionary *appDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], dateKey, nil];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"user_id_1" forKey:@"userId"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"user_name_1" forKey:@"userName"];
+        // sync the defaults to disk
+        [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:dateKey];
+    [[DataAccessManager getInstance] addUserWithUserId:@"user1" withUserName: @"user_name_1"];
+    
 }
 
 - (void)didReceiveMemoryWarning {

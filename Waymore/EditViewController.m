@@ -10,7 +10,7 @@
 #import "DisplayMapViewController.h"
 #import "DataAccessManager.h"
 
-@interface EditViewController ()
+@interface EditViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *keywordTextField;
 @property (weak, nonatomic) DisplayMapViewController * mapViewController;
@@ -62,5 +62,9 @@
     self.mapViewController.isFocusOnRoute = true;
 }
 
+-(BOOL) textFieldShouldReturn: (UITextField *) textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 
 @end

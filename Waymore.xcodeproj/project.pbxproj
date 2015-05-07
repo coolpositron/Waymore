@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D03A2F11AFC1E27008C999A /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D03A2F01AFC1E27008C999A /* AccountViewController.m */; };
 		2D337EF91AF550C400CA949A /* DiaryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D337EF81AF550C400CA949A /* DiaryDetailViewController.m */; };
 		2D337EFC1AF5716800CA949A /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D337EFB1AF5716800CA949A /* EditViewController.m */; };
 		2D4A81B51AF3030E0079A54F /* DisplayMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4A81A91AF3030E0079A54F /* DisplayMapViewController.m */; };
@@ -62,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D03A2EF1AFC1E27008C999A /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountViewController.h; path = ../AccountViewController.h; sourceTree = "<group>"; };
+		2D03A2F01AFC1E27008C999A /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountViewController.m; path = ../AccountViewController.m; sourceTree = "<group>"; };
 		2D337EF71AF550C400CA949A /* DiaryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryDetailViewController.h; sourceTree = "<group>"; };
 		2D337EF81AF550C400CA949A /* DiaryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryDetailViewController.m; sourceTree = "<group>"; };
 		2D337EFA1AF5716800CA949A /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				2D70F6CD1AF91077001B30DC /* CommentViewController.m */,
 				2D6C52091AF2CC1F002D9BBD /* AppDelegate.h */,
 				2D6C520A1AF2CC1F002D9BBD /* AppDelegate.m */,
+				2D03A2EF1AFC1E27008C999A /* AccountViewController.h */,
+				2D03A2F01AFC1E27008C999A /* AccountViewController.m */,
 				2D6C520C1AF2CC1F002D9BBD /* ViewController.h */,
 				2D6C520D1AF2CC1F002D9BBD /* ViewController.m */,
 				2D6C520F1AF2CC1F002D9BBD /* Main.storyboard */,
@@ -469,6 +474,7 @@
 				2D4A81BD1AF303E70079A54F /* KeyPoint+Annotation.m in Sources */,
 				2D4A81B61AF3030E0079A54F /* AnnotationSettingViewController.m in Sources */,
 				9E4527A51AF2D28700723934 /* Snippet.m in Sources */,
+				2D03A2F11AFC1E27008C999A /* AccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
