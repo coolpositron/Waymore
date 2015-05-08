@@ -12,10 +12,12 @@
 @implementation MapPoint
 
 - (MapPoint *) initWithLatitude:(double)latitude withLongitude:(double)longitude withTime:(NSDate *)time {
+    static long availableId = 0;
     if (self = [super init]) {
         self.latitude = latitude;
         self.longitude = longitude;
         self.time = time;
+        self.mapPointId = [NSString stringWithFormat:@"%ld", availableId++];
     }
     return self;
 }

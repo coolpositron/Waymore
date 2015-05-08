@@ -13,7 +13,8 @@
 
 @property (nonatomic, assign) double latitude;
 @property (nonatomic, assign) double longitude;
-@property (nonatomic, retain) NSDate *time;
+@property (nonatomic, retain) NSDate * time;
+@property (nonatomic, strong) NSString * mapPointId;
 
 - (MapPoint *) initWithLatitude: (double) latitude withLongitude: (double) longitude withTime:(NSDate *) time;
 
