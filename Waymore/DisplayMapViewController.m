@@ -70,8 +70,10 @@
             viewForAnnotation:(id <MKAnnotation>)annotation
 {
     // If the annotation is the user location, just return nil.
-    if ([annotation isKindOfClass:[MKUserLocation class]])
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        ((MKUserLocation *)annotation).title = @"";
         return nil;
+    }
     
     // Handle any custom annotations.
     if ([annotation isKindOfClass:[KeyPoint class]])
@@ -166,7 +168,7 @@
     CGPoint point = [sender locationInView:self.mapView];
     CLLocationCoordinate2D location = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     NSLog(@"Location found from Map: %f %f",location.latitude,location.longitude);
-    KeyPoint *newKeyPoint = [[KeyPoint alloc] initWithTitle:@"Title" withContent:@"Content" withLatitude:location.latitude withLongitude:location.longitude withPhoto:NULL];
+    KeyPoint *newKeyPoint = [[KeyPoint alloc] initWithTitle:@"" withContent:@"" withLatitude:location.latitude withLongitude:location.longitude withPhoto:NULL];
     [self performSegueWithIdentifier:@"EditSegue" sender:newKeyPoint];
 }
 
@@ -201,6 +203,7 @@
     }
     
 }
+
 
 - (void)startTracking {
     NSLog(@"start tracing");

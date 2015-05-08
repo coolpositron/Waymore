@@ -69,6 +69,10 @@
     [cell.cityLabel setText:snippet.city];
     [cell.keywordsLabel setText:snippet.keywords];
     [cell.userNameLabel setText:snippet.userName];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *dateString = [dateFormatter stringFromDate:snippet.createdTime];
+    [cell.createdTimeLabel setText:dateString];
     [cell.likesLabel setText:[NSString stringWithFormat:@"%ld ♥️", snippet.likeNum]];
     
 //    cell.delegate = self; //optional
