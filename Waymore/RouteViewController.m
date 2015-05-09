@@ -78,6 +78,7 @@
         route.city = @"";
         route.userIdWhoCreates = [[NSUserDefaults standardUserDefaults] valueForKey:@"userId"];
         route.userName = [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"];
+        route.createdTime = [NSDate date];
         self.finishedRoute = route;
         [self.mapViewController clear];
         [self resumeToInitialState];
