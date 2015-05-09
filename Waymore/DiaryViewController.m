@@ -30,7 +30,10 @@
 {
     [super viewDidLoad];
     self.filter = [[SnippetFilter alloc] init];
-    self.filter.userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    if (!self.isForPublic) {
+        self.filter.userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    }
+
     self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:self.filter];
 }
 
@@ -99,20 +102,22 @@
     }]];
     cell.leftSwipeSettings.transition = MGSwipeTransition3D;
     
-    //configure right buttons
-    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell *sender) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        Snippet *snippet = [self.snippets objectAtIndex:indexPath.row];
-        DataAccessManager *dam = [DataAccessManager getInstance];
-        //Local route and remote route deletion should be different!
-        //Modify later
-        if ([dam deleteRouteWithRouteId:snippet.routeId]) {
-            self.snippets = [dam getSnippetWithFilter:self.filter];
-        }
-        [self.tableView reloadData];
-        return true;
-    }]];
-    cell.rightSwipeSettings.transition = MGSwipeTransition3D;
+    if (!self.isForPublic) {
+        //configure right buttons
+        cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell *sender) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            Snippet *snippet = [self.snippets objectAtIndex:indexPath.row];
+            DataAccessManager *dam = [DataAccessManager getInstance];
+            //Local route and remote route deletion should be different!
+            //Modify later
+            if ([dam deleteRouteWithRouteId:snippet.routeId]) {
+                self.snippets = [dam getSnippetWithFilter:self.filter];
+            }
+            [self.tableView reloadData];
+            return true;
+        }]];
+        cell.rightSwipeSettings.transition = MGSwipeTransition3D;
+    }
     return cell;
 }
 

@@ -12,5 +12,6 @@
 @interface DiaryDetailViewController : ViewController
 
 @property (strong, nonatomic) Route* route;
+@property (assign, nonatomic) BOOL isForUser;
 
 @end

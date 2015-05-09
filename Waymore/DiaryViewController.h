@@ -11,4 +11,5 @@
 
 @interface DiaryViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (assign, nonatomic) BOOL isForPublic;
 @end
