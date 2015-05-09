@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Waymore Inc. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "UIKit/UIKit.h"
 #import "SnippetFilter.h"
 
-@interface FilterViewController : ViewController
+@interface FilterViewController : UIViewController
 
 @property (strong, nonatomic) SnippetFilter *inputSnippetFilter;
 @property (strong, nonatomic) SnippetFilter *outputSnippetFilter;

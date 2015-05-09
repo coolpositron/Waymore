@@ -38,5 +38,18 @@
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We need your location</string>
+	<key>FacebookAppID</key>
+	<string>904168039625175</string>
+	<key>FacebookDisplayName</key>
+	<string>Waymore</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb904168039625175</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

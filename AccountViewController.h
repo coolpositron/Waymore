@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Waymore Inc. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "LoginViewController.h"
 
-@interface AccountViewController : ViewController
+@interface AccountViewController : UIViewController
 
 @end
 

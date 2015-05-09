@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Waymore Inc. All rights reserved.
 //
 
-#import "ViewController.h"
 #import "Route.h"
+#import "UIKit/UIKit.h"
 
-@interface DiaryDetailViewController : ViewController
+@interface DiaryDetailViewController : UIViewController
 
 @property (strong, nonatomic) Route* route;
 @property (assign, nonatomic) BOOL isForUser;
