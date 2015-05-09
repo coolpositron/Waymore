@@ -64,7 +64,7 @@
         DataAccessManager *dam = [DataAccessManager getInstance];
         Comment *newComment = [[Comment alloc] init];
         newComment.content = commentTextField.text;
-        newComment.userNameWhoCreates = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+        newComment.userNameWhoCreates = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
         //Need to add date
         NSMutableArray *comments = [[NSMutableArray alloc] init];
         [comments addObject:newComment];
