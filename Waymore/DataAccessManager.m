@@ -9,11 +9,11 @@
 #import "DataAccessManager.h"
 #import "keyPoint.h"
 #import "Snippet.h"
+//#import <AWSS3/AWSS3.h>
 
 @interface DataAccessManager()
-//@property NSMutableArray * Users;
-//@property NSMutableArray * Routes;
-//@property NSMutableArray * Snippets;
+@property (nonatomic, strong) NSString * serverEndPoint;
+@property (nonatomic, strong) NSMutableData * responseData;
 @end
 
 @implementation DataAccessManager
@@ -29,279 +29,246 @@
 
 - (id) init {
     if (self = [super init]) {
-        self.Users = [[NSMutableArray alloc] init];
-        self.Routes = [[NSMutableArray alloc] init];
-        self.LocalRoutes = [[NSMutableArray alloc] init];
+        self.serverEndPoint = @"http://localhost:8080/JAXRS-Waymore/rest/waymore/";
     }
-    
-    KeyPoint *keyPoint = [[KeyPoint alloc] initWithTitle: @"Net Cat" withContent: @"Cat downloaded from the Internet" withLatitude:39.281516 withLongitude:-76.580806 withPhoto:[UIImage imageNamed:@"cat.jpg"]];
-    Route *route = [[Route alloc] init];
-    route.keyPoints = @[keyPoint];
-    route.title = @"Columbia";
-    route.city = @"New York";
-    route.keywords = @"Columbia!, Good!";
-    route.mapPoints = @[];
-    route.userIdsWhoLike = @[@"user_id_2"];
-    route.comments = @[];
-    route.userIdWhoCreates = @"user_id_1";
-    route.userName = @"user_name_1";
-    route.sharedFlag = false;
-    route.createdTime = [NSDate date];
-    
-    [self putLocalRoute:route];
-    [self uploadRoute:route];
-    
     return self;
 }
 
-- (Route *) dummyRouteWithId:(NSString *)routeId{
-    Route * dummyRoute = [[Route alloc] init];
-    if (dummyRoute) {
-        NSUInteger count = [self.Routes count] + 1;
-        dummyRoute.routeId = routeId;
-        dummyRoute.city = [NSString stringWithFormat:@"%@_%lu", @"City", count];
-        dummyRoute.title = [NSString stringWithFormat:@"%@_%lu", @"Title", count];
-        dummyRoute.keywords = [NSString stringWithFormat:@"%@_%lu", @"#Keyword", count];
-        NSDate * now = [NSDate date];
-        dummyRoute.createdTime = now;
-        dummyRoute.lastModifiedTime = now;
-        dummyRoute.userIdWhoCreates = @"user_id_1";
-    }
-    return dummyRoute;
-}
-
-- (WaymoreUser *) dummyUserWithId:(NSString *)userId {
-    WaymoreUser * dummyUser = [[WaymoreUser alloc] init];
-    if (dummyUser) {
-        NSUInteger count = [self.Users count] + 1;
-        dummyUser.userId = userId;
-        dummyUser.userName = [NSString stringWithFormat:@"%@_%lu", @"UserName", count];
-    }
-    return dummyUser;
-}
-
 - (BOOL) addUserWithUserId:(NSString *) userId withUserName:(NSString *) userName {
-    WaymoreUser * newUser = [self getUserWithUserId:userId];
-    if (!newUser) {
-        newUser = [[WaymoreUser alloc] init];
-        newUser.userId = userId;
-        newUser.userName = userName;
-        [self.Users addObject:newUser];
-        return TRUE;
-    }
-    return FALSE;
+    NSString * jsonString = [NSString stringWithFormat:@"{\"userId\":\"%@\",\"userName\":\"%@\"}", userId, userName];
+    NSData * responseData = [self postRequest:jsonString withActionType:@"addUser"];
+    return [self checkPostResponse:responseData];
 }
 
 - (WaymoreUser *) getUserWithUserId: (NSString *) userId {
-    for (int i = 0; i < [self.Users count]; i++) {
-        WaymoreUser * cur = self.Users[i];
-        if ([cur.userId isEqualToString:userId])
-            return cur;
+    NSData * responseData = [self getRequest:userId withActionType:@"getUserWithUserId"];
+    if (responseData) {
+        NSDictionary * responseJson = [self dataToJson:responseData];
+        if (responseJson) {
+            NSLog(@"%@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
+            WaymoreUser * res = [[WaymoreUser alloc] initWithJson:responseJson];
+            return res;
+        }
     }
     return nil;
 }
 
 - (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter {
-    //Don't forget to implement filter!
-    NSMutableArray * snippets = [[NSMutableArray alloc] init];
-    for (Route *route in self.Routes) {
-        Snippet *snippet = [[Snippet alloc] init];
-        snippet.title = route.title;
-        snippet.userName = route.userName;
-        snippet.likeNum = [route.userIdsWhoLike count];
-        snippet.city = route.city;
-        snippet.routeId = route.routeId;
-        snippet.keywords = route.keywords;
-        snippet.createdTime = route.createdTime;
-        [snippets addObject:snippet];
-        //A route should have a thumbnail
-        //snippet.thumbnail = route.thumbnail;
+    NSString * query = [[NSString alloc] initWithFormat:@"userId=%@&sortMethod=%@&keywords=%@&city=%@&shareFlag=%@",
+                        snippetFilter.userId==nil?@"":snippetFilter.userId,
+                        snippetFilter.sortMethod==nil?@"":snippetFilter.sortMethod,
+                        snippetFilter.keywords==nil?@"":snippetFilter.keywords,
+                        snippetFilter.city==nil?@"":snippetFilter.city,
+                        snippetFilter.shareFlag?@"true":@"false"];
+    NSData * responseData = [self queryRequest:query withActionType:@"getSnippetWithFilter"];
+    if (responseData) {
+        NSDictionary * responseJson = [self dataToJson:responseData];
+        if (responseJson) {
+            NSLog(@"Result: %@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
+            NSMutableArray * snippets = [[NSMutableArray alloc] init];
+            NSArray * snsJson = [responseJson objectForKey:@"Result"];
+            for (NSDictionary * snJson in snsJson) {
+                Snippet * snippet = [[Snippet alloc] initWithJson:snJson];
+                [snippets addObject:snippet];
+            }
+            return snippets.copy;
+        }
     }
-    return snippets;
-}
-- (NSArray *) getLocalSnippetWithFilter: (SnippetFilter *) snippetFilter{
-    
-    //Don't forget to implement filter!
-    NSMutableArray * snippets = [[NSMutableArray alloc] init];
-    for (Route *route in self.Routes) {
-        Snippet *snippet = [[Snippet alloc] init];
-        snippet.title = route.title;
-        snippet.userName = [[self getUserWithUserId:route.userIdWhoCreates] userName];
-        snippet.likeNum = [route.userIdsWhoLike count];
-        snippet.city = route.city;
-        snippet.routeId = route.routeId;
-        snippet.keywords = route.keywords;
-        [snippets addObject:snippet];
-        //A route should have a thumbnail
-        //snippet.thumbnail = route.thumbnail;
-    }
-    return snippets;
+    return nil;
 }
 
 - (NSString *) putLocalRoute: (Route *) route {
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     if (!route.routeId)
-        route.routeId = [NSString stringWithFormat:@"route_%@+%f", route.userIdWhoCreates, now];;
-    Route * cur = [self getLocalRouteWithRouteId:route.routeId];
-    if (cur) {
-        [self.Routes removeObject:cur];
-    }
-    [self.LocalRoutes addObject:route];
+        route.routeId = [NSString stringWithFormat:@"route_%@+%f", route.userIdWhoCreates, now];
+    //    [[NSFileManager defaultManager] createFileAtPath:[[NSString alloc] initWithFormat:@"./%@.route", route.routeId]
+    //                                            contents:nil
+    //                                          attributes:nil];
     return route.routeId;
 }
 
 - (BOOL) uploadRoute: (Route *) route {
-    Route * cur = [self getRouteWithRouteId:route.routeId];
-    [self.LocalRoutes removeObject: route];
-    if (cur) {
-        [self.Routes removeObject:cur];
+    NSDictionary * routeJson = [route toJson];
+    NSString * jsonString = [self jsonToData:routeJson];
+    NSLog(@"%@", jsonString);
+    NSData * responseData = [self postRequest:jsonString withActionType:@"uploadRoute"];
+    if ([self checkPostResponse:responseData]) {
+        //        NSError *error = nil;
+        //        [[NSFileManager defaultManager] removeItemAtPath:[[NSString alloc] initWithFormat:@"./%@.route", route.routeId] error:&error];
+        return true;
     }
-    [self.Routes addObject:route];
-    return TRUE;
+    return false;
 }
 
 - (Route *) getRouteWithRouteId: (NSString *) routeId {
-    for (int i = 0; i < [self.Routes count]; i++) {
-        Route * cur = self.Routes[i];
-        if ([cur.routeId isEqualToString:routeId])
-            return cur;
+    NSData * responseData = [self getRequest:routeId withActionType:@"getRouteWithRouteId"];
+    if (responseData) {
+        NSDictionary * responseJson = [self dataToJson:responseData];
+        if (responseJson) {
+            NSLog(@"%@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
+            Route * res = [[Route alloc] initWithJson:responseJson];
+            return res;
+        }
     }
     return nil;
-}
-
-- (Route *) getLocalRouteWithRouteId: (NSString *) routeId {
-    for (int i = 0; i < [self.LocalRoutes count]; i++) {
-        Route * cur = self.LocalRoutes[i];
-        if ([cur.routeId isEqualToString:routeId])
-            return cur;
-    }
-    return nil;
-}
-
-- (NSArray *) getRoutesWithUserId: (NSString *) userId {
-    NSMutableArray * routes = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [self.Routes count]; i++) {
-        Route * cur = self.Routes[i];
-        if ([cur.userIdWhoCreates isEqualToString:userId])
-            [routes addObject:cur];
-    }
-    return routes;
 }
 
 - (BOOL) deleteRouteWithRouteId:(NSString *)routeId {
-    for (int i = 0; i < [self.Routes count]; i++) {
-        Route * cur = self.Routes[i];
-        if ([cur.routeId isEqualToString:routeId]) {
-            [self.Routes removeObjectAtIndex:i];
-            return TRUE;
-        }
+    NSData * responseData = [self getRequest:routeId withActionType:@"deleteRouteWithRouteId"];
+    if ([self checkPostResponse:responseData]) {
+        return true;
     }
-    return FALSE;
-}
-
-- (BOOL) deleteLocalRouteWithRouteId:(NSString *)routeId {
-    for (int i = 0; i < [self.LocalRoutes count]; i++) {
-        Route * cur = self.LocalRoutes[i];
-        if ([cur.routeId isEqualToString:routeId]) {
-            [self.LocalRoutes removeObjectAtIndex:i];
-            return TRUE;
-        }
-    }
-    return FALSE;
+    return false;
 }
 
 - (BOOL) setShareSetting:(NSString *)routeId isShare:(BOOL)flag {
-    Route * cur = nil;
-    for (int i = 0; i < [self.Routes count]; i++) {
-        cur = self.Routes[i];
-        if ([cur.routeId isEqualToString:routeId])
-            break;
-        cur = nil;
-    }
-    if (cur) {
-        cur.sharedFlag = flag;
-        return TRUE;
-    }
-    return FALSE;
+    NSString * jsonString = [NSString stringWithFormat:@"{\"routeId\":\"%@\",\"shareFlag\":\"%@\"}", routeId, flag?@"true":@"false"];
+    NSData * responseData = [self postRequest:jsonString withActionType:@"setShare"];
+    return [self checkPostResponse:responseData];
 }
+
 - (BOOL) setLike:(NSString *)routeId withUserId:(NSString *) userId isLike:(BOOL)flag {
-    Route * curRoute = nil;
-    for (int i = 0; i < [self.Routes count]; i++) {
-        curRoute = self.Routes[i];
-        if ([curRoute.routeId isEqualToString:routeId])
-            break;
-        curRoute = nil;
-    }
-    if (curRoute) {
-        for (int i = 0; i < [curRoute.userIdsWhoLike count]; i++) {
-            NSString * curUserId = curRoute.userIdsWhoLike[i];
-            if ([curUserId isEqualToString:userId]) {
-                if (flag) {
-                    return FALSE;
-                } else {
-                    NSMutableArray * newLikes = [curRoute.userIdsWhoLike mutableCopy];
-                    [newLikes removeObjectAtIndex:i];
-                    curRoute.userIdsWhoLike = newLikes;
-                    return TRUE;
-                }
-            }
-        }
-        if (flag) {
-            NSMutableArray * newLikes = [curRoute.userIdsWhoLike mutableCopy];
-            [newLikes addObject:userId];
-            curRoute.userIdsWhoLike = newLikes;
-            return TRUE;
-        }
-    }
-    return FALSE;
+    NSString * jsonString = [NSString stringWithFormat:@"{\"routeId\":\"%@\",\"userId\":\"%@\",\"likeFlag\":\"%@\"}", routeId, userId, flag?@"true":@"false"];
+    NSData * responseData = [self postRequest:jsonString withActionType:@"setLike"];
+    return [self checkPostResponse:responseData];
 }
+
 - (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId{
     NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
-    NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId withUserName:userName];
-    Route * curRoute = nil;
-    for (int i = 0; i < [self.Routes count]; i++) {
-        curRoute = self.Routes[i];
-        if ([curRoute.routeId isEqualToString:routeId])
-            break;
-        curRoute = nil;
-    }
-    if (curRoute) {
-        NSMutableArray * newComments = [curRoute.comments mutableCopy];
-        NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-        NSString * commentId = [NSString stringWithFormat:@"comment_%@+%@+%f", userId, routeId, now];
-        newComment.commentId = commentId;
-        newComment.createdTime = [NSDate date];
-        [newComments addObject: newComment];
-        curRoute.comments = newComments;
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSString * commentId = [NSString stringWithFormat:@"comment_%@+%@+%f", userId, routeId, now];
+    NSString * jsonString = [NSString stringWithFormat:@"{\"commentId\":\"%@\",\"content\":\"%@\",\"userId\":\"%@\",\"routeId\":\"%@\",\"createdTime\":\"%f\"}", commentId, content, userId, routeId, now];
+    NSData * responseData = [self postRequest:jsonString withActionType:@"addComment"];
+    if ([self checkPostResponse:responseData])
         return commentId;
+    return nil;
+}
+
+- (NSDictionary *) dataToJson:(NSData *)jsonData {
+    if(NSClassFromString(@"NSJSONSerialization"))
+    {
+        NSError *error = nil;
+        id object = [NSJSONSerialization
+                     JSONObjectWithData:jsonData
+                     options:0
+                     error:&error];
+        
+        if(error) { /* JSON was malformed, act appropriately here */ }
+        // the originating poster wants to deal with dictionaries;
+        // assuming you do too then something like this is the first
+        // validation step:
+        if([object isKindOfClass:[NSDictionary class]])
+        {
+            NSDictionary *results = object;
+            /* proceed with results as you like; the assignment to
+             an explicit NSDictionary * is artificial step to get
+             compile-time checking from here on down (and better autocompletion
+             when editing). You could have just made object an NSDictionary *
+             in the first place but stylistically you might prefer to keep
+             the question of type open until it's confirmed */
+            return results;
+        }
+        else
+        {
+            /* there's no guarantee that the outermost object in a JSON
+             packet will be a dictionary; if we get here then it wasn't,
+             so 'object' shouldn't be treated as an NSDictionary; probably
+             you need to report a suitable error condition */
+            return nil;
+        }
     }
     return nil;
 }
 
-- (BOOL) networkTest {
-    NSMutableData * receivedData = nil;
+- (NSString *) jsonToData:(NSDictionary *)json {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    
+    if (!jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        return jsonString;
+    }
+    return nil;
+}
+
+- (BOOL) checkPostResponse:(NSData *)responseData {
+    if (responseData) {
+        NSDictionary * responseJson = [self dataToJson:responseData];
+        if (responseJson) {
+            NSString * result = [responseJson objectForKey:@"Submit"];
+            NSLog(@"Result: %@", result);
+            if ([result isEqualToString:@"Success"]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+- (NSData *) queryRequest:(NSString *)query withActionType:(NSString *)actionType {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
                                     initWithURL:[NSURL
-                                                 URLWithString:@"http://localhost:8080/WaymoreServer/"]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"text/json"
-    forHTTPHeaderField:@"Content-type"];
-    [request setValue:@"addUser" forHTTPHeaderField:@"requestType"];
+                                                 URLWithString:[[NSString alloc] initWithFormat:@"%@print?%@", self.serverEndPoint,
+                                                                [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
+    [request setValue:actionType forHTTPHeaderField:@"actionType"];
     
-    NSString * jsonString = @"{\"userId\":\"user_1\n, \"userName\":\"John\"}";
-    
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonString length]]
-    forHTTPHeaderField:@"Content-length"];
-    
-    [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSURLConnection * testConn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    if (!testConn) {
-        receivedData = nil;
-        NSLog(@"Faild.");
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    NSData * data = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    if (error == nil)
+    {
+        return data;
     }
-    
-    return true;
+    return nil;
 }
+
+- (NSData *) getRequest:(NSString *)contentId withActionType:(NSString *)actionType {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
+                                    initWithURL:[NSURL
+                                                 URLWithString:[[NSString alloc] initWithFormat:@"%@print/%@", self.serverEndPoint, contentId]]];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
+    [request setValue:actionType forHTTPHeaderField:@"actionType"];
+    
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    NSData * data = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    if (error == nil)
+    {
+        return data;
+    }
+    return nil;
+}
+
+- (NSData *) postRequest:(NSString *)message withActionType:(NSString *)actionType {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
+                                    initWithURL:[NSURL
+                                                 URLWithString:[[NSString alloc] initWithFormat:@"%@send", self.serverEndPoint]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+    [request setValue:actionType forHTTPHeaderField:@"actionType"];
+    [request setHTTPBody:[message dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    NSData * data = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    if (error == nil)
+    {
+        return data;
+    }
+    return nil;
+}
+
 @end

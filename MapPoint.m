@@ -21,4 +21,19 @@
     }
     return self;
 }
+
+- (NSDictionary *) toJson:(BOOL)update {
+    if (update) {
+        NSMutableDictionary * res = [[NSMutableDictionary alloc] init];
+        [res setObject:self.mapPointId forKey:@"mapPointId"];
+        NSNumber * latitude = [[NSNumber alloc] initWithDouble:self.latitude];
+        [res setObject:latitude forKey:@"latitude"];
+        NSNumber * longitude = [[NSNumber alloc] initWithDouble:self.longitude];
+        [res setObject:longitude forKey:@"longitude"];
+        NSNumber * time = [[NSNumber alloc] initWithDouble:[self.time timeIntervalSince1970]];
+        [res setValue:time forKey:@"createdTime"];
+        return res;
+    }
+    return nil;
+}
 @end

@@ -24,4 +24,19 @@
     return self;
 }
 
+- (NSDictionary *) toJson:(BOOL)update {
+    if (update) {
+        NSMutableDictionary * res = [[NSMutableDictionary alloc] init];
+        [res setObject:self.keyPointId forKey:@"keyPointId"];
+        [res setObject:self.title forKey:@"title"];
+        [res setObject:self.content forKey:@"notation"];
+        NSNumber * latitude = [[NSNumber alloc] initWithDouble:self.latitude];
+        [res setObject:latitude forKey:@"latitude"];
+        NSNumber * longitude = [[NSNumber alloc] initWithDouble:self.longitude];
+        [res setObject:longitude forKey:@"longitude"];
+        return res;
+    }
+    return nil;
+}
+
 @end

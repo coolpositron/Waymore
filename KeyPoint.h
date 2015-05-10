@@ -22,4 +22,6 @@
 
 - (KeyPoint *) initWithTitle: (NSString *) title withContent:(NSString *) content withLatitude:(double) latitude withLongitude:(double) longitude withPhoto:(UIImage *) photo;
 
+- (NSDictionary *) toJson:(BOOL)update;
+
 @end

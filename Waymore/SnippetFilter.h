@@ -13,4 +13,5 @@
 @property (nonatomic, strong) NSString * sortMethod;
 @property (nonatomic, strong) NSString * keywords;
 @property (nonatomic, strong) NSString * city;
+@property (nonatomic, assign) BOOL shareFlag;
 @end

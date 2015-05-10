@@ -16,6 +16,8 @@
 @property (nonatomic, retain) NSDate * time;
 @property (nonatomic, strong) NSString * mapPointId;
 
+
 - (MapPoint *) initWithLatitude: (double) latitude withLongitude: (double) longitude withTime:(NSDate *) time;
+- (NSDictionary *) toJson:(BOOL)update;
 
 @end
