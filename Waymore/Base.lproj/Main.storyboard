@@ -43,7 +43,7 @@
         <scene sceneID="QX2-Le-fhp">
             <objects>
                 <navigationController id="DRD-5l-PI7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Diary" id="Zih-ja-t78"/>
+                    <tabBarItem key="tabBarItem" title="Diary" image="diary" id="Zih-ja-t78"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ct9-Nz-J7g">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -408,7 +408,7 @@
         <scene sceneID="3Af-lL-gNI">
             <objects>
                 <navigationController id="CIL-tN-rDu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Public" id="bXa-rh-qbn"/>
+                    <tabBarItem key="tabBarItem" title="Public" image="public" id="bXa-rh-qbn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sra-7m-RyG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -448,7 +448,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" id="SSJ-xU-iQ3"/>
+                    <tabBarItem key="tabBarItem" title="Account" image="user" id="SSJ-xU-iQ3"/>
                     <connections>
                         <outlet property="loginButton" destination="DLr-sT-IXb" id="CBv-yg-akW"/>
                         <outlet property="userNameLabel" destination="jUJ-NZ-vsJ" id="7Ek-SO-ANt"/>
@@ -562,7 +562,7 @@
         <scene sceneID="5zw-At-nqn">
             <objects>
                 <navigationController id="Foq-rx-i4g" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Route" id="nCf-bw-EZR"/>
+                    <tabBarItem key="tabBarItem" title="Route" image="route" id="nCf-bw-EZR"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kCS-c7-ssb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -915,7 +915,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="diary" width="64" height="64"/>
         <image name="gps" width="64" height="64"/>
+        <image name="public" width="64" height="64"/>
+        <image name="route" width="64" height="64"/>
+        <image name="user" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="YcJ-Mp-Of9"/>

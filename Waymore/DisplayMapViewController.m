@@ -12,6 +12,8 @@
 #import "ImageScrollViewController.h"
 #import "AnnotationSettingViewController.h"
 #import "CoreLocation/CoreLocation.h"
+#import "CoreLocation/CLGeocoder.h"
+#import "CoreLocation/CLLocation.h"
 #import "CrumbPath.h"
 #import "CrumbPathRenderer.h"
 #import "MapPoint.h"
@@ -27,6 +29,7 @@
 @property (nonatomic, strong) CrumbPath *crumbs;
 @property (nonatomic, strong) CrumbPathRenderer *crumbPathRenderer;
 @property (nonatomic, strong) MKUserLocation * latestUserLocation;
+@property (strong, nonatomic) CLGeocoder * geocoder;
 
 @end
 
@@ -169,6 +172,25 @@
     CLLocationCoordinate2D location = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     NSLog(@"Location found from Map: %f %f",location.latitude,location.longitude);
     KeyPoint *newKeyPoint = [[KeyPoint alloc] initWithTitle:@"" withContent:@"" withLatitude:location.latitude withLongitude:location.longitude withPhoto:NULL];
+    
+//    if (!self.geocoder)
+//        self.geocoder = [[CLGeocoder alloc] init];
+//    
+//    [self.geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude] completionHandler:
+//     ^(NSArray* placemarks, NSError* error){
+//         if ([placemarks count] > 0)
+//         {
+//             annotation.placemark = [placemarks objectAtIndex:0];
+//             
+//             // Add a More Info button to the annotation's view.
+//             MKPinAnnotationView* view = (MKPinAnnotationView*)[map viewForAnnotation:annotation];
+//             if (view && (view.rightCalloutAccessoryView == nil))
+//             {
+//                 view.canShowCallout = YES;
+//                 view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//             }
+//         }
+//     }];
     [self performSegueWithIdentifier:@"EditSegue" sender:newKeyPoint];
 }
 
