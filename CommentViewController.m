@@ -42,7 +42,10 @@
     cell.contentLabel.text = comment.content;
     //Need the user name!
     cell.nameLabel.text = comment.userNameWhoCreates;
-    cell.dateLabel.text = @"date, needed";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *dateString = [dateFormatter stringFromDate:comment.createdTime];
+    cell.dateLabel.text = dateString;
     return cell;
 }
 
@@ -61,10 +64,11 @@
         DataAccessManager *dam = [DataAccessManager getInstance];
         Comment *newComment = [[Comment alloc] init];
         newComment.content = commentTextField.text;
-        newComment.userNameWhoCreates = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+        newComment.userNameWhoCreates = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
         //Need to add date
         NSMutableArray *comments = [[NSMutableArray alloc] init];
         [comments addObject:newComment];
+        newComment.createdTime = [NSDate date];
         [comments addObjectsFromArray:self.route.comments];
         self.route.comments = [comments copy];
         [dam addComment:commentTextField.text withRouteId:self.route.routeId];

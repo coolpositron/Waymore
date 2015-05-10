@@ -10,7 +10,7 @@
 #import "DisplayMapViewController.h"
 #import "DataAccessManager.h"
 
-@interface EditViewController ()
+@interface EditViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *keywordTextField;
 @property (weak, nonatomic) DisplayMapViewController * mapViewController;
@@ -38,6 +38,7 @@
     if ([segueName isEqualToString: @"MapSegue"]) {
         NSLog(@"Get the handler of Map!");
         self.mapViewController = segue.destinationViewController;
+        self.mapViewController.isEditable = true;
         [self updateMap];
     }
     if ([segueName isEqualToString:@"EditSaveUnwind"]) {
@@ -61,5 +62,9 @@
     self.mapViewController.isFocusOnRoute = true;
 }
 
+-(BOOL) textFieldShouldReturn: (UITextField *) textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 
 @end

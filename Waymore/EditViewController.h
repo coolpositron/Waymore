@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Waymore Inc. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "UIKit/UIKit.h"
 #import "Route.h"
 
-@interface EditViewController : ViewController
+@interface EditViewController : UIViewController
 
 @property (strong, nonatomic) Route * route;
 

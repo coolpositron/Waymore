@@ -14,11 +14,14 @@
 #import "DiaryDetailViewController.h"
 #import "KeyPoint.h"
 #import "DataAccessManager.h"
+#import "WaymoreUser.h"
+#import "SnippetFilter.h"
+#import "FilterViewController.h"
 
 @interface DiaryViewController ()
 
 @property (strong, nonatomic) NSArray* snippets;
-
+@property (strong, nonatomic) SnippetFilter *filter;
 @end
 
 @implementation DiaryViewController
@@ -26,17 +29,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Initialize table data
-//    Snippet * firstSnippet = [[Snippet alloc]  init];
-//    firstSnippet.thumbnail = [UIImage imageNamed:@"cat.jpg"];
-//    firstSnippet.title = @"Trip to new york!";
-//    firstSnippet.city = @"New york";
-//    firstSnippet.keywords = @"Good, central park";
-//    firstSnippet.userName = @"Jianhao Li";
-//    firstSnippet.likeNum = 100;
-    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:nil];
-    
-    
+    self.filter = [[SnippetFilter alloc] init];
+    if (!self.isForPublic) {
+        self.filter.userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    }
+
+    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:self.filter];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -74,18 +72,52 @@
     [cell.cityLabel setText:snippet.city];
     [cell.keywordsLabel setText:snippet.keywords];
     [cell.userNameLabel setText:snippet.userName];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *dateString = [dateFormatter stringFromDate:snippet.createdTime];
+    [cell.createdTimeLabel setText:dateString];
     [cell.likesLabel setText:[NSString stringWithFormat:@"%ld ♥️", snippet.likeNum]];
     
 //    cell.delegate = self; //optional
     
     
     //configure left buttons
-    cell.leftButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"fav.png"] backgroundColor:[UIColor blueColor]]];
+    cell.leftButtons = @[[MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"fav.png"] backgroundColor:[UIColor blueColor] callback:^BOOL(MGSwipeTableCell *sender) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        Snippet *snippet = [self.snippets objectAtIndex:indexPath.row];
+        DataAccessManager *dam = [DataAccessManager getInstance];
+        WaymoreUser *user = [dam getUserWithUserId:[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"]];
+        if ([user.likedRouteIds containsObject:snippet.routeId])
+        {
+            if ([dam setLike:snippet.routeId withUserId:user.userId isLike:false]) {
+                snippet.likeNum = snippet.likeNum - 1;
+            }
+        } else {
+            if ([dam setLike:snippet.routeId withUserId:user.userId isLike:true]) {
+                snippet.likeNum = snippet.likeNum + 1;
+            }
+        }
+        [self.tableView reloadData];
+        return true;
+    }]];
     cell.leftSwipeSettings.transition = MGSwipeTransition3D;
     
-    //configure right buttons
-    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor]]];
-    cell.rightSwipeSettings.transition = MGSwipeTransition3D;
+    if (!self.isForPublic) {
+        //configure right buttons
+        cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"Delete" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell *sender) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            Snippet *snippet = [self.snippets objectAtIndex:indexPath.row];
+            DataAccessManager *dam = [DataAccessManager getInstance];
+            //Local route and remote route deletion should be different!
+            //Modify later
+            if ([dam deleteRouteWithRouteId:snippet.routeId]) {
+                self.snippets = [dam getSnippetWithFilter:self.filter];
+            }
+            [self.tableView reloadData];
+            return true;
+        }]];
+        cell.rightSwipeSettings.transition = MGSwipeTransition3D;
+    }
     return cell;
 }
 
@@ -106,6 +138,20 @@
         DiaryDetailViewController * diaryDetailViewController = segue.destinationViewController;
         diaryDetailViewController.route = route;
     }
+    if ([segue.identifier isEqualToString:@"FilterSegue"]) {
+        FilterViewController *filterViewController = segue.destinationViewController;
+        filterViewController.inputSnippetFilter = self.filter;
+        
+    }
+}
+
+- (IBAction) returnFromFilter:(UIStoryboardSegue*) sender {
+    FilterViewController* filterViewController = sender.sourceViewController;
+    self.filter.keywords = filterViewController.outputSnippetFilter.keywords;
+    self.filter.city = filterViewController.outputSnippetFilter.city;
+    self.filter.sortMethod = filterViewController.outputSnippetFilter.sortMethod;
+    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:nil];
+    [self.tableView reloadData];
 }
 
 @end

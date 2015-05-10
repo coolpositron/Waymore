@@ -12,6 +12,8 @@
 #import "ImageScrollViewController.h"
 #import "AnnotationSettingViewController.h"
 #import "CoreLocation/CoreLocation.h"
+#import "CoreLocation/CLGeocoder.h"
+#import "CoreLocation/CLLocation.h"
 #import "CrumbPath.h"
 #import "CrumbPathRenderer.h"
 #import "MapPoint.h"
@@ -27,6 +29,7 @@
 @property (nonatomic, strong) CrumbPath *crumbs;
 @property (nonatomic, strong) CrumbPathRenderer *crumbPathRenderer;
 @property (nonatomic, strong) MKUserLocation * latestUserLocation;
+@property (strong, nonatomic) CLGeocoder * geocoder;
 
 @end
 
@@ -43,7 +46,9 @@
     }
     
     [self.mapView setDelegate: self];
-    self.mapView.showsUserLocation = YES;
+    if (self.isShowUserLocation) {
+        self.mapView.showsUserLocation = YES;
+    }
     [self updateMapView];
     
 }
@@ -68,8 +73,10 @@
             viewForAnnotation:(id <MKAnnotation>)annotation
 {
     // If the annotation is the user location, just return nil.
-    if ([annotation isKindOfClass:[MKUserLocation class]])
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        ((MKUserLocation *)annotation).title = @"";
         return nil;
+    }
     
     // Handle any custom annotations.
     if ([annotation isKindOfClass:[KeyPoint class]])
@@ -98,14 +105,15 @@
                 pinView.leftCalloutAccessoryView = nil;
             }
             
-            
-            UIButton *disclosureButton = [[UIButton alloc] init];
-            disclosureButton.frame = CGRectMake(0, 0, 46, 46);
-            [disclosureButton setTitle:@"Edit" forState:UIControlStateNormal];
-            [disclosureButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
-            //[disclosureButton setImage:[UIImage imageNamed:@"cat.jpg"] forState:UIControlStateNormal];
-            disclosureButton.tag = RIGHT;
-            pinView.rightCalloutAccessoryView = disclosureButton;
+            if (self.isEditable) {
+                UIButton *disclosureButton = [[UIButton alloc] init];
+                disclosureButton.frame = CGRectMake(0, 0, 46, 46);
+                [disclosureButton setTitle:@"Edit" forState:UIControlStateNormal];
+                [disclosureButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+                //[disclosureButton setImage:[UIImage imageNamed:@"cat.jpg"] forState:UIControlStateNormal];
+                disclosureButton.tag = RIGHT;
+                pinView.rightCalloutAccessoryView = disclosureButton;
+            }
             
         }
         
@@ -157,10 +165,32 @@
 
 - (IBAction)longPressed:(UILongPressGestureRecognizer *)sender {
     // Here we get the CGPoint for the touch and convert it to latitude and longitude coordinates to display on the map
+    if(!self.isEditable) {
+        return;
+    }
     CGPoint point = [sender locationInView:self.mapView];
     CLLocationCoordinate2D location = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     NSLog(@"Location found from Map: %f %f",location.latitude,location.longitude);
-    KeyPoint *newKeyPoint = [[KeyPoint alloc] initWithTitle:@"Title" withContent:@"Content" withLatitude:location.latitude withLongitude:location.longitude withPhoto:NULL];
+    KeyPoint *newKeyPoint = [[KeyPoint alloc] initWithTitle:@"" withContent:@"" withLatitude:location.latitude withLongitude:location.longitude withPhoto:NULL];
+    
+//    if (!self.geocoder)
+//        self.geocoder = [[CLGeocoder alloc] init];
+//    
+//    [self.geocoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude] completionHandler:
+//     ^(NSArray* placemarks, NSError* error){
+//         if ([placemarks count] > 0)
+//         {
+//             annotation.placemark = [placemarks objectAtIndex:0];
+//             
+//             // Add a More Info button to the annotation's view.
+//             MKPinAnnotationView* view = (MKPinAnnotationView*)[map viewForAnnotation:annotation];
+//             if (view && (view.rightCalloutAccessoryView == nil))
+//             {
+//                 view.canShowCallout = YES;
+//                 view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//             }
+//         }
+//     }];
     [self performSegueWithIdentifier:@"EditSegue" sender:newKeyPoint];
 }
 
@@ -195,6 +225,7 @@
     }
     
 }
+
 
 - (void)startTracking {
     NSLog(@"start tracing");

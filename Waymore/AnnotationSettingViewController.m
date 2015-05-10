@@ -12,9 +12,8 @@
 
 @interface AnnotationSettingViewController () <UIImagePickerControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
-
+@property (weak, nonatomic) IBOutlet UITextField *contentTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
@@ -24,33 +23,39 @@
 - (IBAction)CancelTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-- (IBAction)tapped:(UITapGestureRecognizer *)sender {
-    
-    if([sender.view isKindOfClass:[UIImageView class]]) {
-        UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-        picker.delegate = self;
-        picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-        [self presentViewController:picker animated:YES completion:NULL];
-        
-    }
+
+- (IBAction)selectPhotoTapped:(UIButton *)sender {
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    [self presentViewController:picker animated:YES completion:NULL];
 }
+- (IBAction)deletePhotoTapped:(UIButton *)sender {
+    self.imageView.image = nil;
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:NULL];
     self.imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
 }
 - (void)viewDidLoad {
     [self.titleTextField setText:self.inputKeyPoint.title];
-    [self.contentTextView setText:self.inputKeyPoint.content];
+    [self.contentTextField setText:self.inputKeyPoint.content];
     [self.imageView setImage:self.inputKeyPoint.photo];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.outputKeyPoint = [[KeyPoint alloc] init];
     self.outputKeyPoint.title = self.titleTextField.text;
-    self.outputKeyPoint.content = self.contentTextView.text;
+    self.outputKeyPoint.content = self.contentTextField.text;
     self.outputKeyPoint.photo = self.imageView.image;
     self.outputKeyPoint.latitude = self.inputKeyPoint.latitude;
     self.outputKeyPoint.longitude = self.inputKeyPoint.longitude;
+}
+
+-(BOOL) textFieldShouldReturn: (UITextField *) textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

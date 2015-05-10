@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Jianhao Li. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "UIKit/UIKit.h"
 
-@interface ImageScrollViewController : ViewController
+@interface ImageScrollViewController : UIViewController
 @property (strong, nonatomic) UIImage *image;
 @end

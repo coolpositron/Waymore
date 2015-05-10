@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *keywordsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createdTimeLabel;
 
 @end
