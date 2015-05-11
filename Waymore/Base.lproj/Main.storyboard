@@ -915,16 +915,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="diary" width="64" height="64"/>
+        <image name="diary" width="32" height="32"/>
         <image name="gps" width="64" height="64"/>
-        <image name="public" width="64" height="64"/>
-        <image name="route" width="64" height="64"/>
-        <image name="user" width="64" height="64"/>
+        <image name="public" width="32" height="32"/>
+        <image name="route" width="32" height="32"/>
+        <image name="user" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YcJ-Mp-Of9"/>
-        <segue reference="fwj-2l-X5p"/>
         <segue reference="8QS-Z5-ysf"/>
+        <segue reference="fwj-2l-X5p"/>
         <segue reference="Ubu-2i-ijt"/>
+        <segue reference="6kf-qH-Run"/>
     </inferredMetricsTieBreakers>
 </document>

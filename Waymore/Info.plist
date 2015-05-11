@@ -42,6 +42,8 @@
 	<string>904168039625175</string>
 	<key>FacebookDisplayName</key>
 	<string>Waymore</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This sample needs access to your location to track you on a map.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -50,6 +52,10 @@
 				<string>fb904168039625175</string>
 			</array>
 		</dict>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
 	</array>
 </dict>
 </plist>
