@@ -11,7 +11,7 @@
 @implementation SnippetFilter
 
 - (NSString*) sortMethod {
-    if _sortMethod == nil {
+    if (_sortMethod == nil) {
         _sortMethod = @"by date";
     }
     return _sortMethod;
