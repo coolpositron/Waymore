@@ -23,7 +23,7 @@
         self.createdTime = [NSDate dateWithTimeIntervalSince1970:[[json objectForKey:@"createdTime"] doubleValue]];
         self.lastModifiedTime = [NSDate dateWithTimeIntervalSince1970:[[json objectForKey:@"lastModifiedTime"] doubleValue]];
         self.userIdWhoCreates = [json objectForKey:@"userId"];
-        self.sharedFlag = [json objectForKey:@"shareFlag"];
+        self.sharedFlag = [[json objectForKey:@"sharedFlag"] boolValue];
         // MapPoints
         NSArray * mpsJson = [json objectForKey:@"mapPoints"];
         NSMutableArray * mapPoints = [[NSMutableArray alloc] init];
