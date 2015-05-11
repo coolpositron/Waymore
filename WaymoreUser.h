@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSArray *likedRouteIds;
 @property (nonatomic, retain) NSArray *ownedRouteIds;
 
+
 - (WaymoreUser *) initWithJson:(NSDictionary *)json;
 - (WaymoreUser *) initWithUserId:(NSString *)userId withUserName:(NSString *)userName;
 
