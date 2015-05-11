@@ -18,7 +18,7 @@
 @property (nonatomic, assign) NSInteger likeNum;
 @property (nonatomic, strong) NSString * routeId;
 @property (nonatomic, assign) BOOL * shareFlag;
-
+@property (nonatomic, strong) NSDate * createdTime;
 - (Snippet *) initWithJson:(NSDictionary *)json;
 @end
 
