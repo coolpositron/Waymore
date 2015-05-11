@@ -41,7 +41,7 @@
     route.city = @"New York";
     route.keywords = @"Columbia!, Good!";
     route.mapPoints = @[];
-    route.userIdsWhoLike = @[@"user_id_2"];
+    route.userIdsWhoLike = @[];
     route.comments = @[];
     route.userIdWhoCreates = @"user_id_1";
     route.userName = @"user_name_1";
@@ -71,6 +71,7 @@
 }
 
 - (WaymoreUser *) dummyUserWithId:(NSString *)userId {
+    
     WaymoreUser * dummyUser = [[WaymoreUser alloc] init];
     if (dummyUser) {
         NSUInteger count = [self.Users count] + 1;
@@ -81,6 +82,8 @@
 }
 
 - (BOOL) addUserWithUserId:(NSString *) userId withUserName:(NSString *) userName {
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
     WaymoreUser * newUser = [self getUserWithUserId:userId];
     if (!newUser) {
         newUser = [[WaymoreUser alloc] init];
@@ -94,6 +97,8 @@
 }
 
 - (WaymoreUser *) getUserWithUserId: (NSString *) userId {
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
     for (int i = 0; i < [self.Users count]; i++) {
         WaymoreUser * cur = self.Users[i];
         if ([cur.userId isEqualToString:userId])
@@ -103,6 +108,9 @@
 }
 
 - (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter {
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
+    
     //Don't forget to implement filter!
     NSMutableArray * snippets = [[NSMutableArray alloc] init];
     for (Route *route in self.Routes) {
@@ -140,6 +148,7 @@
 }
 
 - (NSString *) putLocalRoute: (Route *) route {
+    
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     if (!route.routeId)
         route.routeId = [NSString stringWithFormat:@"route_%@+%f", route.userIdWhoCreates, now];;
@@ -152,6 +161,8 @@
 }
 
 - (BOOL) uploadRoute: (Route *) route {
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
     Route * cur = [self getRouteWithRouteId:route.routeId];
     [self.LocalRoutes removeObject: route];
     if (cur) {
@@ -162,6 +173,8 @@
 }
 
 - (Route *) getRouteWithRouteId: (NSString *) routeId {
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
     for (int i = 0; i < [self.Routes count]; i++) {
         Route * cur = self.Routes[i];
         if ([cur.routeId isEqualToString:routeId])
@@ -180,6 +193,8 @@
 }
 
 - (NSArray *) getRoutesWithUserId: (NSString *) userId {
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
     NSMutableArray * routes = [[NSMutableArray alloc] init];
     for (int i = 0; i < [self.Routes count]; i++) {
         Route * cur = self.Routes[i];
@@ -190,6 +205,8 @@
 }
 
 - (BOOL) deleteRouteWithRouteId:(NSString *)routeId {
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
     for (int i = 0; i < [self.Routes count]; i++) {
         Route * cur = self.Routes[i];
         if ([cur.routeId isEqualToString:routeId]) {
@@ -201,6 +218,7 @@
 }
 
 - (BOOL) deleteLocalRouteWithRouteId:(NSString *)routeId {
+    
     for (int i = 0; i < [self.LocalRoutes count]; i++) {
         Route * cur = self.LocalRoutes[i];
         if ([cur.routeId isEqualToString:routeId]) {
@@ -212,6 +230,8 @@
 }
 
 - (BOOL) setShareSetting:(NSString *)routeId isShare:(BOOL)flag {
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
     Route * cur = nil;
     for (int i = 0; i < [self.Routes count]; i++) {
         cur = self.Routes[i];
@@ -226,6 +246,9 @@
     return FALSE;
 }
 - (BOOL) setLike:(NSString *)routeId withUserId:(NSString *) userId isLike:(BOOL)flag {
+    
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
     Route * curRoute = nil;
     for (int i = 0; i < [self.Routes count]; i++) {
         curRoute = self.Routes[i];
@@ -257,6 +280,9 @@
     return FALSE;
 }
 - (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId{
+    //Add dummy waitting time
+    [NSThread sleepForTimeInterval:1];
+    
     NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     NSString * userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     Comment * newComment = [[Comment alloc] initWithContent:content withRouteId:routeId withUserName:userName];
