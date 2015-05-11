@@ -13,6 +13,7 @@
 #import "WaymoreUser.h"
 
 @implementation Route
+
 - (Route *) initWithJson:(NSDictionary *)json {
     if (self = [super init]) {
         self.routeId = [json objectForKey:@"routeId"];
@@ -61,8 +62,7 @@
         self.comments = comments.copy;
         // LikeUserIds
         NSArray * lusJson = [json objectForKey:@"likeUserIds"];
-        NSMutableArray * likeUserIds = [[NSMutableArray alloc] init];
-        self.userIdsWhoLike = likeUserIds.copy;
+        self.userIdsWhoLike = lusJson.copy;
     }
     return self;
 }

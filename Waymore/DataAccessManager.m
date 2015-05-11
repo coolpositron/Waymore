@@ -115,7 +115,7 @@
 
 - (BOOL) deleteRouteWithRouteId:(NSString *)routeId {
     NSData * responseData = [self getRequest:routeId withActionType:@"deleteRouteWithRouteId"];
-    if ([self checkPostResponse:responseData]) {
+    if ([[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] isEqualToString:@"true"]) {
         return true;
     }
     return false;

@@ -11,6 +11,20 @@
 
 @implementation KeyPoint
 
+- (NSString*) title {
+    if ([_title isKindOfClass:[NSNull class]]) {
+        _title = @"";
+    }
+    return _title;
+}
+
+- (NSString*) content {
+    if ([_content isKindOfClass:[NSNull class]]) {
+        _content = @"";
+    }
+    return _content;
+}
+
 - (KeyPoint *) initWithTitle:(NSString *)title withContent:(NSString *)content withLatitude:(double)latitude withLongitude:(double)longitude withPhoto:(UIImage *)photo{
     static NSInteger availableId = 0;
     if (self = [super init]) {
