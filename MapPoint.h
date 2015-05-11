@@ -11,10 +11,10 @@
 
 @interface MapPoint : NSObject
 
+@property (nonatomic, retain) NSString * mapPointId;
 @property (nonatomic, assign) double latitude;
 @property (nonatomic, assign) double longitude;
-@property (nonatomic, retain) NSDate * time;
-@property (nonatomic, strong) NSString * mapPointId;
+@property (nonatomic, retain) NSDate *time;
 
 
 - (MapPoint *) initWithLatitude: (double) latitude withLongitude: (double) longitude withTime:(NSDate *) time;

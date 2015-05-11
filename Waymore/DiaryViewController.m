@@ -38,7 +38,7 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:nil];
+    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:self.filter];
     [self.tableView reloadData];
 }
 
@@ -150,7 +150,7 @@
     self.filter.keywords = filterViewController.outputSnippetFilter.keywords;
     self.filter.city = filterViewController.outputSnippetFilter.city;
     self.filter.sortMethod = filterViewController.outputSnippetFilter.sortMethod;
-    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:nil];
+    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:self.filter];
     [self.tableView reloadData];
 }
 

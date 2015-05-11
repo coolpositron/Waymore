@@ -42,8 +42,8 @@
     if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         NSLog(@"Ask for permission");
         [self.locationManager requestAlwaysAuthorization];
-        
     }
+//    [self.locationManager requestWhenInUseAuthorization];
     
     [self.mapView setDelegate: self];
     if (self.isShowUserLocation) {

@@ -22,3 +22,4 @@
 
 - (Snippet *) initWithJson:(NSDictionary *)json;
 @end
+

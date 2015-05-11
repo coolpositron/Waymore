@@ -15,3 +15,4 @@
 @property (nonatomic, strong) NSString * city;
 @property (nonatomic, assign) BOOL shareFlag;
 @end
+
