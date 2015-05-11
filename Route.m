@@ -59,6 +59,10 @@
             [comments addObject:cm];
         }
         self.comments = comments.copy;
+        // LikeUserIds
+        NSArray * lusJson = [json objectForKey:@"likeUserIds"];
+        NSMutableArray * likeUserIds = [[NSMutableArray alloc] init];
+        self.userIdsWhoLike = likeUserIds.copy;
     }
     return self;
 }
