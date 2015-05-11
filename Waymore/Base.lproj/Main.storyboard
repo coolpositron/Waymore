@@ -932,9 +932,9 @@
         <image name="user" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wMY-Ai-2LZ"/>
+        <segue reference="Ubu-2i-ijt"/>
+        <segue reference="hxZ-uy-UVl"/>
         <segue reference="6kf-qH-Run"/>
-        <segue reference="JqX-4m-Lzb"/>
-        <segue reference="MeB-94-N1Y"/>
+        <segue reference="wMY-Ai-2LZ"/>
     </inferredMetricsTieBreakers>
 </document>

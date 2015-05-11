@@ -17,6 +17,7 @@
 #import "WaymoreUser.h"
 #import "SnippetFilter.h"
 #import "FilterViewController.h"
+#import "DejalActivityView.h"
 
 @interface DiaryViewController ()
 
@@ -170,20 +171,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"DetailSegue" sender:indexPath];
+    NSInteger index = [indexPath row];
+    Snippet *snippet = self.snippets[index];
+    dispatch_queue_t myQueue = dispatch_queue_create("load route queue",NULL);
+    dispatch_async(myQueue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DejalActivityView activityViewForView:self.view];
+        });
+        Route* route = [[DataAccessManager getInstance] getRouteWithRouteId:snippet.routeId];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSegueWithIdentifier:@"DetailSegue" sender:route];
+            [DejalActivityView removeView];
+        });
+    });
+    
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"DetailSegue"] && [sender isKindOfClass:[NSIndexPath class]]) {
-        NSInteger index = [sender row];
-        Snippet *snippet = self.snippets[index];
-        
-        //Should get Route by index.
-        Route* route = [[DataAccessManager getInstance] getRouteWithRouteId:snippet.routeId];
-        
+    if ([segue.identifier isEqualToString:@"DetailSegue"] && [sender isKindOfClass:[Route class]]) {
         
         DiaryDetailViewController * diaryDetailViewController = segue.destinationViewController;
-        diaryDetailViewController.route = route;
+        diaryDetailViewController.route = (Route *) sender;
     }
     if ([segue.identifier isEqualToString:@"FilterSegue"]) {
         FilterViewController *filterViewController = segue.destinationViewController;
