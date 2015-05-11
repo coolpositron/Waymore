@@ -26,4 +26,7 @@
 @property (nonatomic, retain) NSString *userIdWhoCreates;
 @property (nonatomic, retain) NSString *userName;
 
+- (Route *) initWithJson:(NSDictionary *)json;
+- (NSDictionary *) toJson;
+
 @end
