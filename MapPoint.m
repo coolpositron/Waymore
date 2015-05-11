@@ -11,7 +11,9 @@
 @implementation MapPoint
 
 - (MapPoint *) initWithLatitude:(double)latitude withLongitude:(double)longitude withTime:(NSDate *)time {
+    static NSInteger availableId = 0;
     if (self = [super init]) {
+        self.mapPointId = [NSString stringWithFormat:@"%ld", (long)availableId++];
         self.latitude = latitude;
         self.longitude = longitude;
         self.time = time;
