@@ -64,9 +64,9 @@
     if (responseData) {
         NSDictionary * responseJson = [self dataToJson:responseData];
         if (responseJson) {
-            NSLog(@"Result: %@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
+            NSLog(@"GetSnippetWithFilter: %@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
             NSMutableArray * snippets = [[NSMutableArray alloc] init];
-            NSArray * snsJson = [responseJson objectForKey:@"Result"];
+            NSArray * snsJson = [responseJson objectForKey:@"snippets"];
             for (NSDictionary * snJson in snsJson) {
                 Snippet * snippet = [[Snippet alloc] initWithJson:snJson];
                 [snippets addObject:snippet];

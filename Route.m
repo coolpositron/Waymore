@@ -73,7 +73,7 @@
     [res setValue:self.city forKey:@"city"];
     NSNumber * ct = [[NSNumber alloc] initWithDouble:[self.createdTime timeIntervalSince1970]];
     [res setValue:ct forKey:@"createdTime"];
-    NSNumber * lmt = [[NSNumber alloc] initWithDouble:[self.lastModifiedTime timeIntervalSince1970]];
+    NSNumber * lmt = [[NSNumber alloc] initWithDouble:[self.lastModifiedTime?self.lastModifiedTime:self.createdTime timeIntervalSince1970]];
     [res setValue:lmt forKey:@"lastModifiedTime"];
     [res setValue:self.userIdWhoCreates forKey:@"userId"];
     NSNumber * sf = [[NSNumber alloc] initWithBool:self.sharedFlag];
