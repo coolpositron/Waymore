@@ -584,11 +584,11 @@
                         <viewControllerLayoutGuide type="bottom" id="cIl-LN-fzn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="65b-eQ-MjD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="429"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Iwy-5V-Plm">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="429"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="kyf-iI-4rL" appends="YES" id="9Ck-PK-Ye8"/>
@@ -627,11 +627,11 @@
                         <viewControllerLayoutGuide type="bottom" id="a7J-vT-yHs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="M1S-Jo-3ci">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="429"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-4a-SHR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="429"/>
                                 <connections>
                                     <outlet property="delegate" destination="pfV-6E-cCt" id="11v-Pq-0g3"/>
                                 </connections>
@@ -922,8 +922,8 @@
         <image name="user" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8QS-Z5-ysf"/>
         <segue reference="fwj-2l-X5p"/>
+        <segue reference="pNy-0s-emv"/>
         <segue reference="Ubu-2i-ijt"/>
         <segue reference="6kf-qH-Run"/>
     </inferredMetricsTieBreakers>

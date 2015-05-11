@@ -51,6 +51,7 @@
     self.outputKeyPoint.photo = self.imageView.image;
     self.outputKeyPoint.latitude = self.inputKeyPoint.latitude;
     self.outputKeyPoint.longitude = self.inputKeyPoint.longitude;
+    self.outputKeyPoint.keyPointId = self.inputKeyPoint.keyPointId;
 }
 
 -(BOOL) textFieldShouldReturn: (UITextField *) textField {
