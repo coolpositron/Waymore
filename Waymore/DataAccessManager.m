@@ -29,7 +29,7 @@
 
 - (id) init {
     if (self = [super init]) {
-        self.serverEndPoint = @"http://160.39.138.223:8080/JAXRS-Waymore/rest/waymore/";
+        self.serverEndPoint = @"http://waymore-env.elasticbeanstalk.com/rest/waymore/";
     }
     return self;
 }
