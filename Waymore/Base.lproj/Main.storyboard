@@ -64,6 +64,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="H44-V4-rvX">
+                            <rect key="frame" x="0.0" y="210" width="375" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RouteTableViewCellReuseIdentifier" rowHeight="124" id="HkR-b9-5fj" customClass="RouteTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -137,6 +141,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="H44-V4-rvX" id="CwD-vE-bCC"/>
                         <segue destination="dzu-h5-KCF" kind="show" identifier="DetailSegue" id="I6u-F0-jj6"/>
                     </connections>
                 </tableViewController>
@@ -584,11 +589,11 @@
                         <viewControllerLayoutGuide type="bottom" id="cIl-LN-fzn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="65b-eQ-MjD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Iwy-5V-Plm">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="kyf-iI-4rL" appends="YES" id="9Ck-PK-Ye8"/>
@@ -627,11 +632,11 @@
                         <viewControllerLayoutGuide type="bottom" id="a7J-vT-yHs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="M1S-Jo-3ci">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-4a-SHR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
                                 <connections>
                                     <outlet property="delegate" destination="pfV-6E-cCt" id="11v-Pq-0g3"/>
                                 </connections>
@@ -771,6 +776,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="reN-Wi-YTz">
+                            <rect key="frame" x="0.0" y="210" width="375" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RouteTableViewCellReuseIdentifier" rowHeight="124" id="REc-BJ-ooj" customClass="RouteTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -847,12 +856,13 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isForPublic" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="reN-Wi-YTz" id="4Hj-Oo-Tjc"/>
                         <segue destination="XfU-Bn-LU8" kind="show" identifier="DetailSegue" id="fdg-gx-PRJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmP-RA-Znc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2897.5" y="1491.5"/>
+            <point key="canvasLocation" x="2844.5" y="1491.5"/>
         </scene>
         <!--Waymore-->
         <scene sceneID="0aL-cm-QhC">
@@ -922,9 +932,9 @@
         <image name="user" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Y6W-hS-t0B"/>
-        <segue reference="8QS-Z5-ysf"/>
         <segue reference="Ubu-2i-ijt"/>
+        <segue reference="hxZ-uy-UVl"/>
         <segue reference="6kf-qH-Run"/>
+        <segue reference="wMY-Ai-2LZ"/>
     </inferredMetricsTieBreakers>
 </document>

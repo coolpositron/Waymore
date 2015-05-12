@@ -183,6 +183,8 @@
              CLPlacemark *placemark = [placemarks objectAtIndex:0];
              newKeyPoint.title = placemark.name;
              [self performSegueWithIdentifier:@"EditSegue" sender:newKeyPoint];
+         } else {
+             [self performSegueWithIdentifier:@"EditSegue" sender:newKeyPoint];
          }
      }];
 }

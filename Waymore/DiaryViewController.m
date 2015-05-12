@@ -17,11 +17,14 @@
 #import "WaymoreUser.h"
 #import "SnippetFilter.h"
 #import "FilterViewController.h"
+#import "DejalActivityView.h"
 
 @interface DiaryViewController ()
 
 @property (strong, nonatomic) NSArray* snippets;
 @property (strong, nonatomic) SnippetFilter *filter;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+
 @end
 
 @implementation DiaryViewController
@@ -32,14 +35,28 @@
     self.filter = [[SnippetFilter alloc] init];
     if (!self.isForPublic) {
         self.filter.userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    } else {
+        self.filter.shareFlag = true;
     }
+}
 
-    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:self.filter];
+- (void) updateSnippets {
+    self.activityIndicatorView.hidden = false;
+    [self.activityIndicatorView startAnimating];
+    dispatch_queue_t myQueue = dispatch_queue_create("update snippet queue",NULL);
+    dispatch_async(myQueue, ^{
+        self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:self.filter];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicatorView stopAnimating];
+            self.activityIndicatorView.hidden = true;
+            [self.tableView reloadData];
+        });
+    });
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    self.snippets =  [[DataAccessManager getInstance] getSnippetWithFilter:self.filter];
-    [self.tableView reloadData];
+    [self updateSnippets];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -86,18 +103,37 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         Snippet *snippet = [self.snippets objectAtIndex:indexPath.row];
         DataAccessManager *dam = [DataAccessManager getInstance];
-        WaymoreUser *user = [dam getUserWithUserId:[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"]];
-        if ([user.likedRouteIds containsObject:snippet.routeId])
-        {
-            if ([dam setLike:snippet.routeId withUserId:user.userId isLike:false]) {
-                snippet.likeNum = snippet.likeNum - 1;
+        dispatch_queue_t myQueue = dispatch_queue_create("like queue",NULL);
+        dispatch_async(myQueue, ^{
+            WaymoreUser *user = [dam getUserWithUserId:[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"]];
+            BOOL success = false;
+            if ([user.likedRouteIds containsObject:snippet.routeId])
+            {
+                if ([dam setLike:snippet.routeId withUserId:user.userId isLike:false]) {
+                    snippet.likeNum = snippet.likeNum - 1;
+                    success = true;
+                }
+            } else {
+                if ([dam setLike:snippet.routeId withUserId:user.userId isLike:true]) {
+                    snippet.likeNum = snippet.likeNum + 1;
+                    success = true;
+                }
             }
-        } else {
-            if ([dam setLike:snippet.routeId withUserId:user.userId isLike:true]) {
-                snippet.likeNum = snippet.likeNum + 1;
-            }
-        }
-        [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                if (success) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Toggle likes success" delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+                    [alert show];
+                    [NSThread sleepForTimeInterval:0.1];
+                    [alert dismissWithClickedButtonIndex:0 animated:YES];
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Toggle likes failed" delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+                    [alert show];
+                    [NSThread sleepForTimeInterval:0.1];
+                    [alert dismissWithClickedButtonIndex:0 animated:YES];
+                }
+            });
+        });
         return true;
     }]];
     cell.leftSwipeSettings.transition = MGSwipeTransition3D;
@@ -108,12 +144,24 @@
             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
             Snippet *snippet = [self.snippets objectAtIndex:indexPath.row];
             DataAccessManager *dam = [DataAccessManager getInstance];
-            //Local route and remote route deletion should be different!
-            //Modify later
-            if ([dam deleteRouteWithRouteId:snippet.routeId]) {
-                self.snippets = [dam getSnippetWithFilter:self.filter];
-            }
-            [self.tableView reloadData];
+
+            dispatch_queue_t myQueue = dispatch_queue_create("delete queue",NULL);
+            dispatch_async(myQueue, ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.activityIndicatorView setHidden:false];
+                    [self.activityIndicatorView startAnimating];
+                    [self.tableView reloadData];
+                });
+                
+                if ([dam deleteRouteWithRouteId:snippet.routeId]) {
+                    self.snippets = [dam getSnippetWithFilter:self.filter];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                    [self.activityIndicatorView setHidden:true];
+                    [self.activityIndicatorView stopAnimating];
+                });
+            });
             return true;
         }]];
         cell.rightSwipeSettings.transition = MGSwipeTransition3D;
@@ -123,20 +171,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"DetailSegue" sender:indexPath];
+    NSInteger index = [indexPath row];
+    Snippet *snippet = self.snippets[index];
+    dispatch_queue_t myQueue = dispatch_queue_create("load route queue",NULL);
+    dispatch_async(myQueue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DejalActivityView activityViewForView:self.view];
+        });
+        Route* route = [[DataAccessManager getInstance] getRouteWithRouteId:snippet.routeId];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSegueWithIdentifier:@"DetailSegue" sender:route];
+            [DejalActivityView removeView];
+        });
+    });
+    
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"DetailSegue"] && [sender isKindOfClass:[NSIndexPath class]]) {
-        NSInteger index = [sender row];
-        Snippet *snippet = self.snippets[index];
-        
-        //Should get Route by index.
-        Route* route = [[DataAccessManager getInstance] getRouteWithRouteId:snippet.routeId];
-        
+    if ([segue.identifier isEqualToString:@"DetailSegue"] && [sender isKindOfClass:[Route class]]) {
         
         DiaryDetailViewController * diaryDetailViewController = segue.destinationViewController;
-        diaryDetailViewController.route = route;
+        diaryDetailViewController.route = (Route *) sender;
     }
     if ([segue.identifier isEqualToString:@"FilterSegue"]) {
         FilterViewController *filterViewController = segue.destinationViewController;
