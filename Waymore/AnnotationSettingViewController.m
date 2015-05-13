@@ -45,7 +45,12 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:NULL];
-    self.imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    NSData *imgData= UIImageJPEGRepresentation(image,0.0 /*compressionQuality*/);
+    
+    UIImage *reducedImage=[UIImage imageWithData:imgData];
+
+    self.imageView.image = reducedImage;
 }
 - (void)viewDidLoad {
     [self.titleTextField setText:self.inputKeyPoint.title];
