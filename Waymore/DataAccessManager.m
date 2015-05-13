@@ -7,13 +7,16 @@
 //
 
 #import "DataAccessManager.h"
-#import "keyPoint.h"
-#import "Snippet.h"
-//#import <AWSS3/AWSS3.h>
+#import "AFAmazonS3Manager.h"
+#import "AFAmazonS3RequestSerializer.h"
+#import "AFAmazonS3ResponseSerializer.h"
 
 @interface DataAccessManager()
 @property (nonatomic, strong) NSString * serverEndPoint;
 @property (nonatomic, strong) NSMutableData * responseData;
+@property (atomic, assign) NSUInteger uploadCnt;
+@property (nonatomic, strong) NSString * accessKey;
+@property (nonatomic, strong) NSString * secret;
 @end
 
 @implementation DataAccessManager
@@ -29,6 +32,9 @@
 
 - (id) init {
     if (self = [super init]) {
+        self.accessKey = @"AKIAI2FLRHCO5WZE5PHQ";
+        self.secret = @"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";
+        //self.serverEndPoint = @"http://129.236.229.4:8090/JAXRS-Waymore/rest/waymore/";
         self.serverEndPoint = @"http://waymore-env.elasticbeanstalk.com/rest/waymore/";
     }
     return self;
@@ -81,24 +87,83 @@
     
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     if (!route.routeId)
-        route.routeId = [NSString stringWithFormat:@"route_%@+%f", route.userIdWhoCreates, now];
-    //    [[NSFileManager defaultManager] createFileAtPath:[[NSString alloc] initWithFormat:@"./%@.route", route.routeId]
-    //                                            contents:nil
-    //                                          attributes:nil];
+        route.routeId = [NSString stringWithFormat:@"route_%@_%f", route.userIdWhoCreates, now];
     return route.routeId;
 }
 
-- (BOOL) uploadRoute: (Route *) route withCompletionBlock:(void (^)(BOOL isSuccess)) completionBlock {
+- (BOOL) uploadRoute:(Route *)route withCompletionBlock:(void (^)(BOOL isSuccess)) completionBlock {
+    NSMutableArray * localKps = [[NSMutableArray alloc] init];
+    for (int i = 0; i < route.keyPoints.count; i++) {
+        KeyPoint * kp = route.keyPoints[i];
+        if ([kp checkLocality]) {
+            [localKps addObject:kp];
+        }
+    }
+    self.uploadCnt = localKps.count;
+    if (localKps.count > 0) {
+        for (KeyPoint * kp in localKps) {
+            [self uploadImg:kp withRoute:route withCompletionBlock:completionBlock];
+        }
+    } else {
+        return [self uploadRouteToServer:route];
+    }
+    
+    return true;
+}
+
+- (BOOL) uploadRouteToServer:(Route *) route {
     NSDictionary * routeJson = [route toJson];
     NSString * jsonString = [self jsonToData:routeJson];
-    NSLog(@"%@", jsonString);
     NSData * responseData = [self postRequest:jsonString withActionType:@"uploadRoute"];
+    NSLog(@"[Upload route to server]: %@", route.title);
     if ([self checkPostResponse:responseData]) {
-        //        NSError *error = nil;
-        //        [[NSFileManager defaultManager] removeItemAtPath:[[NSString alloc] initWithFormat:@"./%@.route", route.routeId] error:&error];
         return true;
     }
     return false;
+}
+
+- (void) uploadImg:(KeyPoint *)keyPoint withRoute:(Route *)route withCompletionBlock:(void (^)(BOOL isSuccess)) completionBlock {
+    AFAmazonS3Manager *s3Manager = [[AFAmazonS3Manager alloc] initWithAccessKeyID:self.accessKey
+                                                                           secret:self.secret];
+    s3Manager.requestSerializer.region = AFAmazonS3USWest2Region;
+    s3Manager.requestSerializer.bucket = @"waymorephotos";
+    
+    NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSString * destinationPath = [[NSString alloc] initWithFormat:@"photo_%@_%f.jpg", userId, now];
+    
+    //@"/Users/yuxuanwang/Documents/IOS/Waymore/Waymore/Miranda_Kerr_2902539a.jpg"
+    [s3Manager putObjectWithFile:[NSURL URLWithString:keyPoint.photoUrl].path
+                 destinationPath:destinationPath
+                      parameters:nil
+                        progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                            NSLog(@"%f%% Uploaded", (totalBytesWritten / (totalBytesExpectedToWrite * 1.0f) * 100));
+                        }
+                         success:^(AFAmazonS3ResponseObject *responseObject) {
+                             NSLog(@"Upload Complete: %@", responseObject.URL);
+                             keyPoint.photoUrl = [responseObject.URL absoluteString];
+                             NSLock * atomL = [NSLock new];
+                             [atomL lock];
+                             self.uploadCnt--;
+                             if (self.uploadCnt == 0) {
+                                 BOOL res = [self uploadRouteToServer:route];
+                                 completionBlock(res);
+                             }
+                             [atomL unlock];
+                             
+                         }
+                         failure:^(NSError *error) {
+                             NSLog(@"Error: %@", error);
+                             NSLock * atomL = [NSLock new];
+                             [atomL lock];
+                             self.uploadCnt--;
+                             if (self.uploadCnt == 0) {
+                                 BOOL res = [self uploadRouteToServer:route];
+                                 completionBlock(res);
+                             }
+                             [atomL unlock];
+                         }];
+
 }
 
 - (Route *) getRouteWithRouteId: (NSString *) routeId {
@@ -137,7 +202,7 @@
 - (NSString *) addComment: (NSString *) content withRouteId: (NSString *) routeId{
     NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-    NSString * commentId = [NSString stringWithFormat:@"comment_%@+%@+%f", userId, routeId, now];
+    NSString * commentId = [NSString stringWithFormat:@"comment_%@_%@_%f", userId, routeId, now];
     NSString * jsonString = [NSString stringWithFormat:@"{\"commentId\":\"%@\",\"content\":\"%@\",\"userId\":\"%@\",\"routeId\":\"%@\",\"createdTime\":\"%f\"}", commentId, content, userId, routeId, now];
     NSData * responseData = [self postRequest:jsonString withActionType:@"addComment"];
     if ([self checkPostResponse:responseData])

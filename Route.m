@@ -43,7 +43,7 @@
                                                 withContent:[kpJson objectForKey:@"notation"]
                                                withLatitude:[[kpJson objectForKey:@"latitude"] doubleValue]
                                               withLongitude:[[kpJson objectForKey:@"longitude"] doubleValue]
-                                                  withPhotoUrl:nil];
+                                                  withPhotoUrl:[kpJson objectForKey:@"photoUrl"]];
             kp.keyPointId = [kpJson objectForKey:@"keyPointId"];
             [keyPoints addObject:kp];
         }

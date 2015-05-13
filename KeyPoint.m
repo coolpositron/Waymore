@@ -25,7 +25,7 @@
     return _content;
 }
 
-- (KeyPoint *) initWithTitle:(NSString *)title withContent:(NSString *)content withLatitude:(double)latitude withLongitude:(double)longitude withPhotoUrl:(UIImage *)photoUrl{
+- (KeyPoint *) initWithTitle:(NSString *)title withContent:(NSString *)content withLatitude:(double)latitude withLongitude:(double)longitude withPhotoUrl:(NSString *)photoUrl{
     static NSInteger availableId = 0;
     if (self = [super init]) {
         self.title = title;
@@ -48,9 +48,17 @@
         [res setObject:latitude forKey:@"latitude"];
         NSNumber * longitude = [[NSNumber alloc] initWithDouble:self.longitude];
         [res setObject:longitude forKey:@"longitude"];
+        [res setObject:self.photoUrl forKey:@"photoUrl"];
         return res;
     }
     return nil;
+}
+
+- (BOOL) checkLocality {
+    if (self == nil || [self.photoUrl containsString:@"http://"]) {
+        return false;
+    }
+    return true;
 }
 
 @end

@@ -18,6 +18,7 @@
         self.city = [json objectForKey:@"city"];;
         self.userName = [json objectForKey:@"username"];
         self.likeNum = [[json objectForKey:@"likeNum"] integerValue];
+        self.createdTime = [NSDate dateWithTimeIntervalSince1970:[[json objectForKey:@"createdTime"] doubleValue]];
     }
     return self;
 }
