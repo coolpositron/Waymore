@@ -30,7 +30,7 @@
     if (self = [super init]) {
         self.title = title;
         self.content = content;
-        self.photoUrl = [self.photoUrl isEqualToString:@""] == 0?nil:self.photoUrl;
+        self.photoUrl = [photoUrl isEqualToString:@""]?nil:photoUrl;
         self.latitude = latitude;
         self.longitude = longitude;
         self.keyPointId = [NSString stringWithFormat:@"%ld", (long)availableId++];
