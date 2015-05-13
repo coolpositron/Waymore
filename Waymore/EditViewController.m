@@ -9,6 +9,7 @@
 #import "EditViewController.h"
 #import "DisplayMapViewController.h"
 #import "DataAccessManager.h"
+#import "DejalActivityView.h"
 
 @interface EditViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
@@ -48,8 +49,19 @@
         self.route.city = self.cityTextField.text;
         self.route.keyPoints = [self.mapViewController.keyPoints copy];
         self.route.mapPoints = [self.mapViewController.mapPoints copy];
-        [dataAccessManager putLocalRoute:self.route];
-        [dataAccessManager uploadRoute:self.route];
+        dispatch_queue_t myQueue = dispatch_queue_create("upload route queue",NULL);
+        dispatch_async(myQueue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [DejalActivityView activityViewForView:self.view];
+            });
+            Route *route = self.route;
+            [dataAccessManager putLocalRoute:self.route];
+            [dataAccessManager uploadRoute:self.route];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [DejalActivityView removeView];
+            });
+        });
     }
 }
 
