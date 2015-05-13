@@ -13,6 +13,7 @@
 #import "Comment.h"
 #import "KeyPoint.h"
 #import "MapPoint.h"
+#import "Snippet.h"
 
 @interface DataAccessManager : NSObject
 

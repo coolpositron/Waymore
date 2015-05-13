@@ -7,9 +7,9 @@
 //
 
 #import "DataAccessManager.h"
-#import "keyPoint.h"
-#import "Snippet.h"
-//#import <AWSS3/AWSS3.h>
+#import "AFAmazonS3Manager.h"
+#import "AFAmazonS3RequestSerializer.h"
+#import "AFAmazonS3ResponseSerializer.h"
 
 @interface DataAccessManager()
 @property (nonatomic, strong) NSString * serverEndPoint;
@@ -89,6 +89,8 @@
 }
 
 - (BOOL) uploadRoute: (Route *) route {
+    [self uploadImg:[NSURL fileURLWithPath:@"/Users/yuxuanwang/Documents/IOS/Waymore/Waymore/Miranda_Kerr_2902539a.jpg"]];
+    
     NSDictionary * routeJson = [route toJson];
     NSString * jsonString = [self jsonToData:routeJson];
     NSLog(@"%@", jsonString);
@@ -98,7 +100,38 @@
         //        [[NSFileManager defaultManager] removeItemAtPath:[[NSString alloc] initWithFormat:@"./%@.route", route.routeId] error:&error];
         return true;
     }
+    
     return false;
+}
+
+- (void) uploadImg:(NSURL *)imgURL {
+    AFAmazonS3Manager *s3Manager = [[AFAmazonS3Manager alloc] initWithAccessKeyID:@"AKIAI2FLRHCO5WZE5PHQ"
+                                                                           secret:@"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"];
+    s3Manager.requestSerializer.region = AFAmazonS3USWest2Region;
+    s3Manager.requestSerializer.bucket = @"waymorephotos";
+    
+    NSString *destinationPath = @"testImage.jpg";
+    
+    NSLog(@"Ready to upload!!!");
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    [s3Manager postObjectWithFile: imgURL.path
+                 destinationPath:destinationPath
+                      parameters:nil
+                        progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                            NSLog(@"%f%% Uploaded", (totalBytesWritten / (totalBytesExpectedToWrite * 1.0f) * 100));
+                            dispatch_semaphore_signal(sema);
+                        }
+                         success:^(AFAmazonS3ResponseObject *responseObject) {
+                             NSLog(@"Upload Complete: %@", responseObject.URL);
+                             dispatch_semaphore_signal(sema);
+                         }
+                         failure:^(NSError *error) {
+                             NSLog(@"Error: %@", error);
+                             dispatch_semaphore_signal(sema);
+                         }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    NSLog(@"Upload finishes.");
 }
 
 - (Route *) getRouteWithRouteId: (NSString *) routeId {
