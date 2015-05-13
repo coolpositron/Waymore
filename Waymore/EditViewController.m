@@ -51,12 +51,14 @@
     self.route.keyPoints = [self.mapViewController.keyPoints copy];
     self.route.mapPoints = [self.mapViewController.mapPoints copy];
     
-    [DejalActivityView activityViewForView:self.view withLabel:@"uploading..."];
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"uploading"];
+    //[DejalActivityView activityViewForView:self.view withLabel:@"uploading..."];
     [dataAccessManager putLocalRoute:self.route];
     [dataAccessManager uploadRoute:self.route withCompletionBlock:^(BOOL isSuccess) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"call back successful");
-            [DejalActivityView removeView];
+            //[DejalActivityView removeView];
+            [DejalBezelActivityView removeView];
             [self performSegueWithIdentifier:@"EditSaveUnwind" sender:self];
         });
     }];
