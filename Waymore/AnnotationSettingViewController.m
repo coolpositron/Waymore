@@ -58,10 +58,10 @@
     self.outputKeyPoint.title = self.titleTextField.text;
     self.outputKeyPoint.content = self.contentTextField.text;
     //Should be change
-    if (self.imageView != nil) {
+    if (self.imageView.image != nil) {
             self.outputKeyPoint.photoUrl = [self putImageToLocal:self.imageView.image];
     } else {
-        self.imageView = nil;
+        self.outputKeyPoint.photoUrl = nil;
     }
     self.outputKeyPoint.latitude = self.inputKeyPoint.latitude;
     self.outputKeyPoint.longitude = self.inputKeyPoint.longitude;
