@@ -105,7 +105,9 @@
             [self uploadImg:kp withRoute:route withCompletionBlock:completionBlock];
         }
     } else {
-        return [self uploadRouteToServer:route];
+        int res = [self uploadRouteToServer:route];
+        completionBlock(res);
+        return res;
     }
     
     return true;

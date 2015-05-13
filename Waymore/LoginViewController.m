@@ -34,10 +34,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:dateKey];
-    [[NSUserDefaults standardUserDefaults] setObject:@"user_id_1" forKey:@"userId"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"user_name_1" forKey:@"userName"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [[DataAccessManager getInstance] addUserWithUserId:@"user_id_1" withUserName: @"user_name_1"];
+    
     
 }
 

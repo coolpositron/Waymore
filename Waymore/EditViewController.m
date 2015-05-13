@@ -42,23 +42,27 @@
         self.mapViewController.isEditable = true;
         [self updateMap];
     }
-    if ([segueName isEqualToString:@"EditSaveUnwind"]) {
-        DataAccessManager *dataAccessManager = [DataAccessManager getInstance];
-        self.route.title = self.titleTextField.text;
-        self.route.keywords = self.keywordTextField.text;
-        self.route.city = self.cityTextField.text;
-        self.route.keyPoints = [self.mapViewController.keyPoints copy];
-        self.route.mapPoints = [self.mapViewController.mapPoints copy];
-        
-        [DejalActivityView activityViewForView:self.view];
-        [dataAccessManager putLocalRoute:self.route];
-        [dataAccessManager uploadRoute:self.route withCompletionBlock:^(BOOL isSuccess) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [DejalActivityView removeView];
-            });
-        }];
-    }
 }
+- (IBAction)saveTapped:(UIBarButtonItem *)sender {
+    DataAccessManager *dataAccessManager = [DataAccessManager getInstance];
+    self.route.title = self.titleTextField.text;
+    self.route.keywords = self.keywordTextField.text;
+    self.route.city = self.cityTextField.text;
+    self.route.keyPoints = [self.mapViewController.keyPoints copy];
+    self.route.mapPoints = [self.mapViewController.mapPoints copy];
+    
+    [DejalActivityView activityViewForView:self.view withLabel:@"uploading..."];
+    [dataAccessManager putLocalRoute:self.route];
+    [dataAccessManager uploadRoute:self.route withCompletionBlock:^(BOOL isSuccess) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"call back successful");
+            [DejalActivityView removeView];
+            [self performSegueWithIdentifier:@"EditSaveUnwind" sender:self];
+        });
+    }];
+}
+
+
 
 - (void) updateMap {
     [self.mapViewController clear];
