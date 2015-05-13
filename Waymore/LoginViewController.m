@@ -39,6 +39,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[DataAccessManager getInstance] addUserWithUserId:@"user_id_1" withUserName: @"user_name_1"];
     
+    
 }
 
 - (void) viewDidAppear:(BOOL)animated {

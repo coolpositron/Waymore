@@ -31,6 +31,14 @@
     picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     [self presentViewController:picker animated:YES completion:NULL];
 }
+
+- (IBAction)takePhotoTapped:(UIButton *)sender {
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
 - (IBAction)deletePhotoTapped:(UIButton *)sender {
     self.imageView.image = nil;
 }

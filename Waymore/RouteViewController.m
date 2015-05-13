@@ -96,6 +96,12 @@
 }
 
 - (IBAction) backFromEditViewControllerSave:(UIStoryboardSegue *)segue {
+    int index = 1;
+    self.tabBarController.selectedIndex = index;
+    [self.tabBarController.viewControllers[index] popToRootViewControllerAnimated:YES];
+//    UIViewController *routeViewController = [self.tabBarController.viewControllers objectAtIndex:1];
+//    self.tabBarController.selectedViewController = routeViewController;
+//    [routeViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)focusOnUserTapped:(UIButton *)sender {

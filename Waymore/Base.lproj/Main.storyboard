@@ -284,7 +284,7 @@
                     <navigationItem key="navigationItem" title="Edit" id="dDz-En-bbr">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="W7i-Tz-Rzc">
                             <connections>
-                                <segue destination="up2-Ck-fZ7" kind="unwind" identifier="EditSaveUnwind" unwindAction="backFromEditViewControllerSave:" id="mGe-i4-EkC"/>
+                                <action selector="saveTapped:" destination="Fjf-Af-wB8" id="oEu-4i-hYi"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -292,6 +292,7 @@
                         <outlet property="cityTextField" destination="eLy-aD-QeE" id="LG4-EA-535"/>
                         <outlet property="keywordTextField" destination="wG8-qs-i72" id="e1n-X6-or0"/>
                         <outlet property="titleTextField" destination="YFO-Fy-VnN" id="bOV-e2-Gmw"/>
+                        <segue destination="up2-Ck-fZ7" kind="unwind" identifier="EditSaveUnwind" unwindAction="backFromEditViewControllerSave:" id="kwo-Pv-3sC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FI7-Ri-PNw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -601,11 +602,11 @@
                         <viewControllerLayoutGuide type="bottom" id="cIl-LN-fzn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="65b-eQ-MjD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Iwy-5V-Plm">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="kyf-iI-4rL" appends="YES" id="9Ck-PK-Ye8"/>
@@ -644,11 +645,11 @@
                         <viewControllerLayoutGuide type="bottom" id="a7J-vT-yHs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="M1S-Jo-3ci">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-4a-SHR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="488"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <connections>
                                     <outlet property="delegate" destination="pfV-6E-cCt" id="11v-Pq-0g3"/>
                                 </connections>
@@ -682,7 +683,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddo-BG-Ykf">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddo-BG-Ykf">
                                 <rect key="frame" x="313" y="20" width="37" height="30"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -725,8 +726,17 @@
                                     <action selector="selectPhotoTapped:" destination="NGC-F1-55P" eventType="touchUpInside" id="WeE-bL-nVz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62A-3X-8MY">
+                                <rect key="frame" x="149" y="172" width="77" height="30"/>
+                                <state key="normal" title="Take Photo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePhotoTapped:" destination="NGC-F1-55P" eventType="touchUpInside" id="tqD-XD-reA"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y89-LC-gSJ">
-                                <rect key="frame" x="143" y="172" width="89" height="30"/>
+                                <rect key="frame" x="142" y="210" width="89" height="30"/>
                                 <state key="normal" title="Delete Photo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -735,32 +745,33 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bEg-iQ-PSz">
-                                <rect key="frame" x="7" y="210" width="343" height="308"/>
+                                <rect key="frame" x="16" y="248" width="343" height="308"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="308" id="e0L-Sl-tFb"/>
+                                    <constraint firstAttribute="height" constant="308" id="vDC-Q0-4Bh"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="08u-9U-p0L" firstAttribute="leading" secondItem="igx-I5-cwc" secondAttribute="leadingMargin" id="1mE-6n-zAR"/>
-                            <constraint firstItem="y89-LC-gSJ" firstAttribute="top" secondItem="GgI-as-ZSg" secondAttribute="bottom" constant="8" symbolic="YES" id="3ub-gR-dQY"/>
                             <constraint firstItem="08u-9U-p0L" firstAttribute="top" secondItem="Xbe-qu-BOK" secondAttribute="bottom" constant="8" symbolic="YES" id="AAY-hZ-Ngv"/>
-                            <constraint firstItem="bEg-iQ-PSz" firstAttribute="leading" secondItem="igx-I5-cwc" secondAttribute="leadingMargin" constant="-9" id="CiY-A6-9uy"/>
                             <constraint firstItem="Xbe-qu-BOK" firstAttribute="top" secondItem="igx-I5-cwc" secondAttribute="top" constant="20" symbolic="YES" id="FZ0-0Z-fT0"/>
-                            <constraint firstItem="y89-LC-gSJ" firstAttribute="centerX" secondItem="igx-I5-cwc" secondAttribute="centerX" id="JYC-vE-HAm"/>
-                            <constraint firstItem="SGj-yK-7al" firstAttribute="top" secondItem="bEg-iQ-PSz" secondAttribute="bottom" constant="149" id="KPZ-hN-4Kh"/>
-                            <constraint firstItem="y89-LC-gSJ" firstAttribute="centerX" secondItem="cdp-e0-A6V" secondAttribute="centerX" id="RJ1-Vg-LQA"/>
-                            <constraint firstItem="GgI-as-ZSg" firstAttribute="leading" secondItem="y89-LC-gSJ" secondAttribute="leading" id="VJX-WH-E6C"/>
-                            <constraint firstItem="bEg-iQ-PSz" firstAttribute="top" secondItem="y89-LC-gSJ" secondAttribute="bottom" constant="8" symbolic="YES" id="Xcs-X8-CNl"/>
-                            <constraint firstItem="bEg-iQ-PSz" firstAttribute="trailing" secondItem="ddo-BG-Ykf" secondAttribute="trailing" id="YaG-g2-60I"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="bEg-iQ-PSz" secondAttribute="trailing" constant="9" id="YaT-jf-rxY"/>
+                            <constraint firstItem="y89-LC-gSJ" firstAttribute="top" secondItem="62A-3X-8MY" secondAttribute="bottom" constant="8" symbolic="YES" id="O1k-4P-wgX"/>
+                            <constraint firstItem="62A-3X-8MY" firstAttribute="centerX" secondItem="igx-I5-cwc" secondAttribute="centerX" id="OXg-qb-pkD"/>
                             <constraint firstItem="08u-9U-p0L" firstAttribute="trailing" secondItem="cdp-e0-A6V" secondAttribute="trailing" id="aX7-Zu-JjB"/>
+                            <constraint firstItem="62A-3X-8MY" firstAttribute="centerX" secondItem="cdp-e0-A6V" secondAttribute="centerX" id="bs3-Jf-iT1"/>
                             <constraint firstItem="GgI-as-ZSg" firstAttribute="top" secondItem="cdp-e0-A6V" secondAttribute="bottom" constant="8" symbolic="YES" id="cZc-NK-Lx4"/>
+                            <constraint firstItem="SGj-yK-7al" firstAttribute="top" secondItem="bEg-iQ-PSz" secondAttribute="bottom" constant="111" id="cg4-6f-ht4"/>
+                            <constraint firstItem="y89-LC-gSJ" firstAttribute="leading" secondItem="igx-I5-cwc" secondAttribute="leading" constant="142" id="fKJ-lc-DXm"/>
                             <constraint firstItem="Xbe-qu-BOK" firstAttribute="baseline" secondItem="ddo-BG-Ykf" secondAttribute="baseline" id="iZX-rk-6xZ"/>
+                            <constraint firstItem="y89-LC-gSJ" firstAttribute="trailing" secondItem="GgI-as-ZSg" secondAttribute="trailing" id="kWW-Ow-cf0"/>
+                            <constraint firstItem="bEg-iQ-PSz" firstAttribute="leading" secondItem="cdp-e0-A6V" secondAttribute="leading" id="l8c-iv-1BZ"/>
+                            <constraint firstItem="bEg-iQ-PSz" firstAttribute="top" secondItem="y89-LC-gSJ" secondAttribute="bottom" constant="8" symbolic="YES" id="mcj-by-EJx"/>
                             <constraint firstItem="Xbe-qu-BOK" firstAttribute="leading" secondItem="08u-9U-p0L" secondAttribute="leading" id="oqp-Mn-v4c"/>
                             <constraint firstItem="08u-9U-p0L" firstAttribute="leading" secondItem="cdp-e0-A6V" secondAttribute="leading" id="q2B-Ge-oj2"/>
+                            <constraint firstItem="bEg-iQ-PSz" firstAttribute="trailing" secondItem="cdp-e0-A6V" secondAttribute="trailing" id="rhU-In-JDg"/>
+                            <constraint firstItem="62A-3X-8MY" firstAttribute="top" secondItem="GgI-as-ZSg" secondAttribute="bottom" constant="8" symbolic="YES" id="sn2-wx-91V"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -778,7 +789,7 @@
                 <exit id="26f-7a-Yrh" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ea-NZ-Krw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3371.5" y="-1737.5"/>
+            <point key="canvasLocation" x="3419.5" y="-1761.5"/>
         </scene>
         <!--Waymore-->
         <scene sceneID="0aL-cm-QhC">
@@ -959,7 +970,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="6kf-qH-Run"/>
         <segue reference="Ubu-2i-ijt"/>
-        <segue reference="hxZ-uy-UVl"/>
-        <segue reference="wMY-Ai-2LZ"/>
+        <segue reference="8QS-Z5-ysf"/>
+        <segue reference="Y6W-hS-t0B"/>
     </inferredMetricsTieBreakers>
 </document>
