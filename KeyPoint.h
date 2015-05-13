@@ -23,4 +23,6 @@
 
 - (NSDictionary *) toJson:(BOOL)update;
 
+- (BOOL) checkLocality;
+
 @end

@@ -90,6 +90,9 @@
 
 - (BOOL) uploadRoute: (Route *) route {
     //[self uploadImg:[NSURL fileURLWithPath:@"/Users/yuxuanwang/Documents/IOS/Waymore/Waymore/Miranda_Kerr_2902539a.jpg"]];
+    for (KeyPoint * kp in route.keyPoints) {
+        [kp checkLocality];
+    }
     
     NSDictionary * routeJson = [route toJson];
     NSString * jsonString = [self jsonToData:routeJson];
