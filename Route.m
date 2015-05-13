@@ -56,7 +56,7 @@
                                                 withRouteId:[cmJson objectForKey:@"routeId"]
                                                withUserName:[cmJson objectForKey:@"userName"]];
             cm.commentId = [cmJson objectForKey:@"commentId"];
-            cm.createdTime = [NSDate dateWithTimeIntervalSince1970:[[json objectForKey:@"createdTime"] doubleValue]];
+            cm.createdTime = [NSDate dateWithTimeIntervalSince1970:[[cmJson objectForKey:@"createdTime"] doubleValue]];
             [comments addObject:cm];
         }
         self.comments = comments.copy;
