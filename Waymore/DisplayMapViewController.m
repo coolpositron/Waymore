@@ -98,10 +98,7 @@
         if([annotation isKindOfClass:[KeyPoint class]]) {
             KeyPoint *keyPoint = (KeyPoint *) annotation;
             if(keyPoint.photoUrl != nil) {
-                UIImageView *imageView = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 46, 46)];
-                [imageView sd_setImageWithURL:[NSURL URLWithString:keyPoint.photoUrl]];
                 UIButton * leftButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 46, 46)];
-                [leftButton addSubview:imageView];
                 leftButton.tag = LEFT;
                 pinView.leftCalloutAccessoryView = leftButton;
             } else {
@@ -126,6 +123,17 @@
     }
     
     return nil;
+}
+
+- (void) mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
+    if (view.leftCalloutAccessoryView == nil) {
+        return;
+    }
+    KeyPoint *keyPoint = view.annotation;
+    NSLog(@"photo url: %@", keyPoint.photoUrl);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 46, 46)];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:keyPoint.photoUrl]];
+    [view.leftCalloutAccessoryView addSubview:imageView];
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {

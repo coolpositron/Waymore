@@ -176,12 +176,12 @@
     dispatch_queue_t myQueue = dispatch_queue_create("load route queue",NULL);
     dispatch_async(myQueue, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [DejalActivityView activityViewForView:self.view];
+            [DejalBezelActivityView activityViewForView:self.view];
         });
         Route* route = [[DataAccessManager getInstance] getRouteWithRouteId:snippet.routeId];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self performSegueWithIdentifier:@"DetailSegue" sender:route];
-            [DejalActivityView removeView];
+            [DejalBezelActivityView removeView];
         });
     });
     
