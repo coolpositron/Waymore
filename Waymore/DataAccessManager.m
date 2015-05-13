@@ -34,7 +34,8 @@
     if (self = [super init]) {
         self.accessKey = @"AKIAI2FLRHCO5WZE5PHQ";
         self.secret = @"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";
-        self.serverEndPoint = @"http://129.236.229.4:8090/JAXRS-Waymore/rest/waymore/";
+        //self.serverEndPoint = @"http://129.236.229.4:8090/JAXRS-Waymore/rest/waymore/";
+        self.serverEndPoint = @"http://waymore-env.elasticbeanstalk.com/rest/waymore/";
     }
     return self;
 }
@@ -113,8 +114,8 @@
 - (BOOL) uploadRouteToServer:(Route *) route {
     NSDictionary * routeJson = [route toJson];
     NSString * jsonString = [self jsonToData:routeJson];
-    NSLog(@"%@", jsonString);
     NSData * responseData = [self postRequest:jsonString withActionType:@"uploadRoute"];
+    NSLog(@"[Upload route to server]: %@", route.title);
     if ([self checkPostResponse:responseData]) {
         return true;
     }
