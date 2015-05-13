@@ -25,7 +25,7 @@
     return _content;
 }
 
-- (KeyPoint *) initWithTitle:(NSString *)title withContent:(NSString *)content withLatitude:(double)latitude withLongitude:(double)longitude withPhotoUrl:(UIImage *)photoUrl{
+- (KeyPoint *) initWithTitle:(NSString *)title withContent:(NSString *)content withLatitude:(double)latitude withLongitude:(double)longitude withPhotoUrl:(NSString *)photoUrl{
     static NSInteger availableId = 0;
     if (self = [super init]) {
         self.title = title;
@@ -51,6 +51,13 @@
         return res;
     }
     return nil;
+}
+
+- (BOOL) checkLocality {
+    if ([self.photoUrl containsString:@"http://"]) {
+        return true;
+    }
+    return false;
 }
 
 @end

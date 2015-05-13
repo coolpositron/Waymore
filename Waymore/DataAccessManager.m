@@ -14,6 +14,9 @@
 @interface DataAccessManager()
 @property (nonatomic, strong) NSString * serverEndPoint;
 @property (nonatomic, strong) NSMutableData * responseData;
+@property (atomic, assign) NSUInteger uploadCnt;
+@property (nonatomic, strong) NSString * accessKey;
+@property (nonatomic, strong) NSString * secret;
 @end
 
 @implementation DataAccessManager
@@ -29,6 +32,8 @@
 
 - (id) init {
     if (self = [super init]) {
+        self.accessKey = @"AKIAI2FLRHCO5WZE5PHQ";
+        self.secret = @"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";
         self.serverEndPoint = @"http://waymore-env.elasticbeanstalk.com/rest/waymore/";
     }
     return self;
@@ -82,16 +87,20 @@
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     if (!route.routeId)
         route.routeId = [NSString stringWithFormat:@"route_%@+%f", route.userIdWhoCreates, now];
-    //    [[NSFileManager defaultManager] createFileAtPath:[[NSString alloc] initWithFormat:@"./%@.route", route.routeId]
-    //                                            contents:nil
-    //                                          attributes:nil];
     return route.routeId;
 }
 
-- (BOOL) uploadRoute: (Route *) route {
-    //[self uploadImg:[NSURL fileURLWithPath:@"/Users/yuxuanwang/Documents/IOS/Waymore/Waymore/Miranda_Kerr_2902539a.jpg"]];
-    for (KeyPoint * kp in route.keyPoints) {
-        [kp checkLocality];
+- (BOOL) uploadRoute: (Route *) route withCompletionBlock:(void (^)(BOOL isSuccess)) completionBlock {
+    NSMutableArray * localKps = [[NSMutableArray alloc] init];
+    for (int i = 0; i < route.keyPoints.count; i++) {
+        KeyPoint * kp = route.keyPoints[i];
+        if ([kp checkLocality]) {
+            [localKps addObject:kp];
+        }
+    }
+    self.uploadCnt = localKps.count;
+    for (KeyPoint * kp in localKps) {
+        [self uploadImg:kp withCompletionBlock:completionBlock];
     }
     
     NSDictionary * routeJson = [route toJson];
@@ -99,24 +108,24 @@
     NSLog(@"%@", jsonString);
     NSData * responseData = [self postRequest:jsonString withActionType:@"uploadRoute"];
     if ([self checkPostResponse:responseData]) {
-        //        NSError *error = nil;
-        //        [[NSFileManager defaultManager] removeItemAtPath:[[NSString alloc] initWithFormat:@"./%@.route", route.routeId] error:&error];
         return true;
     }
     
     return false;
 }
 
-- (void) uploadImg:(NSURL *)imgURL {
-    AFAmazonS3Manager *s3Manager = [[AFAmazonS3Manager alloc] initWithAccessKeyID:@"AKIAI2FLRHCO5WZE5PHQ"
-                                                                           secret:@"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"];
+- (void) uploadImg:(KeyPoint *)keyPoint withCompletionBlock:(void (^)(BOOL isSuccess)) completionBlock {
+    AFAmazonS3Manager *s3Manager = [[AFAmazonS3Manager alloc] initWithAccessKeyID:self.accessKey
+                                                                           secret:self.secret];
     s3Manager.requestSerializer.region = AFAmazonS3USWest2Region;
     s3Manager.requestSerializer.bucket = @"waymorephotos";
     
-    NSString *destinationPath = @"testImage.jpg";
+    NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSString * destinationPath = [[NSString alloc] initWithFormat:@"photo_%@+%f.jpg", userId, now];
     
-    NSLog(@"Ready to upload!!!");
-    [s3Manager putObjectWithFile: imgURL.path
+    //@"/Users/yuxuanwang/Documents/IOS/Waymore/Waymore/Miranda_Kerr_2902539a.jpg"
+    [s3Manager putObjectWithFile:[NSURL URLWithString:keyPoint.photoUrl].path
                  destinationPath:destinationPath
                       parameters:nil
                         progress:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
@@ -124,9 +133,25 @@
                         }
                          success:^(AFAmazonS3ResponseObject *responseObject) {
                              NSLog(@"Upload Complete: %@", responseObject.URL);
+                             keyPoint.photoUrl = [responseObject.URL absoluteString];
+                             NSLock * atomL = [NSLock new];
+                             [atomL lock];
+                             self.uploadCnt--;
+                             if (self.uploadCnt == 0) {
+                                 completionBlock(true);
+                             }
+                             [atomL unlock];
+                             
                          }
                          failure:^(NSError *error) {
                              NSLog(@"Error: %@", error);
+                             NSLock * atomL = [NSLock new];
+                             [atomL lock];
+                             self.uploadCnt--;
+                             if (self.uploadCnt == 0) {
+                                 completionBlock(false);
+                             }
+                             [atomL unlock];
                          }];
 
 }
