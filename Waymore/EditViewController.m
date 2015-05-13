@@ -49,19 +49,14 @@
         self.route.city = self.cityTextField.text;
         self.route.keyPoints = [self.mapViewController.keyPoints copy];
         self.route.mapPoints = [self.mapViewController.mapPoints copy];
-        dispatch_queue_t myQueue = dispatch_queue_create("upload route queue",NULL);
-        dispatch_async(myQueue, ^{
+        
+        [DejalActivityView activityViewForView:self.view];
+        [dataAccessManager putLocalRoute:self.route];
+        [dataAccessManager uploadRoute:self.route withCompletionBlock:^(BOOL isSuccess) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [DejalActivityView activityViewForView:self.view];
-            });
-            Route *route = self.route;
-            [dataAccessManager putLocalRoute:self.route];
-            [dataAccessManager uploadRoute:self.route];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
                 [DejalActivityView removeView];
             });
-        });
+        }];
     }
 }
 
