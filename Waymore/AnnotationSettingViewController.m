@@ -46,7 +46,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:NULL];
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    NSData *imgData= UIImageJPEGRepresentation(image,0.0 /*compressionQuality*/);
+    NSData *imgData= UIImageJPEGRepresentation(image, 0.1 /*compressionQuality*/);
     
     UIImage *reducedImage=[UIImage imageWithData:imgData];
 
