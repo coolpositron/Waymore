@@ -55,6 +55,7 @@
 		2DB14FB11B02CE4900DFEB19 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB14FA01B02CE4900DFEB19 /* UIImageView+WebCache.m */; };
 		2DB14FB21B02CE4900DFEB19 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB14FA21B02CE4900DFEB19 /* UIView+WebCacheOperation.m */; };
 		2DB14FB41B02CE7300DFEB19 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB14FB31B02CE7300DFEB19 /* ImageIO.framework */; };
+		2DB14FB61B031BEC00DFEB19 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB14FB51B031BEC00DFEB19 /* Social.framework */; };
 		9E45278F1AF2D01600723934 /* KeyPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E45278E1AF2D01600723934 /* KeyPoint.m */; };
 		9E4527951AF2D01700723934 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527941AF2D01700723934 /* Comment.m */; };
 		9E4527981AF2D01700723934 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4527971AF2D01700723934 /* MapPoint.m */; };
@@ -185,6 +186,7 @@
 		2DB14FA11B02CE4900DFEB19 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		2DB14FA21B02CE4900DFEB19 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		2DB14FB31B02CE7300DFEB19 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		2DB14FB51B031BEC00DFEB19 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		9E45278D1AF2D01600723934 /* KeyPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyPoint.h; path = ../KeyPoint.h; sourceTree = "<group>"; };
 		9E45278E1AF2D01600723934 /* KeyPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyPoint.m; path = ../KeyPoint.m; sourceTree = "<group>"; };
 		9E4527901AF2D01700723934 /* WaymoreUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaymoreUser.h; sourceTree = SOURCE_ROOT; };
@@ -236,6 +238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DB14FB61B031BEC00DFEB19 /* Social.framework in Frameworks */,
 				2DB14FB41B02CE7300DFEB19 /* ImageIO.framework in Frameworks */,
 				2D2D330E1AFE8A4A00EE81BD /* FBSDKCoreKit.framework in Frameworks */,
 				2D2D330F1AFE8A4A00EE81BD /* FBSDKLoginKit.framework in Frameworks */,
@@ -295,6 +298,7 @@
 		2D6C51F91AF2CC1F002D9BBD = {
 			isa = PBXGroup;
 			children = (
+				2DB14FB51B031BEC00DFEB19 /* Social.framework */,
 				2DB14FB31B02CE7300DFEB19 /* ImageIO.framework */,
 				2D2D330B1AFE8A4A00EE81BD /* FBSDKCoreKit.framework */,
 				2D2D330C1AFE8A4A00EE81BD /* FBSDKLoginKit.framework */,
