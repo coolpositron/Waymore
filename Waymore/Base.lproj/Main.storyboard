@@ -79,7 +79,7 @@
                                             <color key="backgroundColor" red="0.50196081399917603" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qa5-Nk-CoR">
-                                            <rect key="frame" x="9" y="4" width="282" height="21"/>
+                                            <rect key="frame" x="9" y="4" width="282" height="34"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -862,7 +862,7 @@
                                             <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVQ-KT-enb">
-                                            <rect key="frame" x="9" y="4" width="282" height="21"/>
+                                            <rect key="frame" x="9" y="4" width="282" height="34"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -945,7 +945,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lEW-hw-enR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2871" y="2370"/>
+            <point key="canvasLocation" x="2870.5" y="2369.5"/>
         </scene>
     </scenes>
     <resources>
@@ -958,8 +958,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6kf-qH-Run"/>
-        <segue reference="wMY-Ai-2LZ"/>
-        <segue reference="hxZ-uy-UVl"/>
         <segue reference="Ubu-2i-ijt"/>
+        <segue reference="hxZ-uy-UVl"/>
+        <segue reference="wMY-Ai-2LZ"/>
     </inferredMetricsTieBreakers>
 </document>
