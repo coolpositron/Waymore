@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSString * photoUrl;
 @property (nonatomic, retain) NSString * title;
 
-- (KeyPoint *) initWithTitle: (NSString *) title withContent:(NSString *) content withLatitude:(double) latitude withLongitude:(double) longitude withPhoto:(UIImage *) photo;
+- (KeyPoint *) initWithTitle: (NSString *) title withContent:(NSString *) content withLatitude:(double) latitude withLongitude:(double) longitude withPhotoUrl:(UIImage *) photo;
 
 - (NSDictionary *) toJson:(BOOL)update;
 
