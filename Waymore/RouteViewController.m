@@ -42,7 +42,7 @@
     if ([segueName isEqualToString:@"FinishSegue"]) {
         EditViewController * editViewController = segue.destinationViewController;
         editViewController.route = self.finishedRoute;
-        
+        editViewController.navigationItem.hidesBackButton = true;
     }
 }
 
