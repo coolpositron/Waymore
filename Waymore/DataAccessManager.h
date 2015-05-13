@@ -24,7 +24,7 @@
 - (NSArray *) getSnippetWithFilter: (SnippetFilter *) snippetFilter;
 - (Route *) getRouteWithRouteId: (NSString *) routeId;
 - (NSString *) putLocalRoute: (Route *) route;
-- (BOOL) uploadRoute: (Route *) route;
+- (BOOL) uploadRoute: (Route *) route withCompletionBlock:(void (^)(BOOL isSuccess)) completionBlock;
 - (BOOL) setShareSetting: (NSString *) routeId isShare: (BOOL) flag;
 - (BOOL) deleteRouteWithRouteId: (NSString *) routeId;
 - (BOOL) setLike: (NSString *) routeId withUserId: (NSString *) userId isLike: (BOOL) flag;
