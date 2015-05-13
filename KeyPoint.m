@@ -30,7 +30,7 @@
     if (self = [super init]) {
         self.title = title;
         self.content = content;
-        self.photoUrl = photoUrl;
+        self.photoUrl = [self.photoUrl isEqualToString:@""] == 0?nil:self.photoUrl;
         self.latitude = latitude;
         self.longitude = longitude;
         self.keyPointId = [NSString stringWithFormat:@"%ld", (long)availableId++];
@@ -48,14 +48,14 @@
         [res setObject:latitude forKey:@"latitude"];
         NSNumber * longitude = [[NSNumber alloc] initWithDouble:self.longitude];
         [res setObject:longitude forKey:@"longitude"];
-        [res setObject:self.photoUrl forKey:@"photoUrl"];
+        [res setObject:self.photoUrl?self.photoUrl:@"" forKey:@"photoUrl"];
         return res;
     }
     return nil;
 }
 
 - (BOOL) checkLocality {
-    if (self == nil || [self.photoUrl containsString:@"http://"]) {
+    if (self.photoUrl == nil || [self.photoUrl containsString:@"http://"]) {
         return false;
     }
     return true;

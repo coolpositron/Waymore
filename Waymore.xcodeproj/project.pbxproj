@@ -791,7 +791,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "47b72579-62cd-4cf7-bc3b-8c2ccbe3e182";
+				PROVISIONING_PROFILE = "532d4021-a2c2-4ada-a238-5509ad412b57";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -829,7 +829,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "47b72579-62cd-4cf7-bc3b-8c2ccbe3e182";
+				PROVISIONING_PROFILE = "532d4021-a2c2-4ada-a238-5509ad412b57";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -848,7 +848,7 @@
 				INFOPLIST_FILE = Waymore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47b72579-62cd-4cf7-bc3b-8c2ccbe3e182";
+				PROVISIONING_PROFILE = "532d4021-a2c2-4ada-a238-5509ad412b57";
 			};
 			name = Debug;
 		};
@@ -865,7 +865,7 @@
 				INFOPLIST_FILE = Waymore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47b72579-62cd-4cf7-bc3b-8c2ccbe3e182";
+				PROVISIONING_PROFILE = "532d4021-a2c2-4ada-a238-5509ad412b57";
 			};
 			name = Release;
 		};

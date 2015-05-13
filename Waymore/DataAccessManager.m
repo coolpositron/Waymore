@@ -51,7 +51,7 @@
     if (responseData) {
         NSDictionary * responseJson = [self dataToJson:responseData];
         if (responseJson) {
-            NSLog(@"%@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
+            NSLog(@"[Get User With UserId] %@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
             WaymoreUser * res = [[WaymoreUser alloc] initWithJson:responseJson];
             return res;
         }
@@ -70,7 +70,7 @@
     if (responseData) {
         NSDictionary * responseJson = [self dataToJson:responseData];
         if (responseJson) {
-            NSLog(@"GetSnippetWithFilter: %@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
+            NSLog(@"[Get Snippet With Filter] %@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
             NSMutableArray * snippets = [[NSMutableArray alloc] init];
             NSArray * snsJson = [responseJson objectForKey:@"snippets"];
             for (NSDictionary * snJson in snsJson) {
@@ -117,7 +117,7 @@
     NSDictionary * routeJson = [route toJson];
     NSString * jsonString = [self jsonToData:routeJson];
     NSData * responseData = [self postRequest:jsonString withActionType:@"uploadRoute"];
-    NSLog(@"[Upload route to server]: %@", route.title);
+    NSLog(@"[Upload Route to Server] %@", route.title);
     if ([self checkPostResponse:responseData]) {
         return true;
     }
@@ -173,7 +173,7 @@
     if (responseData) {
         NSDictionary * responseJson = [self dataToJson:responseData];
         if (responseJson) {
-            NSLog(@"%@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
+            NSLog(@"[Get Route with RouteId] %@", [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding]);
             Route * res = [[Route alloc] initWithJson:responseJson];
             return res;
         }
