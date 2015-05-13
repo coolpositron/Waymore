@@ -48,16 +48,17 @@
         [res setObject:latitude forKey:@"latitude"];
         NSNumber * longitude = [[NSNumber alloc] initWithDouble:self.longitude];
         [res setObject:longitude forKey:@"longitude"];
+        [res setObject:self.photoUrl forKey:@"photoUrl"];
         return res;
     }
     return nil;
 }
 
 - (BOOL) checkLocality {
-    if ([self.photoUrl containsString:@"http://"]) {
-        return true;
+    if (self == nil || [self.photoUrl containsString:@"http://"]) {
+        return false;
     }
-    return false;
+    return true;
 }
 
 @end
