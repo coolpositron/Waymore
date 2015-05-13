@@ -9,6 +9,7 @@
 #import "AnnotationSettingViewController.h"
 #import "UIKit/UIImagePickerController.h"
 #import <UIKit/UITableView.h>
+#import "SDWebImage/UIImageView+WebCache.h"
 
 @interface AnnotationSettingViewController () <UIImagePickerControllerDelegate>
 
@@ -41,19 +42,40 @@
 - (void)viewDidLoad {
     [self.titleTextField setText:self.inputKeyPoint.title];
     [self.contentTextField setText:self.inputKeyPoint.content];
-    [self.imageView setImage:self.inputKeyPoint.photo];
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.inputKeyPoint.photoUrl]];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.outputKeyPoint = [[KeyPoint alloc] init];
     self.outputKeyPoint.title = self.titleTextField.text;
     self.outputKeyPoint.content = self.contentTextField.text;
-    self.outputKeyPoint.photo = self.imageView.image;
+    //Should be change
+    if (self.imageView != nil) {
+            self.outputKeyPoint.photoUrl = [self putImageToLocal:self.imageView.image];
+    } else {
+        self.imageView = nil;
+    }
     self.outputKeyPoint.latitude = self.inputKeyPoint.latitude;
     self.outputKeyPoint.longitude = self.inputKeyPoint.longitude;
     self.outputKeyPoint.keyPointId = self.inputKeyPoint.keyPointId;
 }
 
+- (NSString *) putImageToLocal: (UIImage *)image {
+    // You can directly use this image but in case you want to store it some where
+    NSString *docDirPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *imageName = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
+    NSString *filePath =  [docDirPath stringByAppendingPathComponent:imageName];
+    NSLog (@"File Path = %@", filePath);
+    
+    // Get PNG data from following method
+    NSData *myData =     UIImagePNGRepresentation(image);
+    // It is better to get JPEG data because jpeg data will store the location and other related information of image.
+    [myData writeToFile:filePath atomically:YES];
+    
+    NSURL *localURL = [NSURL fileURLWithPath:filePath];
+    NSLog(@"localURL = %@", localURL);
+    return [localURL absoluteString];
+}
 -(BOOL) textFieldShouldReturn: (UITextField *) textField {
     [textField resignFirstResponder];
     return YES;

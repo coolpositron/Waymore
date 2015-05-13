@@ -25,12 +25,12 @@
     return _content;
 }
 
-- (KeyPoint *) initWithTitle:(NSString *)title withContent:(NSString *)content withLatitude:(double)latitude withLongitude:(double)longitude withPhoto:(UIImage *)photo{
+- (KeyPoint *) initWithTitle:(NSString *)title withContent:(NSString *)content withLatitude:(double)latitude withLongitude:(double)longitude withPhotoUrl:(UIImage *)photoUrl{
     static NSInteger availableId = 0;
     if (self = [super init]) {
         self.title = title;
         self.content = content;
-        self.photo = photo;
+        self.photoUrl = photoUrl;
         self.latitude = latitude;
         self.longitude = longitude;
         self.keyPointId = [NSString stringWithFormat:@"%ld", (long)availableId++];

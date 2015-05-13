@@ -17,6 +17,7 @@
 #import "CrumbPath.h"
 #import "CrumbPathRenderer.h"
 #import "MapPoint.h"
+#import "SDWebImage/UIImageView+WebCache.h"
 
 #define LEFT 0
 #define RIGHT 1
@@ -96,9 +97,11 @@
         pinView.canShowCallout = YES;
         if([annotation isKindOfClass:[KeyPoint class]]) {
             KeyPoint *keyPoint = (KeyPoint *) annotation;
-            if(keyPoint.photo != nil) {
-                UIButton *leftButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 46, 46)];
-                [leftButton setImage:keyPoint.photo forState:UIControlStateNormal];
+            if(keyPoint.photoUrl != nil) {
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 46, 46)];
+                [imageView sd_setImageWithURL:[NSURL URLWithString:keyPoint.photoUrl]];
+                UIButton * leftButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 46, 46)];
+                [leftButton addSubview:imageView];
                 leftButton.tag = LEFT;
                 pinView.leftCalloutAccessoryView = leftButton;
             } else {
@@ -126,6 +129,7 @@
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    NSLog(@"call out tapped");
     if([control isKindOfClass:[UIButton class]]) {
         UIButton *button = (UIButton *) control;
         if(button.tag == LEFT) {
@@ -138,10 +142,11 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"PictureDetailSegue"] && [sender isKindOfClass:[MKAnnotationView class]]){
-        MKAnnotationView *view = sender;
+        MKAnnotationView * view = sender;
+        UIImageView * imageView = [view.leftCalloutAccessoryView.subviews objectAtIndex:0];
         KeyPoint *kp = view.annotation;
         ImageScrollViewController *imageScrollViewController = segue.destinationViewController;
-        imageScrollViewController.image = kp.photo;
+        imageScrollViewController.image = imageView.image;
     }
     if([segue.identifier isEqualToString:@"EditSegue"] && [sender isKindOfClass:[MKAnnotationView class]]){
         MKAnnotationView *view = sender;
@@ -171,7 +176,7 @@
     CGPoint point = [sender locationInView:self.mapView];
     CLLocationCoordinate2D location = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     NSLog(@"Location found from Map: %f %f",location.latitude,location.longitude);
-    KeyPoint *newKeyPoint = [[KeyPoint alloc] initWithTitle:@"" withContent:@"" withLatitude:location.latitude withLongitude:location.longitude withPhoto:NULL];
+    KeyPoint *newKeyPoint = [[KeyPoint alloc] initWithTitle:@"" withContent:@"" withLatitude:location.latitude withLongitude:location.longitude withPhotoUrl:NULL];
     
     if (!self.geocoder)
         self.geocoder = [[CLGeocoder alloc] init];
@@ -201,7 +206,7 @@
         } else {
             annotationSettingViewController.inputKeyPoint.title = annotationSettingViewController.outputKeyPoint.title;
             annotationSettingViewController.inputKeyPoint.content = annotationSettingViewController.outputKeyPoint.content;
-            annotationSettingViewController.inputKeyPoint.photo = annotationSettingViewController.outputKeyPoint.photo;
+            annotationSettingViewController.inputKeyPoint.photoUrl = annotationSettingViewController.outputKeyPoint.photoUrl;
             [self.mapView removeAnnotation:annotationSettingViewController.inputKeyPoint];
             [self.mapView addAnnotation:annotationSettingViewController.inputKeyPoint];
             [self.mapView selectAnnotation:annotationSettingViewController.inputKeyPoint animated:NO];
