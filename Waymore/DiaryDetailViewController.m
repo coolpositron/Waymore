@@ -84,19 +84,21 @@
         }
     } else {
         if ([dam setShareSetting:self.route.routeId isShare:true]) {
-//            FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-//            content.contentURL = [NSURL URLWithString:@""];
-//            content.contentTitle = [NSString stringWithFormat:@"I have shared a route in %@ on Waymore", self.route.city];
-//            [FBSDKShareDialog showFromViewController:self
-//                                         withContent:content
-//                                            delegate:nil];
-            if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-                SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = [NSString stringWithFormat:@"I have shared a route in %@ on Waymore", self.route.city];
-                [controller setInitialText:@"First post from my iPhone app"];
-                [self presentViewController:controller animated:YES completion:Nil];
-            }
+            FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+            content.contentURL = [NSURL URLWithString:@""];
+            content.contentTitle = [NSString stringWithFormat:@"I have shared a route in %@ on Waymore", self.route.city];
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = [NSString stringWithFormat:@"I have shared a route in %@ on Waymore", self.route.city];
+            [FBSDKShareDialog showFromViewController:self
+                                         withContent:content
+                                            delegate:nil];
+//            if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+//                SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+//                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//                pasteboard.string = [NSString stringWithFormat:@"I have shared a route in %@ on Waymore", self.route.city];
+//                [controller setInitialText:@"First post from my iPhone app"];
+//                [self presentViewController:controller animated:YES completion:Nil];
+//            }
             self.route.sharedFlag = true;
         }
     }
