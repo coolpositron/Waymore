@@ -88,7 +88,7 @@
     return route.routeId;
 }
 
-- (BOOL) uploadRoute: (Route *) route {
+- (BOOL) uploadRoute: (Route *) route withCompletionBlock:(void (^)(BOOL isSuccess)) completionBlock {
     NSDictionary * routeJson = [route toJson];
     NSString * jsonString = [self jsonToData:routeJson];
     NSLog(@"%@", jsonString);
