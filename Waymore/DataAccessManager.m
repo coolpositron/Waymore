@@ -35,7 +35,7 @@
         self.accessKey = @"";
         self.secret = @"";
         //self.serverEndPoint = @"http://129.236.229.4:8090/JAXRS-Waymore/rest/waymore/";
-        self.serverEndPoint = @"http://waymore-env.elasticbeanstalk.com/rest/waymore/";
+        self.serverEndPoint = @"";
     }
     return self;
 }
