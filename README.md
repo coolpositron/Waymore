@@ -4,6 +4,7 @@ Waymore is an iOS application designed to write and share diary with travel rout
 # How to run it
 + You should create a facebook app in https://developers.facebook.com/ and replace "FacebookAppID" and "FacebookDisplayName" with the corresponding information you get from facebook.
 + To communicate with the server, you should replace ` self.serverEndPoint = @"http://waymore-env.elasticbeanstalk.com/rest/waymore/";` in DataAccessManager.m with your own server address. The code of our server is in another github repository ( https://github.com/coolpositron/WaymoreServer).
++ + To communicate with the S3, you should replace ` self.accessKey = @""; ` and ` self.secret = @""; ` in DataAccessManager.m with your own AWS credential.
 
 # UI 
 The UI part is organized by storyboard, you can understand the logic easily by refering to the storyboard.
@@ -14,6 +15,7 @@ The UI part is organized by storyboard, you can understand the logic easily by r
 + CoreLocation
 + MapKit
 + AFNetworking
++ AFAmazonS3Manager
 + SDWebImage
 + DejalActivityView
 + SwipeTableView
